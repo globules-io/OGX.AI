@@ -1,26 +1,285 @@
 {
      "version": "1.0",
      "components": [
-          {
-               "name": "Page",
+           {
+               "name": "App",
                "description": "Root element",
                "children": [
                     "*"
                ],
                "attributes": {}
-          },          
+          }, 
           {
-               "name": "Grid",
-               "description": "Layout container",
+               "name": "Stage",
+               "description": "Base layer",
                "children": [
                     "*"
                ],
-               "attributes": {
-                    "columns": {
-                         "type": "integer",
-                         "required": true
-                    }
-               }
+               "attributes": {}
+          },   
+          {
+               "name": "View",
+               "description": "View layer",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Window",
+               "description": "Window slide in-out pane component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Popup",
+               "description": "Popup draggable resizeable component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Popup",
+               "description": "Popup draggable resizeable component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Calendar",
+               "description": "Calendar component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Carousel",
+               "description": "Carousel component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Container",
+               "description": "Container component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "DynamicList",
+               "description": "DynamicList component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "GridSwiper",
+               "description": "GridSwiper component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "GroupedList",
+               "description": "GroupedList component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Iceberg",
+               "description": "Iceberg component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "NestList",
+               "description": "NestList component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Roulette",
+               "description": "Roulette component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "RouletteTree",
+               "description": "RouletteTree component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "StackedTree",
+               "description": "StackedTree component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Scroller",
+               "description": "Scroller component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Switch",
+               "description": "Switch component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Tabs",
+               "description": "Tabs component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Tags",
+               "description": "Tags component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Tree",
+               "description": "Tree component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "TreedList",
+               "description": "TreedList component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Chat",
+               "description": "Chat extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "ContextMenu",
+               "description": "ContextMenu extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Docker",
+               "description": "Docker extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Flip",
+               "description": "Flip extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "FlipBook",
+               "description": "FlipBook extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "FlexCells",
+               "description": "FlexCells extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "ListPopup",
+               "description": "ListPopup extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "MenuMore",
+               "description": "MenuMore extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Notifier",
+               "description": "Notifier extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Swapper",
+               "description": "Swapper extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "TimeBand",
+               "description": "TimeBand extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "TimePicker",
+               "description": "TimePicker extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
           }
      ]
 }
