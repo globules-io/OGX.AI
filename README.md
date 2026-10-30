@@ -22,6 +22,26 @@ OGX.AI provides:
 
 This keeps the server simple and allows any AI model to become an OML-aware developer.
 
+## Endpoint
+
+Stateless Streamable HTTP at:
+
+```
+https://oml.globules.io/mcp
+```
+
+```json
+{
+  "mcpServers": {
+    "ogx-oml": {
+      "url": "https://oml.globules.io/mcp"
+    }
+  }
+}
+```
+
+The same documents are also available as JSON at `/overview`, `/specification`, `/components`, `/examples`, and `/validator-rules`.
+
 ## Resources
 
 The MCP server exposes machine-readable resources describing the language.
@@ -58,15 +78,27 @@ Reference OML examples demonstrating common patterns and layouts.
 oml://examples
 ```
 
+### Validator rules
+
+Checks that generated OML must satisfy.
+
+```
+oml://validator-rules
+```
+
+## Tools
+
+### read_oml
+
+Reads one reference document. `name` is `overview`, `specification`, `components`, `examples`, or `validator-rules`.
+
+Call `read_oml` before generating OML. The resource URIs above are for hosts that attach MCP resources directly.
+
 ## Validation
 
-The MCP server may expose a validation tool:
+Validation rules are published at `oml://validator-rules`.
 
-```
-validate_oml()
-```
-
-The purpose of validation is to allow agents to verify generated OML and self-correct errors before returning a final result.
+`validate_oml` is the intended tool for an agent to check generated OML and correct it before returning a result. That tool is not served yet.
 
 Example workflow:
 
@@ -100,6 +132,7 @@ Return Valid OML
 OGX.AI/
 |
 ├── mcp.php
+├── .htaccess
 |
 ├── resources/
 │   ├── overview.json

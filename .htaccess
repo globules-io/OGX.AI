@@ -1,10 +1,13 @@
 RewriteEngine On
 
+AddType application/json .json
+
 RewriteRule ^mcp/?$ mcp.php [L,QSA]
 
-RewriteRule ^specs/?$ resources/specs.json [L]
+RewriteRule ^overview/?$ resources/overview.json [L]
+RewriteRule ^specification/?$ resources/specs.json [L]
 RewriteRule ^components/?$ resources/components.json [L]
 RewriteRule ^examples/?$ resources/examples.json [L]
-RewriteRule ^overview/?$ resources/overview.json [L]
+RewriteRule ^validator-rules/?$ resources/validator-rules.json [L]
 
 RewriteRule ^$ resources/overview.json [L]
