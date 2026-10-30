@@ -1,0 +1,19 @@
+{
+     "name": "OML",
+     "version": "1.0",
+     "description": "Object Markup Language used by OGX.JS to describe user interfaces.",
+     "root_elements": [
+          "Page"
+     ],
+     "resources": [
+          "specification",
+          "components",
+          "examples"
+     ],
+     "rules": [
+          "Only use documented components.",
+          "Only use documented attributes.",
+          "Return valid OML.",
+          "Follow examples when possible."
+     ]
+}

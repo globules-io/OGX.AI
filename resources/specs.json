@@ -1,0 +1,17 @@
+{
+     "version": "1.0",
+     "syntax": {
+          "format": "json",
+          "case_sensitive": true
+     },
+     "document": {
+          "root": "Page"
+     },
+     "rules": [
+          "Every document must start with a Page element.",
+          "Elements may contain child elements.",
+          "Attributes are case sensitive.",
+          "Unknown elements are invalid.",
+          "Unknown attributes are invalid."
+     ]
+}

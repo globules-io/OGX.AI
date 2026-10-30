@@ -1,0 +1,26 @@
+{
+     "version": "1.0",
+     "components": [
+          {
+               "name": "Page",
+               "description": "Root element",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },          
+          {
+               "name": "Grid",
+               "description": "Layout container",
+               "children": [
+                    "*"
+               ],
+               "attributes": {
+                    "columns": {
+                         "type": "integer",
+                         "required": true
+                    }
+               }
+          }
+     ]
+}
