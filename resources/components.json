@@ -40,15 +40,7 @@
                     "*"
                ],
                "attributes": {}
-          },
-          {
-               "name": "Popup",
-               "description": "Popup draggable resizeable component",
-               "children": [
-                    "*"
-               ],
-               "attributes": {}
-          },
+          },          
           {
                "name": "Calendar",
                "description": "Calendar component",
@@ -92,6 +84,14 @@
           {
                "name": "GroupedList",
                "description": "GroupedList component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Html",
+               "description": "Html component",
                "children": [
                     "*"
                ],
@@ -260,6 +260,14 @@
           {
                "name": "Swapper",
                "description": "Swapper extra component",
+               "children": [
+                    "*"
+               ],
+               "attributes": {}
+          },
+          {
+               "name": "Table",
+               "description": "Table extra component",
                "children": [
                     "*"
                ],

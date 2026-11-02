@@ -1,10 +1,724 @@
 {
      "version": "1.0",
-     "examples": [         
+     "examples": [
           {
-               "name": "grid_layout",
-               "description": "Two-column layout",
-               "oml": {}
+               "name": "Stage",
+               "description": "Stage",
+               "oml": {
+                    "myStage:Stages.MyStage": {
+                         "always_on": false,
+                         "template": "MyStage",
+                         "placeholder": "#myDiv",
+                         "scope": "public",
+                         "theater": false
+                    }
+               }
+          },
+          {
+               "name": "View",
+               "description": "View",
+               "oml": {
+                    "default:Views.MyView": {
+                         "template": "MyView",
+                         "css": "my_view",
+                         "scope": "public"
+                    }
+               }
+          },
+          {
+               "name": "Window",
+               "description": "Window",
+               "oml": {
+                    "windowId:Window": {
+                         "head": "back",
+                         "position": "left",
+                         "width": 350,
+                         "node:OML": [
+                              {
+                                   "default:Templates.MyTemplate": {}
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "Popup",
+               "description": "Popup",
+               "oml": {
+                    "popupId:Popup": {
+                         "title": "My Popup",
+                         "width": 300,
+                         "height": 250,
+                         "buttons": [
+                              {
+                                   "label": "OK"
+                              },
+                              {
+                                   "label": "CANCEL"
+                              }
+                         ],
+                         "node:OML": [
+                              {
+                                   "default:Templates.MyTemplate": {}
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "Calendar",
+               "description": "Calendar",
+               "oml": {
+                    "default:Calendar": {
+                         "simple": true
+                    }
+               }
+          },
+          {
+               "name": "Carousel",
+               "description": "Carousel",
+               "oml": {
+                    "default:Carousel": {
+                         "node:OML": [
+                              {
+                                   "default:Views.Dummy": {
+                                        "id": "viewA",
+                                        "template": "Dummy",
+                                        "data": {
+                                             "word": "Panel 1"
+                                        }
+                                   }
+                              },
+                              {
+                                   "default:Views.Dummy": {
+                                        "id": "viewB",
+                                        "template": "Dummy",
+                                        "data": {
+                                             "word": "Panel 2"
+                                        }
+                                   }
+                              },
+                              {
+                                   "default:Views.Dummy": {
+                                        "id": "viewC",
+                                        "template": "Dummy",
+                                        "data": {
+                                             "word": "Panel 3"
+                                        }
+                                   }
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "Container",
+               "description": "Container",
+               "oml": {
+                    "default:Container": {
+                         "tabs": {
+                              "list": [
+                                   "tabA",
+                                   "tabB",
+                                   "tabC"
+                              ]
+                         },
+                         "node:OML": [
+                              {
+                                   "default:Html": {
+                                        "html": "ContentA"
+                                   }
+                              },
+                              {
+                                   "default:Html": {
+                                        "html": "ContentB"
+                                   }
+                              },
+                              {
+                                   "default:Html": {
+                                        "html": "ContentC"
+                                   }
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "DynamicList",
+               "description": "DynamicList",
+               "oml": {
+                    "default:DynamicList": {
+                         "key": "_id",
+                         "display": {
+                              "html": "<span>{{$label}}</span>",
+                              "css": "item"
+                         },
+                         "list": [
+                              {
+                                   "_id": "a01",
+                                   "name": "Label A01"
+                              },
+                              {
+                                   "_id": "a02",
+                                   "name": "Label A02"
+                              },
+                              {
+                                   "_id": "a03",
+                                   "name": "Label A03"
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "GridSwiper",
+               "description": "GridSwiper",
+               "oml": {
+                    "default:GridSwiper": {
+                         "axis": {
+                              "x": false,
+                              "y": true
+                         },
+                         "map": [
+                              [
+                                   {
+                                        "default:Views.MyView": {
+                                             "template": "MyTemplate",
+                                             "data": "SomeDataA"
+                                        }
+                                   },
+                                   {
+                                        "default:Views.OtherView": {
+                                             "template": "MyTemplate",
+                                             "data": "SomeDataB"
+                                        }
+                                   },
+                                   {
+                                        "default:Views.ThirdView": {
+                                             "template": "MyTemplate",
+                                             "data": "SomeDataC"
+                                        }
+                                   }
+                              ]
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "GroupedList",
+               "description": "GroupedList",
+               "oml": {
+                    "default:GroupedList": {
+                         "group_by": "date",
+                         "sort": {
+                              "unix": -1
+                         },
+                         "group_mode": "daterange",
+                         "group_param": "month",
+                         "key": "_id",
+                         "display": {
+                              "template": "mail",
+                              "css": "mail"
+                         }
+                    }
+               }
+          },
+          {
+               "name": "Html",
+               "description": "Html",
+               "oml": {
+                    "default:Html": {
+                         "html": "<span>Hello World</span>"
+                    }
+               }
+          },
+          {
+               "name": "Iceberg",
+               "description": "Iceberg",
+               "oml": {
+                    "default:Iceberg": {
+                         "left": {
+                              "width": "50%",
+                              "node:OML": {
+                                   "default:Views.MyView": {
+                                        "template": "SomeTemplate"
+                                   }
+                              }
+                         },
+                         "main": {
+                              "node:OML": {
+                                   "default:Views.MyView": {
+                                        "template": "SomeTemplate"
+                                   }
+                              }
+                         },
+                         "right": {
+                              "width": "200px",
+                              "node:OML": {
+                                   "default:Views.MyView": {
+                                        "html": "<div class=\"myclass\"></div>"
+                                   }
+                              }
+                         }
+                    }
+               }
+          },
+          {
+               "name": "NestList",
+               "description": "NestList",
+               "oml": {
+                    "default:NestList": {
+                         "list": [
+                              {
+                                   "title": "A"
+                              },
+                              {
+                                   "title": "B"
+                              }
+                         ],
+                         "node:OML": [
+                              {
+                                   "default:Templates.TemplateA": {}
+                              },
+                              {
+                                   "default:Templates.TemplateB": {}
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "Roulette",
+               "description": "Roulette",
+               "oml": {
+                    "default:Roulette": {
+                         "list": [
+                              {
+                                   "label": "Value 1",
+                                   "value": 1
+                              },
+                              {
+                                   "label": "Value 2",
+                                   "value": 2
+                              },
+                              {
+                                   "label": "Value 2",
+                                   "value": 3
+                              }
+                         ],
+                         "value": 3
+                    }
+               }
+          },
+          {
+               "name": "RouletteTree",
+               "description": "RouletteTree",
+               "oml": {
+                    "default:RouletteTree": {
+                         "groups": []
+                    }
+               }
+          },
+          {
+               "name": "StackedTree",
+               "description": "StackedTree",
+               "oml": {
+                    "default:StackedTree": {
+                         "list": [
+                              {
+                                   "label": "Meat",
+                                   "icon": "meat",
+                                   "items": [
+                                        {
+                                             "label": "Beef",
+                                             "icon": "beef"
+                                        },
+                                        {
+                                             "label": "Chicken",
+                                             "icon": "chicken"
+                                        },
+                                        {
+                                             "label": "Pork",
+                                             "icon": "pork"
+                                        }
+                                   ]
+                              },
+                              {
+                                   "label": "Fish",
+                                   "icon": "fish",
+                                   "items": [
+                                        {
+                                             "label": "Salmon",
+                                             "icon": "salmon"
+                                        },
+                                        {
+                                             "label": "Trout",
+                                             "icon": "trout"
+                                        },
+                                        {
+                                             "label": "Sole",
+                                             "icon": "sole"
+                                        }
+                                   ]
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "Scroller",
+               "description": "Scroller",
+               "oml": {
+                    "default:Scroller": {}
+               }
+          },
+          {
+               "name": "Switch",
+               "description": "Switch",
+               "oml": {
+                    "default:Switch": {
+                         "data": [
+                              {
+                                   "label": "Label A",
+                                   "value": false
+                              },
+                              {
+                                   "label": "Label B",
+                                   "value": true
+                              }
+                         ],
+                         "value": true
+                    }
+               }
+          },
+          {
+               "name": "Tabs",
+               "description": "Tabs",
+               "oml": {
+                    "default:Tabs": {
+                         "icons": true,
+                         "icon_path": "/img",
+                         "list": [
+                              {
+                                   "icon": "globules.svg",
+                                   "label": "Globules.io"
+                              },
+                              {
+                                   "icon": "ogx.svg",
+                                   "label": "OGX.JS Framework"
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "Tags",
+               "description": "Tags",
+               "oml": {
+                    "default:Tags": {
+                         "tags": [
+                              "fish",
+                              "chicken",
+                              "beef"
+                         ],
+                         "current_tags": [
+                              "chicken"
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "Tree",
+               "description": "Tree",
+               "oml": {
+                    "default:Tree": {
+                         "types": {
+                              "root": {
+                                   "mode": "folder"
+                              },
+                              "folder": {
+                                   "mode": "folder"
+                              },
+                              "file": {
+                                   "mode": "file"
+                              }
+                         },
+                         "data": {
+                              "type": "root",
+                              "label": "root",
+                              "items": [
+                                   {
+                                        "type": "folder",
+                                        "label": "images",
+                                        "items": [
+                                             {
+                                                  "type": "file",
+                                                  "label": "forest.png"
+                                             },
+                                             {
+                                                  "type": "file",
+                                                  "label": "moutain.png"
+                                             }
+                                        ]
+                                   },
+                                   {
+                                        "type": "folder",
+                                        "label": "videos",
+                                        "items": [
+                                             {
+                                                  "type": "file",
+                                                  "label": "sea.webm"
+                                             }
+                                        ]
+                                   }
+                              ]
+                         }
+                    }
+               }
+          },
+          {
+               "name": "TreedList",
+               "description": "TreedList",
+               "oml": {
+                    "default:Tree": {}
+               }
+          },
+          {
+               "name": "Chat",
+               "description": "Chat",
+               "oml": {
+                    "default:Chat": {
+                         "users": [
+                              {
+                                   "_id": 1,
+                                   "first_name": "John",
+                                   "last_name": "Cena"
+                              },
+                              {
+                                   "_id": 2,
+                                   "first_name": "Dwayne",
+                                   "last_name": "Johnson"
+                              },
+                              {
+                                   "_id": 3,
+                                   "first_name": "Vin",
+                                   "last_name": "Diesel"
+                              }
+                         ],
+                         "keys": {
+                              "id": "_id",
+                              "from": "user",
+                              "first_name": "first_name",
+                              "last_name": "last_name",
+                              "picture": ""
+                         },
+                         "user": 1
+                    }
+               }
+          },
+          {
+               "name": "ContextMenu",
+               "description": "ContextMenu",
+               "oml": {
+                    "default:ContextMenu": {
+                         "list": [
+                              {
+                                   "label": "Insert Item"
+                              },
+                              {
+                                   "label": "Remove Selected Item"
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "Docker",
+               "description": "Docker",
+               "oml": {
+                    "default:Docker": {
+                         "groups": {
+                              "user": {
+                                   "icon": {
+                                        "default": "/img/user.png",
+                                        "bind": {
+                                             "lookup": "Views.MyView",
+                                             "method": "getIcon",
+                                             "property": "icon"
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               }
+          },
+          {
+               "name": "Flip",
+               "description": "Flip",
+               "oml": {
+                    "default:Flip": {
+                         "node:OML": [
+                              {
+                                   "default:Html": {
+                                        "html": "Side A"
+                                   }
+                              },
+                              {
+                                   "default:Html": {
+                                        "html": "Side B"
+                                   }
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "FlipBook",
+               "description": "FlipBook",
+               "oml": {
+                    "default:FlipBook": {
+                         "node:OML": [
+                              {
+                                   "default:Html": {
+                                        "html": "Front Outer Cover"
+                                   }
+                              },
+                              {
+                                   "default:Html": {
+                                        "html": "Front Inner Cover"
+                                   }
+                              },
+                              {
+                                   "default:Html": {
+                                        "html": "Page 1"
+                                   }
+                              },
+                              {
+                                   "default:Html": {
+                                        "html": "Page 2"
+                                   }
+                              },
+                              {
+                                   "default:Html": {
+                                        "html": "Back Inner Cover"
+                                   }
+                              },
+                              {
+                                   "default:Html": {
+                                        "html": "Back Outer Cover"
+                                   }
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "FlexCells",
+               "description": "FlexCells",
+               "oml": {
+                    "default:FlexCells": {
+                         "axis": "x",
+                         "children": [
+                              "50%",
+                              "25%",
+                              "25%"
+                         ],
+                         "node:OML": [
+                              {
+                                   "default:Templates.TemplateA": {}
+                              },
+                              {
+                                   "default:Templates.TemplateB": {}
+                              },
+                              {
+                                   "default:Templates.TemplateC": {}
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "ListPopup",
+               "description": "ListPopup",
+               "oml": {
+                    "default:ListPopup": {}
+               }
+          },
+          {
+               "name": "MenuMore",
+               "description": "MenuMore",
+               "oml": {
+                    "default:MenuMore": {
+                         "list": [
+                              {
+                                   "label": "Follow User"
+                              },
+                              {
+                                   "label": "Block User"
+                              },
+                              {
+                                   "label": "Report User"
+                              }
+                         ]
+                    }
+               }
+          },
+          {
+               "name": "Notifier",
+               "description": "Notifier",
+               "oml": {
+                    "default:Notifier": {}
+               }
+          },
+          {
+               "name": "Swapper",
+               "description": "Swapper",
+               "oml": {
+                    "default:Swapper": {}
+               }
+          },
+          {
+               "name": "Table",
+               "description": "Table",
+               "oml": {
+                    "default:Table": {
+                         "max_rows" : 30,
+                         "prop_search" : 10,
+                         "key" : "_id", 
+                         "list" : []
+                    }
+               }
+          },
+          {
+               "name": "Timeband",
+               "description": "Timeband",
+               "oml": {
+                    "default:Timeband": {}
+               }
+          },
+          {
+               "name": "TimePicker",
+               "description": "TimePicker",
+               "oml": {
+                    "default:Timeband": {
+                         "precision" : 15,
+                         "time": "09:00",
+                         "limits": {
+                              "render": true,    
+                              "limit": true,
+                              "list": [
+                                   {     
+                                        "min": "08:00",
+                                        "max": "11:00"
+                                   },
+                                   {     
+                                        "min": "17:00",
+                                        "max": "21:00"
+                                   }
+                              ]  
+                         }
+                    }
+               }
           }
      ]
 }
