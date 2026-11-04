@@ -40,7 +40,7 @@ https://oml.globules.io/mcp
 }
 ```
 
-The same documents are also available as JSON at `/overview`, `/specification`, `/components`, `/examples`, and `/validator-rules`.
+The same documents are also available as JSON at `/overview`, `/specification`, `/components`, `/examples`, `/helpers`, `/validator-rules`, and `/runtime`. One runtime object is at `/runtime/{name}`.
 
 ## Resources
 
@@ -86,13 +86,35 @@ Checks that generated OML must satisfy.
 oml://validator-rules
 ```
 
+### Helpers
+
+Static JavaScript helpers. These are not OML nodes.
+
+```
+oml://helpers
+```
+
+### Runtime
+
+Index of live object APIs. One object is `oml://runtime/{name}`.
+
+```
+oml://runtime
+```
+
 ## Tools
 
 ### read_oml
 
-Reads one reference document. `name` is `overview`, `specification`, `components`, `examples`, or `validator-rules`.
+Reads one reference document. `name` is `overview`, `specification`, `components`, `helpers`, `examples`, `validator-rules`, or `runtime`.
 
 Call `read_oml` before generating OML. The resource URIs above are for hosts that attach MCP resources directly.
+
+### read_runtime
+
+Reads properties, methods, and events for one class or helper. `name` is the object name, such as `DynamicList`, `Uxi`, or `Color`. `inherited` defaults to true and includes documented base classes.
+
+Call `read_runtime` when the task needs a method or a runtime field. Do not copy those names into an OML node.
 
 ## Validation
 
@@ -139,7 +161,11 @@ OGX.AI/
 │   ├── specs.json
 │   ├── components.json
 │   ├── examples.json
-│   └── validator-rules.json
+│   ├── helpers.json
+│   ├── validator-rules.json
+│   └── runtime/
+│       ├── index.json
+│       └── one JSON file per object
 |
 └── README.md
 ```
@@ -171,5 +197,9 @@ OML is designed to be:
 
 ## License
 
-MIT
+Copyright (c) 2026 globules.io
+
+Licensed under the GNU Affero General Public License, version 3 or any later version. The full text is in [LICENSE](LICENSE).
+
+You may run this endpoint and use what you learn here to write OML. OML you generate is yours. If you modify OGX.AI and serve that modified version on a network, the people who use it must be able to get the corresponding source of your version.
 

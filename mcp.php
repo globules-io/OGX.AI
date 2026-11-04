@@ -1,7 +1,14 @@
 <?php
 
 /**
- * Stateless MCP endpoint (Streamable HTTP, JSON-RPC 2.0).
+ * OGX.AI MCP endpoint (Streamable HTTP, JSON-RPC 2.0).
+ * Copyright (C) 2026 globules.io
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
  * Clients POST to /mcp. This server does not open an SSE stream and does not issue a session id.
  * Requires PHP 8.0+.
  */
@@ -16,7 +23,7 @@ const SUPPORTED_PROTOCOL_VERSIONS = [
     '2025-06-18',
     '2025-11-25',
 ];
-const SERVER_INSTRUCTIONS = 'You generate OML for OGX.JS. Before writing any OML, call read_oml with name set to overview, then specification, then components, then examples. Use only constructs those documents define. Call read_oml with name validator-rules for the checks generated OML must satisfy. This server does not generate OML.';
+const SERVER_INSTRUCTIONS = 'You generate OML for OGX.JS. Before writing any OML, call read_oml for overview, then specification, then components, then examples. Use only constructs those documents define. OML is the declarative node. Methods and runtime fields are not OML keys. When you need a method, call read_runtime with the class name. inherited defaults to true and includes documented base classes. If catalog_status says own methods are not listed yet, do not invent members. Helpers Color, Data, Math, and Form are static JavaScript, not OML nodes. Call read_oml with name validator-rules for the checks generated OML must satisfy. This server does not generate OML.';
 
 ini_set('display_errors', '0');
 
@@ -114,11 +121,23 @@ function resource_catalog(): array
             'mimeType' => 'application/json',
             'file' => $dir . DIRECTORY_SEPARATOR . 'components.json',
         ],
+        'oml://helpers' => [
+            'name' => 'helpers',
+            'description' => 'OGX.JS Javascript Helpers',
+            'mimeType' => 'application/json',
+            'file' => $dir . DIRECTORY_SEPARATOR . 'helpers.json',
+        ],
         'oml://examples' => [
             'name' => 'examples',
             'description' => 'Reference OML examples.',
             'mimeType' => 'application/json',
             'file' => $dir . DIRECTORY_SEPARATOR . 'examples.json',
+        ],
+        'oml://runtime' => [
+            'name' => 'runtime',
+            'description' => 'Index of OGX.JS runtime objects. Methods and properties here are not OML keys.',
+            'mimeType' => 'application/json',
+            'file' => $dir . DIRECTORY_SEPARATOR . 'runtime' . DIRECTORY_SEPARATOR . 'index.json',
         ],
         'oml://validator-rules' => [
             'name' => 'validator-rules',
@@ -175,7 +194,9 @@ function dispatch_message($message): ?array
         case 'resources/read':
             return handle_resources_read($id, $params);
         case 'resources/templates/list':
-            return rpc_result($id, ['resourceTemplates' => []]);
+            return rpc_result($id, [
+                'resourceTemplates' => [runtime_template()],
+            ]);
         case 'tools/list':
             return handle_tools_list($id);
         case 'tools/call':
@@ -228,6 +249,27 @@ function handle_resources_read($id, array $params): array
         return rpc_error($id, -32602, 'Invalid params', 'uri is required');
     }
 
+    $runtimeName = runtime_name_from_uri($uri);
+    if ($runtimeName !== null) {
+        $resolved = resolve_runtime($runtimeName, true);
+        if ($resolved === null) {
+            return rpc_error($id, -32002, 'Resource not found', ['uri' => $uri]);
+        }
+        $text = json_encode($resolved, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        if ($text === false) {
+            return rpc_error($id, -32603, 'Internal error');
+        }
+        return rpc_result($id, [
+            'contents' => [
+                [
+                    'uri' => $uri,
+                    'mimeType' => 'application/json',
+                    'text' => $text,
+                ],
+            ],
+        ]);
+    }
+
     $catalog = resource_catalog();
     if (!isset($catalog[$uri])) {
         return rpc_error($id, -32002, 'Resource not found', ['uri' => $uri]);
@@ -252,7 +294,7 @@ function handle_resources_read($id, array $params): array
 function handle_tools_list($id): array
 {
     return rpc_result($id, [
-        'tools' => [read_oml_tool()],
+        'tools' => [read_oml_tool(), read_runtime_tool()],
     ]);
 }
 
@@ -263,13 +305,17 @@ function handle_tools_call($id, array $params): array
         return rpc_error($id, -32602, 'Invalid params', 'Tool name is required');
     }
 
-    if ($name !== 'read_oml') {
+    if ($name !== 'read_oml' && $name !== 'read_runtime') {
         return rpc_error($id, -32602, 'Unknown tool: ' . $name);
     }
 
     $arguments = $params['arguments'] ?? [];
     if (!is_array($arguments) || is_json_list($arguments)) {
         return rpc_error($id, -32602, 'Invalid params', 'Tool arguments must be an object');
+    }
+
+    if ($name === 'read_runtime') {
+        return call_read_runtime($id, $arguments);
     }
 
     $document = $arguments['name'] ?? null;
@@ -316,7 +362,7 @@ function read_oml_tool(): array
 
     return [
         'name' => 'read_oml',
-        'description' => 'Read one OML reference document before generating OML. Call it for overview, specification, components, and examples.',
+        'description' => 'Read one OML reference document before generating OML. Call it for overview, specification, components, helpers, examples, and runtime.',
         'inputSchema' => [
             'type' => 'object',
             'properties' => [
@@ -330,6 +376,186 @@ function read_oml_tool(): array
             'additionalProperties' => false,
         ],
     ];
+}
+
+function read_runtime_tool(): array
+{
+    return [
+        'name' => 'read_runtime',
+        'description' => 'Read runtime properties, methods, and events for one OGX.JS class or helper. These names are not OML attributes. inherited defaults to true and includes documented base classes.',
+        'inputSchema' => [
+            'type' => 'object',
+            'properties' => [
+                'name' => [
+                    'type' => 'string',
+                    'description' => 'Class or helper name, for example DynamicList, Uxi, or Color.',
+                ],
+                'inherited' => [
+                    'type' => 'boolean',
+                    'description' => 'Include properties, methods, and events from extends. Defaults to true.',
+                ],
+            ],
+            'required' => ['name'],
+            'additionalProperties' => false,
+        ],
+    ];
+}
+
+function call_read_runtime($id, array $arguments): array
+{
+    $name = $arguments['name'] ?? null;
+    if (!is_string($name) || $name === '') {
+        return rpc_error($id, -32602, 'Invalid params', 'name is required');
+    }
+
+    $inherited = true;
+    if (array_key_exists('inherited', $arguments)) {
+        if (!is_bool($arguments['inherited'])) {
+            return rpc_error($id, -32602, 'Invalid params', 'inherited must be a boolean');
+        }
+        $inherited = $arguments['inherited'];
+    }
+
+    $resolved = resolve_runtime($name, $inherited);
+    if ($resolved === null) {
+        return rpc_error($id, -32602, 'Invalid params', 'Unknown runtime object');
+    }
+
+    $text = json_encode($resolved, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if ($text === false) {
+        return rpc_error($id, -32603, 'Internal error');
+    }
+
+    return rpc_result($id, [
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => $text,
+            ],
+        ],
+        'isError' => false,
+    ]);
+}
+
+function runtime_template(): array
+{
+    return [
+        'uriTemplate' => 'oml://runtime/{name}',
+        'name' => 'runtime',
+        'description' => 'Runtime properties, methods, and events for one OGX.JS object. These are not OML attributes.',
+        'mimeType' => 'application/json',
+    ];
+}
+
+function runtime_name_from_uri(string $uri): ?string
+{
+    if (!preg_match('#^oml://runtime/([A-Za-z][A-Za-z0-9]*)$#', $uri, $matches)) {
+        return null;
+    }
+    return $matches[1];
+}
+
+function runtime_index(): array
+{
+    $file = __DIR__ . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'runtime' . DIRECTORY_SEPARATOR . 'index.json';
+    $decoded = json_decode((string) file_get_contents($file), true);
+    if (!is_array($decoded) || !isset($decoded['objects']) || !is_array($decoded['objects'])) {
+        return [];
+    }
+    $names = [];
+    foreach ($decoded['objects'] as $object) {
+        if (is_array($object) && isset($object['name']) && is_string($object['name'])) {
+            $names[$object['name']] = true;
+        }
+    }
+    return $names;
+}
+
+function load_runtime_document(string $name): ?array
+{
+    if (!preg_match('/^[A-Za-z][A-Za-z0-9]*$/', $name)) {
+        return null;
+    }
+    if (!isset(runtime_index()[$name])) {
+        return null;
+    }
+    $file = __DIR__ . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'runtime' . DIRECTORY_SEPARATOR . $name . '.json';
+    if (!is_file($file)) {
+        return null;
+    }
+    $decoded = json_decode((string) file_get_contents($file), true);
+    if (!is_array($decoded)) {
+        return null;
+    }
+    return $decoded;
+}
+
+function resolve_runtime(string $name, bool $inherited): ?array
+{
+    $doc = load_runtime_document($name);
+    if ($doc === null) {
+        return null;
+    }
+    if (!$inherited) {
+        return $doc;
+    }
+
+    $order = [];
+    $visiting = [];
+    $walk = static function (string $current) use (&$walk, &$order, &$visiting): void {
+        if (array_key_exists($current, $order) || isset($visiting[$current])) {
+            return;
+        }
+        $visiting[$current] = true;
+        $raw = load_runtime_document($current);
+        if ($raw !== null) {
+            $bases = $raw['extends'] ?? [];
+            if (is_array($bases)) {
+                foreach ($bases as $base) {
+                    if (is_string($base)) {
+                        $walk($base);
+                    }
+                }
+            }
+        }
+        unset($visiting[$current]);
+        $order[$current] = $raw;
+    };
+    $walk($name);
+
+    $merged = [
+        'properties' => [],
+        'methods' => [],
+        'events' => [],
+    ];
+    $missing = [];
+    foreach ($order as $class => $raw) {
+        if ($raw === null) {
+            $missing[] = $class;
+            continue;
+        }
+        foreach (['properties', 'methods', 'events'] as $key) {
+            $items = $raw[$key] ?? [];
+            if (!is_array($items)) {
+                continue;
+            }
+            foreach ($items as $item) {
+                if (!is_array($item) || !isset($item['name']) || !is_string($item['name'])) {
+                    continue;
+                }
+                $item['declared_on'] = $class;
+                $merged[$key][$item['name']] = $item;
+            }
+        }
+    }
+
+    $doc['properties'] = array_values($merged['properties']);
+    $doc['methods'] = array_values($merged['methods']);
+    $doc['events'] = array_values($merged['events']);
+    if ($missing !== []) {
+        $doc['extends_not_in_catalog'] = array_values(array_unique($missing));
+    }
+    return $doc;
 }
 
 function load_resource(array $meta): ?array
