@@ -1,0 +1,30 @@
+{
+    "version": "1.0",
+    "note": "Helpers are static JavaScript objects. They are not OML nodes. Read one with read_runtime.",
+    "helpers": [
+        {
+            "name": "Color",
+            "description": "Color helper",
+            "kind": "helper",
+            "runtime": "oml://runtime/Color"
+        },
+        {
+            "name": "Data",
+            "description": "Data helper",
+            "kind": "helper",
+            "runtime": "oml://runtime/Data"
+        },
+        {
+            "name": "Math",
+            "description": "Math helper",
+            "kind": "helper",
+            "runtime": "oml://runtime/Math"
+        },
+        {
+            "name": "Form",
+            "description": "Form helper",
+            "kind": "helper",
+            "runtime": "oml://runtime/Form"
+        }
+    ]
+}
