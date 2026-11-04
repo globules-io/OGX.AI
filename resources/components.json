@@ -4,6 +4,7 @@
            {
                "name": "App",
                "description": "Root element",
+               "runtime": "oml://runtime/App",
                "children": [
                     "*"
                ],
@@ -12,6 +13,7 @@
           {
                "name": "Stage",
                "description": "Base layer",
+               "runtime": "oml://runtime/Stage",
                "children": [
                     "*"
                ],
@@ -20,6 +22,7 @@
           {
                "name": "View",
                "description": "View layer",
+               "runtime": "oml://runtime/View",
                "children": [
                     "*"
                ],
@@ -28,6 +31,7 @@
           {
                "name": "Window",
                "description": "Window slide in-out pane component",
+               "runtime": "oml://runtime/Window",
                "children": [
                     "*"
                ],
@@ -36,6 +40,7 @@
           {
                "name": "Popup",
                "description": "Popup draggable resizeable component",
+               "runtime": "oml://runtime/Popup",
                "children": [
                     "*"
                ],
@@ -44,6 +49,7 @@
           {
                "name": "Calendar",
                "description": "Calendar component",
+               "runtime": "oml://runtime/Calendar",
                "children": [
                     "*"
                ],
@@ -52,6 +58,7 @@
           {
                "name": "Carousel",
                "description": "Carousel component",
+               "runtime": "oml://runtime/Carousel",
                "children": [
                     "*"
                ],
@@ -60,6 +67,7 @@
           {
                "name": "Container",
                "description": "Container component",
+               "runtime": "oml://runtime/Container",
                "children": [
                     "*"
                ],
@@ -68,6 +76,7 @@
           {
                "name": "DynamicList",
                "description": "DynamicList component",
+               "runtime": "oml://runtime/DynamicList",
                "children": [
                     "*"
                ],
@@ -76,6 +85,7 @@
           {
                "name": "GridSwiper",
                "description": "GridSwiper component",
+               "runtime": "oml://runtime/GridSwiper",
                "children": [
                     "*"
                ],
@@ -84,6 +94,7 @@
           {
                "name": "GroupedList",
                "description": "GroupedList component",
+               "runtime": "oml://runtime/GroupedList",
                "children": [
                     "*"
                ],
@@ -92,6 +103,7 @@
           {
                "name": "Html",
                "description": "Html component",
+               "runtime": "oml://runtime/Html",
                "children": [
                     "*"
                ],
@@ -100,6 +112,7 @@
           {
                "name": "Iceberg",
                "description": "Iceberg component",
+               "runtime": "oml://runtime/Iceberg",
                "children": [
                     "*"
                ],
@@ -108,6 +121,7 @@
           {
                "name": "NestList",
                "description": "NestList component",
+               "runtime": "oml://runtime/NestList",
                "children": [
                     "*"
                ],
@@ -116,6 +130,7 @@
           {
                "name": "Roulette",
                "description": "Roulette component",
+               "runtime": "oml://runtime/Roulette",
                "children": [
                     "*"
                ],
@@ -124,6 +139,7 @@
           {
                "name": "RouletteTree",
                "description": "RouletteTree component",
+               "runtime": "oml://runtime/RouletteTree",
                "children": [
                     "*"
                ],
@@ -132,6 +148,7 @@
           {
                "name": "StackedTree",
                "description": "StackedTree component",
+               "runtime": "oml://runtime/StackedTree",
                "children": [
                     "*"
                ],
@@ -140,6 +157,7 @@
           {
                "name": "Scroller",
                "description": "Scroller component",
+               "runtime": "oml://runtime/Scroller",
                "children": [
                     "*"
                ],
@@ -148,6 +166,7 @@
           {
                "name": "Switch",
                "description": "Switch component",
+               "runtime": "oml://runtime/Switch",
                "children": [
                     "*"
                ],
@@ -156,6 +175,7 @@
           {
                "name": "Tabs",
                "description": "Tabs component",
+               "runtime": "oml://runtime/Tabs",
                "children": [
                     "*"
                ],
@@ -164,6 +184,7 @@
           {
                "name": "Tags",
                "description": "Tags component",
+               "runtime": "oml://runtime/Tags",
                "children": [
                     "*"
                ],
@@ -172,6 +193,7 @@
           {
                "name": "Tree",
                "description": "Tree component",
+               "runtime": "oml://runtime/Tree",
                "children": [
                     "*"
                ],
@@ -180,6 +202,7 @@
           {
                "name": "TreedList",
                "description": "TreedList component",
+               "runtime": "oml://runtime/TreedList",
                "children": [
                     "*"
                ],
@@ -188,6 +211,7 @@
           {
                "name": "Chat",
                "description": "Chat extra component",
+               "runtime": "oml://runtime/Chat",
                "children": [
                     "*"
                ],
@@ -196,6 +220,7 @@
           {
                "name": "ContextMenu",
                "description": "ContextMenu extra component",
+               "runtime": "oml://runtime/ContextMenu",
                "children": [
                     "*"
                ],
@@ -204,6 +229,7 @@
           {
                "name": "Docker",
                "description": "Docker extra component",
+               "runtime": "oml://runtime/Docker",
                "children": [
                     "*"
                ],
@@ -212,6 +238,7 @@
           {
                "name": "Flip",
                "description": "Flip extra component",
+               "runtime": "oml://runtime/Flip",
                "children": [
                     "*"
                ],
@@ -220,6 +247,7 @@
           {
                "name": "FlipBook",
                "description": "FlipBook extra component",
+               "runtime": "oml://runtime/FlipBook",
                "children": [
                     "*"
                ],
@@ -228,6 +256,7 @@
           {
                "name": "FlexCells",
                "description": "FlexCells extra component",
+               "runtime": "oml://runtime/FlexCells",
                "children": [
                     "*"
                ],
@@ -236,6 +265,7 @@
           {
                "name": "ListPopup",
                "description": "ListPopup extra component",
+               "runtime": "oml://runtime/ListPopup",
                "children": [
                     "*"
                ],
@@ -244,6 +274,7 @@
           {
                "name": "MenuMore",
                "description": "MenuMore extra component",
+               "runtime": "oml://runtime/MenuMore",
                "children": [
                     "*"
                ],
@@ -252,6 +283,7 @@
           {
                "name": "Notifier",
                "description": "Notifier extra component",
+               "runtime": "oml://runtime/Notifier",
                "children": [
                     "*"
                ],
@@ -260,6 +292,7 @@
           {
                "name": "Swapper",
                "description": "Swapper extra component",
+               "runtime": "oml://runtime/Swapper",
                "children": [
                     "*"
                ],
@@ -268,6 +301,7 @@
           {
                "name": "Table",
                "description": "Table extra component",
+               "runtime": "oml://runtime/Table",
                "children": [
                     "*"
                ],
@@ -276,6 +310,7 @@
           {
                "name": "TimeBand",
                "description": "TimeBand extra component",
+               "runtime": "oml://runtime/TimeBand",
                "children": [
                     "*"
                ],
@@ -284,6 +319,7 @@
           {
                "name": "TimePicker",
                "description": "TimePicker extra component",
+               "runtime": "oml://runtime/TimePicker",
                "children": [
                     "*"
                ],
