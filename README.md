@@ -22,9 +22,30 @@ OGX.AI provides:
 
 This keeps the server simple and allows any AI model to become an OML-aware developer.
 
+## Site
+
+The catalog is deployed at:
+
+```
+https://oml.globules.io
+```
+
+That URL returns the overview. Read the rest of the catalog at:
+
+```
+https://oml.globules.io/overview
+https://oml.globules.io/specification
+https://oml.globules.io/components
+https://oml.globules.io/examples
+https://oml.globules.io/helpers
+https://oml.globules.io/validator-rules
+https://oml.globules.io/runtime
+https://oml.globules.io/runtime/{name}
+```
+
 ## Endpoint
 
-Stateless Streamable HTTP at:
+MCP clients POST JSON-RPC to:
 
 ```
 https://oml.globules.io/mcp
@@ -39,8 +60,6 @@ https://oml.globules.io/mcp
   }
 }
 ```
-
-The same documents are also available as JSON at `/overview`, `/specification`, `/components`, `/examples`, `/helpers`, `/validator-rules`, and `/runtime`. One runtime object is at `/runtime/{name}`.
 
 ## Resources
 
