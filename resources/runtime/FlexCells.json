@@ -1,12 +1,210 @@
 {
     "name": "FlexCells",
     "kind": "component",
-    "description": "FlexCells extra component",
-    "extends": [],
+    "description": "FlexCells optional component",
+    "extends": [
+        "Uxi",
+        "Template",
+        "Touch",
+        "Placeholder"
+    ],
     "oml": "oml://examples#FlexCells",
-    "access": "OML creates this object from a selector:FlexCells node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent."
+    "access": "Registered with require('FlexCells', 'Uxi', 'Template', 'Touch', 'Placeholder'). OML addresses it as selector:FlexCells. Call the methods on the instance. Method names are not OML keys.",
+    "properties": [
+        {
+            "name": "axis",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "axis_swap",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "min",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "template",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "target",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "auto_hide",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "children",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        }
+    ],
+    "methods": [
+        {
+            "name": "construct",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.construct()"
+        },
+        {
+            "name": "onResize",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onResize()"
+        },
+        {
+            "name": "getCellIndex",
+            "description": "get index of a data-cell",
+            "params": [
+                {
+                    "name": "cell_id",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.getCellIndex(cell_id)"
+        },
+        {
+            "name": "addCell",
+            "description": "size should be auto calc'd based on children ?",
+            "params": [
+                {
+                    "name": "size",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "at",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "oml",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.addCell(size, at, oml)"
+        },
+        {
+            "name": "removeCell",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "at",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.removeCell(at)"
+        },
+        {
+            "name": "cellSize",
+            "description": "but if idx cell is last, need to calculate the new percent of idx - 1 based on __pecent",
+            "params": [
+                {
+                    "name": "idx",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "percent",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.cellSize(idx, percent)"
+        },
+        {
+            "name": "renderAt",
+            "description": "should this be in uxi ? along with render ? (that is deprecated right now)",
+            "params": [
+                {
+                    "name": "idx",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "oml",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.renderAt(idx, oml)"
+        },
+        {
+            "name": "clearAt",
+            "description": "have to lookup from elements, dont know where what is where",
+            "params": [
+                {
+                    "name": "idx",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.clearAt(idx)"
+        },
+        {
+            "name": "flatten",
+            "description": "when on mobile or at a certain with, make it flat on vertical and resize resize",
+            "params": [
+                {
+                    "name": "bool",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.flatten(bool)"
+        },
+        {
+            "name": "axis",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "axis",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.axis(axis)"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.FlexCells.RESIZE",
+            "description": "Triggered on the instance element. The event string is FlexCellsResize."
+        }
+    ]
 }

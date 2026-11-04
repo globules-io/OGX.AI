@@ -1,12 +1,130 @@
 {
     "name": "Swapper",
     "kind": "component",
-    "description": "Swapper extra component",
-    "extends": [],
+    "description": "Horizontal infinite scroller (3 x 1)",
+    "extends": [
+        "Uxi",
+        "Touch"
+    ],
     "oml": "oml://examples#Swapper",
-    "access": "OML creates this object from a selector:Swapper node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent."
+    "access": "Registered with require('Swapper', 'Uxi', 'Touch'). OML addresses it as selector:Swapper. Call the methods on the instance. Method names are not OML keys.",
+    "properties": [
+        {
+            "name": "map",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "cb_moved",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "cb_moving",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        }
+    ],
+    "methods": [
+        {
+            "name": "construct",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.construct()"
+        },
+        {
+            "name": "onFocus",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onFocus()"
+        },
+        {
+            "name": "onBlur",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onBlur()"
+        },
+        {
+            "name": "resize",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.resize()"
+        },
+        {
+            "name": "onRender",
+            "description": "callbacks",
+            "params": [
+                {
+                    "name": "abs",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "rel",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.onRender(abs, rel)"
+        },
+        {
+            "name": "map",
+            "description": "Returns the current value when called with no argument, and sets it when a value is passed.",
+            "params": [
+                {
+                    "name": "map",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.map(map)"
+        },
+        {
+            "name": "move",
+            "description": "could remove done with a timeout",
+            "params": [
+                {
+                    "name": "o",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "params",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.move(o, params)"
+        },
+        {
+            "name": "done",
+            "description": "done moving",
+            "params": [],
+            "returns": "void",
+            "example": "instance.done()"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.Swapper.MOVING",
+            "description": "Triggered on the instance element. The event string is swapperMoving."
+        },
+        {
+            "name": "OGX.Swapper.MOVED",
+            "description": "Triggered on the instance element. The event string is swapperMoved."
+        }
+    ]
 }

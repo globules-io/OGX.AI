@@ -1,12 +1,194 @@
 {
     "name": "FlipBook",
     "kind": "component",
-    "description": "FlipBook extra component",
-    "extends": [],
+    "description": "FlipBook optional component",
+    "extends": [
+        "Uxi",
+        "Placeholder",
+        "Touch"
+    ],
     "oml": "oml://examples#FlipBook",
-    "access": "OML creates this object from a selector:FlipBook node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent."
+    "access": "Registered with require('FlipBook', 'Uxi', 'Placeholder', 'Touch'). OML addresses it as selector:FlipBook. Call the methods on the instance. Method names are not OML keys.",
+    "properties": [
+        {
+            "name": "css",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "index",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "capture",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "burst",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "callbacks",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "display",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "displays",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "as",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "list",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        }
+    ],
+    "methods": [
+        {
+            "name": "construct",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.construct()"
+        },
+        {
+            "name": "onFocus",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onFocus()"
+        },
+        {
+            "name": "onBlur",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onBlur()"
+        },
+        {
+            "name": "focus",
+            "description": "Overrides a base method. issue : when calling render on Carousel, and carousel is already focused, it wont focus childs because it's not blured",
+            "params": [],
+            "returns": "any",
+            "example": "instance.focus()"
+        },
+        {
+            "name": "ux",
+            "description": "Overrides a base method. need to swipe page",
+            "params": [
+                {
+                    "name": "bool",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.ux(bool)"
+        },
+        {
+            "name": "destroy",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.destroy()"
+        },
+        {
+            "name": "onChange",
+            "description": "callbacks",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onChange()"
+        },
+        {
+            "name": "index",
+            "description": "need to prevent click while flipping all pages",
+            "params": [
+                {
+                    "name": "idx",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "timeout",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "trigger",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.index(idx, timeout, trigger)"
+        },
+        {
+            "name": "render",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "oml",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "data",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.render(oml, data)"
+        },
+        {
+            "name": "list",
+            "description": "render from a list + display",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.list(list)"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.FlipBook.FLIP",
+            "description": "Triggered on the instance element. The event string is FlipBookFlip."
+        }
+    ]
 }

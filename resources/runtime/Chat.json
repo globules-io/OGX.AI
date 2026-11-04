@@ -1,12 +1,362 @@
 {
     "name": "Chat",
     "kind": "component",
-    "description": "Chat extra component",
-    "extends": [],
+    "description": "Mechanism for sending messages: press send -> dispatch -> show message but text as 'sending...' -> setSent -> dislay full text",
+    "extends": [
+        "Uxi",
+        "Touch"
+    ],
     "oml": "oml://examples#Chat",
-    "access": "OML creates this object from a selector:Chat node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent."
+    "access": "Registered with require('Chat', 'Uxi', 'Touch'). OML addresses it as selector:Chat. Call the methods on the instance. Method names are not OML keys.",
+    "properties": [
+        {
+            "name": "placeholder",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "dot_speed",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "on_keyb_update_delay",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "messages",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "handle_keyboard",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "hide_keyboard_on_send",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "emojis",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "media",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "attach",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "template_left",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "template_right",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "key",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "from_key",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "picture_key",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "keys",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "users",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "user",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "display_mode",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "restrict",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "date_format",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "url_encode",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "read_only",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "callbacks",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "DISPLAY_INITIALS",
+            "type": "string",
+            "access": "constant",
+            "in_oml": false,
+            "description": "OGX.Chat.DISPLAY_INITIALS = 'ChatDisplayInitials'"
+        },
+        {
+            "name": "DISPLAY_PICTURE",
+            "type": "string",
+            "access": "constant",
+            "in_oml": false,
+            "description": "OGX.Chat.DISPLAY_PICTURE = 'ChatDisplayPicture'"
+        }
+    ],
+    "methods": [
+        {
+            "name": "onFocus",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onFocus()"
+        },
+        {
+            "name": "onBlur",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onBlur()"
+        },
+        {
+            "name": "readOnly",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "bool",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.readOnly(bool)"
+        },
+        {
+            "name": "users",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "users",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.users(users)"
+        },
+        {
+            "name": "user",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "id",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.user(id)"
+        },
+        {
+            "name": "typing",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "bool",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "user_id",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.typing(bool, user_id)"
+        },
+        {
+            "name": "compose",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "msg",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.compose(msg)"
+        },
+        {
+            "name": "wipe",
+            "description": "Method on this instance.",
+            "params": [],
+            "returns": "any",
+            "example": "instance.wipe()"
+        },
+        {
+            "name": "clear",
+            "description": "Overrides a base method. debug-star",
+            "params": [],
+            "returns": "any",
+            "example": "instance.clear()"
+        },
+        {
+            "name": "onSend",
+            "description": "callbacks",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onSend()"
+        },
+        {
+            "name": "getScroller",
+            "description": "Method on this instance.",
+            "params": [],
+            "returns": "any",
+            "example": "instance.getScroller()"
+        },
+        {
+            "name": "addMessage",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "message",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.addMessage(message)"
+        },
+        {
+            "name": "setMessages",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "messages",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.setMessages(messages)"
+        },
+        {
+            "name": "prependMessages",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "messages",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.prependMessages(messages)"
+        },
+        {
+            "name": "destroy",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.destroy()"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.Chat.SEND_MESSAGE",
+            "description": "Triggered on the instance element. The event string is ChatSend."
+        },
+        {
+            "name": "OGX.Chat.TYPING_START",
+            "description": "Triggered on the instance element. The event string is ChatTypingStart."
+        },
+        {
+            "name": "OGX.Chat.TYPING_END",
+            "description": "Triggered on the instance element. The event string is ChatTypingEnd."
+        }
+    ]
 }

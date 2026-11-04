@@ -1,12 +1,147 @@
 {
-    "name": "TimeBand",
+    "name": "Timeband",
     "kind": "component",
-    "description": "TimeBand extra component",
-    "extends": [],
+    "description": "Time band around a date. Config keys are date, cb_moved, and cb_moving.",
+    "extends": [
+        "Uxi",
+        "Touch",
+        "Placeholder"
+    ],
     "oml": "oml://examples#Timeband",
-    "access": "OML creates this object from a selector:TimeBand node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent."
+    "access": "Registered with require('Timeband', 'Uxi', 'Touch', 'Placeholder'). OML addresses it as selector:Timeband. Call the methods on the instance. Method names are not OML keys.",
+    "properties": [
+        {
+            "name": "date",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "cb_moved",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "cb_moving",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        }
+    ],
+    "methods": [
+        {
+            "name": "construct",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [
+                {
+                    "name": "data",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "route_data",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.construct(data, route_data)"
+        },
+        {
+            "name": "resize",
+            "description": "Overrides a base method. issue, when I resize, the months change length, they should not",
+            "params": [],
+            "returns": "void",
+            "example": "instance.resize()"
+        },
+        {
+            "name": "onMove",
+            "description": "hard callbacks, overridable",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onMove()"
+        },
+        {
+            "name": "onMoved",
+            "description": "Method on this instance.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onMoved()"
+        },
+        {
+            "name": "onRender",
+            "description": "Method on this instance.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onRender()"
+        },
+        {
+            "name": "pxPerDay",
+            "description": "Method on this instance.",
+            "params": [],
+            "returns": "any",
+            "example": "instance.pxPerDay()"
+        },
+        {
+            "name": "date",
+            "description": "should use moveToDate instead after I render date ?",
+            "params": [
+                {
+                    "name": "date",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.date(date)"
+        },
+        {
+            "name": "move",
+            "description": "must handle swap, needs to be over Swapper",
+            "params": [
+                {
+                    "name": "days",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.move(days)"
+        },
+        {
+            "name": "render",
+            "description": "Method on this instance.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.render()"
+        },
+        {
+            "name": "zoomIn",
+            "description": "under 3 label is just YY-MM",
+            "params": [],
+            "returns": "void",
+            "example": "instance.zoomIn()"
+        },
+        {
+            "name": "zoomOut",
+            "description": "Method on this instance.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.zoomOut()"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.Timeband.MOVING",
+            "description": "Triggered on the instance element. The event string is timebandMoving."
+        },
+        {
+            "name": "OGX.Timeband.MOVED",
+            "description": "Triggered on the instance element. The event string is timebandMoved."
+        }
+    ]
 }

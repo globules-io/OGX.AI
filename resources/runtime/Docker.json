@@ -1,12 +1,154 @@
 {
     "name": "Docker",
     "kind": "component",
-    "description": "Docker extra component",
-    "extends": [],
+    "description": "When popup minimizes, add to dock",
+    "extends": [
+        "Uxi",
+        "Touch"
+    ],
     "oml": "oml://examples#Docker",
-    "access": "OML creates this object from a selector:Docker node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent."
+    "access": "Registered with require('Docker', 'Uxi', 'Touch'). OML addresses it as selector:Docker. Call the methods on the instance. Method names are not OML keys.",
+    "properties": [
+        {
+            "name": "template",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "preview",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "groups",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "anim_show",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        }
+    ],
+    "methods": [
+        {
+            "name": "construct",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.construct()"
+        },
+        {
+            "name": "ux",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [
+                {
+                    "name": "bool",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.ux(bool)"
+        },
+        {
+            "name": "blink",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "bool",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "popup_id",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.blink(bool, popup_id)"
+        },
+        {
+            "name": "addItem",
+            "description": "should pass options here",
+            "params": [
+                {
+                    "name": "popup",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "options",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.addItem(popup, options)"
+        },
+        {
+            "name": "removeItem",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "popup_id",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.removeItem(popup_id)"
+        },
+        {
+            "name": "findItem",
+            "description": "kind of useless : also bad override",
+            "params": [
+                {
+                    "name": "class",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "id",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.findItem(class, id)"
+        },
+        {
+            "name": "findShow",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "class",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "id",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.findShow(class, id)"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.Docker.SHOW",
+            "description": "Triggered on the instance element. The event string is DockerShow."
+        }
+    ]
 }

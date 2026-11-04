@@ -1,12 +1,157 @@
 {
     "name": "Table",
     "kind": "component",
-    "description": "Table extra component",
-    "extends": [],
+    "description": "Table of list rows. Default config sets editable to false and mode to row.",
+    "extends": [
+        "Uxi",
+        "Touch"
+    ],
     "oml": "oml://examples#Table",
-    "access": "OML creates this object from a selector:Table node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent."
+    "access": "Registered with require('Table', 'Uxi', 'Touch'). OML addresses it as selector:Table. Call the methods on the instance. Method names are not OML keys.",
+    "properties": [
+        {
+            "name": "key",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "max_rows",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "resize_rows",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "prop_search",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "editable",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "mode",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "display",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "list",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "mapping",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        }
+    ],
+    "methods": [
+        {
+            "name": "construct",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.construct()"
+        },
+        {
+            "name": "ux",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [
+                {
+                    "name": "bool",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.ux(bool)"
+        },
+        {
+            "name": "set",
+            "description": "overwrite config",
+            "params": [
+                {
+                    "name": "obj",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.set(obj)"
+        },
+        {
+            "name": "mode",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "mode",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.mode(mode)"
+        },
+        {
+            "name": "val",
+            "description": "Method on this instance.",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.val(list)"
+        },
+        {
+            "name": "page",
+            "description": "Method on this instance.",
+            "params": [],
+            "returns": "any",
+            "example": "instance.page()"
+        },
+        {
+            "name": "wipe",
+            "description": "Method on this instance.",
+            "params": [],
+            "returns": "any",
+            "example": "instance.wipe()"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.Table.SELECT",
+            "description": "Triggered on the instance element. The event string is tableSelect."
+        }
+    ]
 }

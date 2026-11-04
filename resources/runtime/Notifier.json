@@ -1,12 +1,101 @@
 {
     "name": "Notifier",
     "kind": "component",
-    "description": "Notifier extra component",
+    "description": "Simple object to show notifications",
     "extends": [],
     "oml": "oml://examples#Notifier",
-    "access": "OML creates this object from a selector:Notifier node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent."
+    "access": "Defined as OGX.Notifier(config). This file does not call require(). Call the methods on the instance. Method names are not OML keys.",
+    "properties": [
+        {
+            "name": "template",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "message",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "el",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "position",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "offset",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "read_time",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        },
+        {
+            "name": "interval",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Constructor config field. When this object is created from OML, this name is a config key, not a method."
+        }
+    ],
+    "methods": [
+        {
+            "name": "onFocus",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onFocus()"
+        },
+        {
+            "name": "onBlur",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.onBlur()"
+        },
+        {
+            "name": "add",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [
+                {
+                    "name": "obj",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "instance.add(obj)"
+        },
+        {
+            "name": "clear",
+            "description": "Overrides the method of the same name on a base class.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.clear()"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.Notifier.TAP",
+            "description": "Triggered on the instance element. The event string is NotifierTap."
+        }
+    ]
 }
