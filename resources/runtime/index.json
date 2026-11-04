@@ -1,0 +1,376 @@
+{
+    "version": "1.0",
+    "note": "Runtime members are JavaScript on the live object. They are not OML keys. Call read_runtime with a name from this list. inherited defaults to true.",
+    "objects": [
+        {
+            "name": "Uxi",
+            "kind": "base",
+            "description": "Base object that UI classes extend. It tracks active, inactive, sleeping, and awake state, and it owns the node tree.",
+            "extends": [
+                "Overlay",
+                "Loading"
+            ],
+            "runtime": "oml://runtime/Uxi"
+        },
+        {
+            "name": "Touch",
+            "kind": "behavior",
+            "description": "Prefabricated pointer behavior mixed into objects that extend Touch.",
+            "extends": [],
+            "runtime": "oml://runtime/Touch"
+        },
+        {
+            "name": "Object",
+            "kind": "factory",
+            "description": "Static factory that builds classes extending several classes.",
+            "extends": [],
+            "runtime": "oml://runtime/Object"
+        },
+        {
+            "name": "Color",
+            "kind": "helper",
+            "description": "Static color conversions.",
+            "extends": [],
+            "runtime": "oml://runtime/Color"
+        },
+        {
+            "name": "Data",
+            "kind": "helper",
+            "description": "Static helpers for objects, arrays, strings, numbers, and dates.",
+            "extends": [],
+            "runtime": "oml://runtime/Data"
+        },
+        {
+            "name": "Math",
+            "kind": "helper",
+            "description": "Static geometry helpers.",
+            "extends": [],
+            "runtime": "oml://runtime/Math"
+        },
+        {
+            "name": "Form",
+            "kind": "helper",
+            "description": "Static form helper. Dynamic forms are instances of FormInstance.",
+            "extends": [],
+            "runtime": "oml://runtime/Form"
+        },
+        {
+            "name": "App",
+            "kind": "component",
+            "description": "Root element",
+            "extends": [],
+            "runtime": "oml://runtime/App"
+        },
+        {
+            "name": "Stage",
+            "kind": "component",
+            "description": "Base layer",
+            "extends": [
+                "Uxi",
+                "Overlay",
+                "Touch",
+                "Placeholder"
+            ],
+            "runtime": "oml://runtime/Stage"
+        },
+        {
+            "name": "View",
+            "kind": "component",
+            "description": "View layer",
+            "extends": [
+                "Uxi",
+                "Template",
+                "Placeholder",
+                "Overlay",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/View"
+        },
+        {
+            "name": "Window",
+            "kind": "component",
+            "description": "Window slide in-out pane component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Window"
+        },
+        {
+            "name": "Popup",
+            "kind": "component",
+            "description": "Popup draggable resizeable component",
+            "extends": [
+                "Uxi",
+                "Touch",
+                "Resize"
+            ],
+            "runtime": "oml://runtime/Popup"
+        },
+        {
+            "name": "Calendar",
+            "kind": "component",
+            "description": "Calendar component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Calendar"
+        },
+        {
+            "name": "Carousel",
+            "kind": "component",
+            "description": "Carousel component",
+            "extends": [
+                "Uxi",
+                "Touch",
+                "Bind"
+            ],
+            "runtime": "oml://runtime/Carousel"
+        },
+        {
+            "name": "Container",
+            "kind": "component",
+            "description": "Container component",
+            "extends": [
+                "Uxi",
+                "Placeholder"
+            ],
+            "runtime": "oml://runtime/Container"
+        },
+        {
+            "name": "DynamicList",
+            "kind": "component",
+            "description": "DynamicList component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/DynamicList"
+        },
+        {
+            "name": "GridSwiper",
+            "kind": "component",
+            "description": "GridSwiper component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/GridSwiper"
+        },
+        {
+            "name": "GroupedList",
+            "kind": "component",
+            "description": "GroupedList component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/GroupedList"
+        },
+        {
+            "name": "Html",
+            "kind": "component",
+            "description": "Html component",
+            "extends": [],
+            "runtime": "oml://runtime/Html"
+        },
+        {
+            "name": "Iceberg",
+            "kind": "component",
+            "description": "Iceberg component",
+            "extends": [
+                "Uxi",
+                "Touch",
+                "Placeholder"
+            ],
+            "runtime": "oml://runtime/Iceberg"
+        },
+        {
+            "name": "NestList",
+            "kind": "component",
+            "description": "NestList component",
+            "extends": [
+                "Uxi"
+            ],
+            "runtime": "oml://runtime/NestList"
+        },
+        {
+            "name": "Roulette",
+            "kind": "component",
+            "description": "Roulette component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Roulette"
+        },
+        {
+            "name": "RouletteTree",
+            "kind": "component",
+            "description": "RouletteTree component",
+            "extends": [
+                "Uxi"
+            ],
+            "runtime": "oml://runtime/RouletteTree"
+        },
+        {
+            "name": "StackedTree",
+            "kind": "component",
+            "description": "StackedTree component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/StackedTree"
+        },
+        {
+            "name": "Scroller",
+            "kind": "component",
+            "description": "Vertical scroll pane.",
+            "extends": [],
+            "runtime": "oml://runtime/Scroller"
+        },
+        {
+            "name": "Switch",
+            "kind": "component",
+            "description": "Switch component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Switch"
+        },
+        {
+            "name": "Tabs",
+            "kind": "component",
+            "description": "Tabs component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Tabs"
+        },
+        {
+            "name": "Tags",
+            "kind": "component",
+            "description": "Tags component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Tags"
+        },
+        {
+            "name": "Tree",
+            "kind": "component",
+            "description": "Tree component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Tree"
+        },
+        {
+            "name": "TreedList",
+            "kind": "component",
+            "description": "TreedList component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/TreedList"
+        },
+        {
+            "name": "Chat",
+            "kind": "component",
+            "description": "Chat extra component",
+            "extends": [],
+            "runtime": "oml://runtime/Chat"
+        },
+        {
+            "name": "ContextMenu",
+            "kind": "component",
+            "description": "ContextMenu extra component",
+            "extends": [],
+            "runtime": "oml://runtime/ContextMenu"
+        },
+        {
+            "name": "Docker",
+            "kind": "component",
+            "description": "Docker extra component",
+            "extends": [],
+            "runtime": "oml://runtime/Docker"
+        },
+        {
+            "name": "Flip",
+            "kind": "component",
+            "description": "Flip extra component",
+            "extends": [],
+            "runtime": "oml://runtime/Flip"
+        },
+        {
+            "name": "FlipBook",
+            "kind": "component",
+            "description": "FlipBook extra component",
+            "extends": [],
+            "runtime": "oml://runtime/FlipBook"
+        },
+        {
+            "name": "FlexCells",
+            "kind": "component",
+            "description": "FlexCells extra component",
+            "extends": [],
+            "runtime": "oml://runtime/FlexCells"
+        },
+        {
+            "name": "ListPopup",
+            "kind": "component",
+            "description": "ListPopup extra component",
+            "extends": [],
+            "runtime": "oml://runtime/ListPopup"
+        },
+        {
+            "name": "MenuMore",
+            "kind": "component",
+            "description": "MenuMore extra component",
+            "extends": [],
+            "runtime": "oml://runtime/MenuMore"
+        },
+        {
+            "name": "Notifier",
+            "kind": "component",
+            "description": "Notifier extra component",
+            "extends": [],
+            "runtime": "oml://runtime/Notifier"
+        },
+        {
+            "name": "Swapper",
+            "kind": "component",
+            "description": "Swapper extra component",
+            "extends": [],
+            "runtime": "oml://runtime/Swapper"
+        },
+        {
+            "name": "Table",
+            "kind": "component",
+            "description": "Table extra component",
+            "extends": [],
+            "runtime": "oml://runtime/Table"
+        },
+        {
+            "name": "TimeBand",
+            "kind": "component",
+            "description": "TimeBand extra component",
+            "extends": [],
+            "runtime": "oml://runtime/TimeBand"
+        },
+        {
+            "name": "TimePicker",
+            "kind": "component",
+            "description": "TimePicker extra component",
+            "extends": [],
+            "runtime": "oml://runtime/TimePicker"
+        }
+    ]
+}

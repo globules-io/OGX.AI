@@ -1,0 +1,534 @@
+{
+    "name": "Uxi",
+    "kind": "base",
+    "description": "Base object that UI classes extend. It tracks active, inactive, sleeping, and awake state, and it owns the node tree.",
+    "extends": [
+        "Overlay",
+        "Loading"
+    ],
+    "access": "Every object created from a Uxi subclass is placed in the creating object's nodes. Call these methods on the instance. A Uxi with scroll set to true also has a scroller property. Do not put these method names in an OML node.",
+    "wiki": "https://github.com/globules-io/OGX.JS/wiki/Uxi",
+    "properties": [
+        {
+            "name": "id",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Generated automatically unless you set it. This is also an OML config key. Prefer id over name when looking an object up."
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Optional lookup name. This is also an OML config key. gatherByName, lookup, and lookdown can use it."
+        },
+        {
+            "name": "scroller",
+            "type": "Scroller",
+            "access": "readonly",
+            "in_oml": false,
+            "description": "Present only when scroll is true. A Scroller is created and added to the nodes."
+        }
+    ],
+    "methods": [
+        {
+            "name": "construct",
+            "description": "Override-able. Called at start. Overwrite this from within the class.",
+            "params": [],
+            "returns": "void",
+            "example": "this.construct = function(){ }"
+        },
+        {
+            "name": "onFocus",
+            "description": "Override-able. Called when the Uxi receives focus.",
+            "params": [],
+            "returns": "void",
+            "example": "this.onFocus = function(){ }"
+        },
+        {
+            "name": "onBlur",
+            "description": "Override-able. Called when the Uxi loses focus.",
+            "params": [],
+            "returns": "void",
+            "example": "this.onBlur = function(){ }"
+        },
+        {
+            "name": "ux",
+            "description": "Override-able. Receives true when the object is focused and false when it is blurred.",
+            "params": [
+                {
+                    "name": "focused",
+                    "type": "bool",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "this.ux = function(__bool){ }"
+        },
+        {
+            "name": "show",
+            "description": "Override-able. Default behavior restores the previous display value. A reveal of an object that creates OML placeholders calls show with the target type and id.",
+            "params": [
+                {
+                    "name": "type",
+                    "type": "string",
+                    "required": false,
+                    "description": "Passed when reveal must show a placeholder target."
+                },
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": false,
+                    "description": "Id of the placeholder target."
+                }
+            ],
+            "returns": "void",
+            "example": "this.show = function(__type, __id){ }"
+        },
+        {
+            "name": "hide",
+            "description": "Override-able. Default behavior is display:none.",
+            "params": [],
+            "returns": "void",
+            "example": "this.hide = function(){ }"
+        },
+        {
+            "name": "destroy",
+            "description": "Override-able destructor.",
+            "params": [],
+            "returns": "void",
+            "example": "this.destroy = function(){ }"
+        },
+        {
+            "name": "enable",
+            "description": "Final. Enable this Uxi.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.enable()"
+        },
+        {
+            "name": "disable",
+            "description": "Final. Disable this Uxi.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.disable()"
+        },
+        {
+            "name": "create",
+            "description": "Final. Create an object and add it to this tree. construct runs automatically.",
+            "params": [
+                {
+                    "name": "class",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "config",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "this.create('MyNameSpace.MyCustomObject', config)"
+        },
+        {
+            "name": "find",
+            "description": "Final. Recursive search of this object's tree.",
+            "params": [
+                {
+                    "name": "class",
+                    "type": "string|regex|false",
+                    "required": false,
+                    "description": "Class filter. Faster when provided."
+                },
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "array",
+            "example": "instance.find(class, id)"
+        },
+        {
+            "name": "cfind",
+            "description": "Final. Search the global cache. Use find for a child and cfind when you know the class and id of a node anywhere.",
+            "params": [
+                {
+                    "name": "class",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "id",
+                    "type": "string|regexp",
+                    "required": true
+                }
+            ],
+            "returns": "array",
+            "example": "this.cfind('DynamicList', 'my_list')"
+        },
+        {
+            "name": "gather",
+            "description": "Final. Recursive list of nodes of one or more classes from this tree.",
+            "params": [
+                {
+                    "name": "class",
+                    "type": "string|regex|array",
+                    "required": true,
+                    "description": "A class name such as Carousel or Views.MyView, a regex, or an array of classes."
+                }
+            ],
+            "returns": "array",
+            "example": "instance.gather('Carousel')"
+        },
+        {
+            "name": "gatherByName",
+            "description": "Final. Recursive list of children with this name.",
+            "params": [
+                {
+                    "name": "name",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "array",
+            "example": "instance.gatherByName('my_list')"
+        },
+        {
+            "name": "children",
+            "description": "Final. Direct children, not recursive.",
+            "params": [
+                {
+                    "name": "type",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "name": "limit",
+                    "type": "int",
+                    "required": false
+                }
+            ],
+            "returns": "array",
+            "example": "instance.children('DynamicList')"
+        },
+        {
+            "name": "parents",
+            "description": "Final. Parents of a given type, recursive.",
+            "params": [
+                {
+                    "name": "type",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "name": "limit",
+                    "type": "int",
+                    "required": false
+                }
+            ],
+            "returns": "array",
+            "example": "instance.parents('Container')"
+        },
+        {
+            "name": "add",
+            "description": "Final. Add a node to this object's tree.",
+            "params": [
+                {
+                    "name": "object",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.add(object)"
+        },
+        {
+            "name": "remove",
+            "description": "Final. Remove a node from this object's tree.",
+            "params": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "class",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.remove(id, class)"
+        },
+        {
+            "name": "clear",
+            "description": "Final. Destroy and delete every node in this object's tree.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.clear()"
+        },
+        {
+            "name": "reveal",
+            "description": "Final. Show every instance on the path to a Uxi. Popup and Window accept an animation name.",
+            "params": [
+                {
+                    "name": "animation",
+                    "type": "string",
+                    "required": false,
+                    "description": "For example scale, when the target is a Popup or a Window."
+                }
+            ],
+            "returns": "void",
+            "example": "instance.reveal('scale')"
+        },
+        {
+            "name": "resize",
+            "description": "Override-able. Called by the parent on this instance and then on its nodes.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.resize()"
+        },
+        {
+            "name": "resizeNodes",
+            "description": "Internal. Do not override. Resizes the node tree.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.resizeNodes()"
+        },
+        {
+            "name": "blur",
+            "description": "Internal. Do not override. Blurs this instance and its nodes. Focus changes are automatic.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.blur()"
+        },
+        {
+            "name": "focus",
+            "description": "Internal. Do not override. Focuses this instance and its nodes. Focus changes are automatic.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.focus()"
+        },
+        {
+            "name": "blurNodes",
+            "description": "Internal. Do not override. Blurs the nodes of this tree.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.blurNodes()"
+        },
+        {
+            "name": "focusNodes",
+            "description": "Internal. Do not override. Focuses the nodes of this tree.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.focusNodes()"
+        },
+        {
+            "name": "detach",
+            "description": "Internal. Do not override. Detaches this object from its parent.",
+            "params": [],
+            "returns": "void",
+            "example": "instance.detach()"
+        },
+        {
+            "name": "attach",
+            "description": "Internal. Do not override. Attaches this object to a new parent.",
+            "params": [
+                {
+                    "name": "parent",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "selector",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.attach(newParent, selector)"
+        },
+        {
+            "name": "stage",
+            "description": "Final. Walk up the tree and return the Stage this Uxi is attached to.",
+            "params": [],
+            "returns": "object",
+            "example": "instance.stage()"
+        },
+        {
+            "name": "on",
+            "description": "Listen for an event on this Uxi.",
+            "params": [
+                {
+                    "name": "event",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "handler",
+                    "type": "function",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.on(event, fn)"
+        },
+        {
+            "name": "off",
+            "description": "Stop listening for an event on this Uxi.",
+            "params": [
+                {
+                    "name": "event",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "handler",
+                    "type": "function",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.off(event, fn)"
+        },
+        {
+            "name": "observe",
+            "description": "Watch this instance for DOM changes. The observer is buffered by 10ms. Pass false as the first argument to stop.",
+            "params": [
+                {
+                    "name": "enabled",
+                    "type": "bool",
+                    "required": true
+                },
+                {
+                    "name": "config",
+                    "type": "object",
+                    "required": false
+                },
+                {
+                    "name": "callback",
+                    "type": "function",
+                    "required": false
+                },
+                {
+                    "name": "callbackParams",
+                    "type": "any",
+                    "required": false
+                },
+                {
+                    "name": "target",
+                    "type": "object",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "instance.observe(true, {childList:true, subtree:true}, function(){ })"
+        },
+        {
+            "name": "observeOnce",
+            "description": "Observe once, then turn the observer off.",
+            "params": [
+                {
+                    "name": "config",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "callback",
+                    "type": "function",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "instance.observeOnce({childList:true, subtree:true}, function(){ })"
+        },
+        {
+            "name": "observeSize",
+            "description": "Observe size changes. Pass false as the first argument to stop. Added in 1.41.0.",
+            "params": [
+                {
+                    "name": "enabled",
+                    "type": "bool",
+                    "required": true
+                },
+                {
+                    "name": "callback",
+                    "type": "function",
+                    "required": false
+                },
+                {
+                    "name": "callbackParams",
+                    "type": "any",
+                    "required": false
+                },
+                {
+                    "name": "target",
+                    "type": "object",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "instance.observeSize(true, callback)"
+        },
+        {
+            "name": "observeSizeOnce",
+            "description": "Observe one size change. Added in 1.41.0. The wiki heading is observeSizeOnce. The sample on that page calls observeSize with the once-style arguments.",
+            "params": [
+                {
+                    "name": "callback",
+                    "type": "function",
+                    "required": true
+                },
+                {
+                    "name": "callbackParams",
+                    "type": "any",
+                    "required": false
+                },
+                {
+                    "name": "target",
+                    "type": "object",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "instance.observeSize(callback, optional_callback_params, optional_target)"
+        },
+        {
+            "name": "lookup",
+            "description": "Look upstream for a node matching the query. Added in 1.39.0.",
+            "params": [
+                {
+                    "name": "query",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "instance.lookup({\"name\": \"something\"})"
+        },
+        {
+            "name": "lookdown",
+            "description": "Look downstream for a node matching the query. Added in 1.39.0.",
+            "params": [
+                {
+                    "name": "query",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "instance.lookdown({\"name\": \"something\"})"
+        },
+        {
+            "name": "getTopNode",
+            "description": "Return the top-most node that is not a Stage or Core. Returns null when called on Core or Stage. Added in 1.39.1.",
+            "params": [],
+            "returns": "object|null",
+            "example": "instance.getTopNode()"
+        }
+    ],
+    "events": []
+}

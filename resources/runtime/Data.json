@@ -1,0 +1,400 @@
+{
+    "name": "Data",
+    "kind": "helper",
+    "description": "Static helpers for objects, arrays, strings, numbers, and dates.",
+    "extends": [],
+    "access": "Call OGX.Data methods directly. There is no instance and there is no OML node for Data.",
+    "wiki": "https://github.com/globules-io/OGX.JS/wiki/Data",
+    "properties": [],
+    "methods": [
+        {
+            "name": "merge",
+            "description": "Copy the slave's properties onto the master at one level. overwrite replaces shared keys with the slave's values. copy returns a new object and leaves the master untouched. strict updates only keys that already exist on the master. Use weld for a deep merge.",
+            "params": [
+                {
+                    "name": "master",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "slave",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "overwrite",
+                    "type": "bool",
+                    "required": true
+                },
+                {
+                    "name": "copy",
+                    "type": "bool",
+                    "required": true
+                },
+                {
+                    "name": "strict",
+                    "type": "bool",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "OGX.Data.merge(objectA, objectB, true, true, false)"
+        },
+        {
+            "name": "weld",
+            "description": "Deep version of merge. There is no strict flag.",
+            "params": [
+                {
+                    "name": "master",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "slave",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "overwrite",
+                    "type": "bool",
+                    "required": true
+                },
+                {
+                    "name": "copy",
+                    "type": "bool",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "OGX.Data.weld(objectA, objectB, true, true)"
+        },
+        {
+            "name": "diff",
+            "description": "Return an object of values that differ between master and slave. Added in 1.9.5.",
+            "params": [
+                {
+                    "name": "master",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "slave",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "strict",
+                    "type": "bool",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "OGX.Data.diff(objectA, objectB, true)"
+        },
+        {
+            "name": "adiff",
+            "description": "Signature listed on the Data helper for two arrays. The wiki does not describe the return value.",
+            "params": [
+                {
+                    "name": "arrayA",
+                    "type": "array",
+                    "required": true
+                },
+                {
+                    "name": "arrayB",
+                    "type": "array",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "OGX.Data.adiff(arrayA, arrayB)"
+        },
+        {
+            "name": "same",
+            "description": "Return true when both objects match. Set deep to true to compare every nested property.",
+            "params": [
+                {
+                    "name": "objectA",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "objectB",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "deep",
+                    "type": "bool",
+                    "required": true
+                }
+            ],
+            "returns": "bool",
+            "example": "OGX.Data.same({whatever:true}, {whatever:100}, false)"
+        },
+        {
+            "name": "intersect",
+            "description": "Intersection of two simple arrays. Arrays of objects are not supported. Added in 1.38.2.",
+            "params": [
+                {
+                    "name": "arrayA",
+                    "type": "array",
+                    "required": true
+                },
+                {
+                    "name": "arrayB",
+                    "type": "array",
+                    "required": true
+                }
+            ],
+            "returns": "array",
+            "example": "OGX.Data.intersect([1,2,3], [1,4,5])"
+        },
+        {
+            "name": "trim",
+            "description": "Recursively trim string values on an object or array. Added in 1.40.0.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "object|array",
+                    "required": true
+                }
+            ],
+            "returns": "object|array",
+            "example": "OGX.Data.trim(object)"
+        },
+        {
+            "name": "props",
+            "description": "Return true when the object has every listed property.",
+            "params": [
+                {
+                    "name": "object",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "keys",
+                    "type": "array",
+                    "required": true
+                }
+            ],
+            "returns": "bool",
+            "example": "OGX.Data.props(objectA, ['age', 'gender', 'weight'])"
+        },
+        {
+            "name": "clone",
+            "description": "Deep clone through JSON stringify and parse.",
+            "params": [
+                {
+                    "name": "object",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "OGX.Data.clone(objectA)"
+        },
+        {
+            "name": "isFloat",
+            "description": "Return true when the value is a float.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "bool",
+            "example": "OGX.Data.isFloat(myvar)"
+        },
+        {
+            "name": "isInt",
+            "description": "Return true when the value is an integer.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "bool",
+            "example": "OGX.Data.isInt(myvar)"
+        },
+        {
+            "name": "isSizeExp",
+            "description": "Return true when the value is a size expression. Added in 1.29.0.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "bool",
+            "example": "OGX.Data.isSizeExp(myvar)"
+        },
+        {
+            "name": "toSizeExp",
+            "description": "Convert a dimension to a size expression. min and max are optional. Added in 1.29.0.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "string|number",
+                    "required": true
+                },
+                {
+                    "name": "min",
+                    "type": "number",
+                    "required": false
+                },
+                {
+                    "name": "max",
+                    "type": "number",
+                    "required": false
+                }
+            ],
+            "returns": "string",
+            "example": "OGX.Data.toSizeExp(myvar, min, max)"
+        },
+        {
+            "name": "addDec",
+            "description": "Convert a number to a string padded to two decimal places.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "number",
+                    "required": true
+                }
+            ],
+            "returns": "string",
+            "example": "OGX.Data.addDec(654)"
+        },
+        {
+            "name": "pad",
+            "description": "Pad a string to a length. direction -1 pads on the left and 1 pads on the right.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "length",
+                    "type": "int",
+                    "required": true
+                },
+                {
+                    "name": "direction",
+                    "type": "int",
+                    "required": true
+                },
+                {
+                    "name": "pad",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "string",
+            "example": "OGX.Data.pad('654', 5, -1, '0')"
+        },
+        {
+            "name": "stringToVal",
+            "description": "Convert a string to a boolean or number when the text is one of those forms.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "bool|number|string",
+            "example": "OGX.Data.stringToVal('true')"
+        },
+        {
+            "name": "dateToLocale",
+            "description": "Format a date or a parseable date string with Intl options. The default options are weekday long, year numeric, month long, day numeric.",
+            "params": [
+                {
+                    "name": "date",
+                    "type": "date|string",
+                    "required": true
+                },
+                {
+                    "name": "options",
+                    "type": "object",
+                    "required": false
+                }
+            ],
+            "returns": "string",
+            "example": "OGX.Data.dateToLocale('2021-02-28', {weekday:'long', year:'numeric', month:'long', day:'numeric'})"
+        },
+        {
+            "name": "getBestSize",
+            "description": "Pick a size from a size expression for a screen dimension. Window and Popup accept size expressions.",
+            "params": [
+                {
+                    "name": "dimension",
+                    "type": "number",
+                    "required": true
+                },
+                {
+                    "name": "expression",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "string|number",
+            "example": "OGX.Data.getBestSize(1100, '100px|300|500|70%|100%+')"
+        },
+        {
+            "name": "eval",
+            "description": "Read or write an object property addressed by a dotted path. Pass val to set it.",
+            "params": [
+                {
+                    "name": "object",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "path",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "val",
+                    "type": "any",
+                    "required": false
+                }
+            ],
+            "returns": "any",
+            "example": "OGX.Data.eval(object, 'geo.zip', 'Z9Z 9Z9')"
+        },
+        {
+            "name": "clipboard",
+            "description": "Copy a string to the clipboard.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Data.clipboard('my copied text')"
+        },
+        {
+            "name": "get2DTransform",
+            "description": "Read the current 2D DOMMatrix as {x, y, r}. Added in 1.42.0.",
+            "params": [
+                {
+                    "name": "element",
+                    "type": "element",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "OGX.Data.get2DTransform(myElement)"
+        }
+    ],
+    "events": []
+}

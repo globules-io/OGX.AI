@@ -1,0 +1,18 @@
+{
+    "name": "Stage",
+    "kind": "component",
+    "description": "Base layer",
+    "extends": [
+        "Uxi",
+        "Overlay",
+        "Touch",
+        "Placeholder"
+    ],
+    "oml": "oml://examples#Stage",
+    "access": "OML creates this object from a selector:Stage node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
+    "properties": [],
+    "methods": [],
+    "events": [],
+    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "wiki": "https://github.com/globules-io/OGX.JS/wiki/Stage"
+}

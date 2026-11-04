@@ -1,0 +1,277 @@
+{
+    "name": "Form",
+    "kind": "helper",
+    "description": "Static form helper. Dynamic forms are instances of FormInstance.",
+    "extends": [],
+    "access": "Call OGX.Form methods directly. A dynamic form created with fromObject is a FormInstance and uses OML class FormInstance. The Form helper itself is not an OML node.",
+    "wiki": "https://github.com/globules-io/OGX.JS/wiki/Form",
+    "properties": [
+        {
+            "name": "defaults",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": false,
+            "description": "Default templates and control types for dynamic forms. Booleans use Switch, strings and numbers use HTML inputs, and arrays use Tags unless you replace defaults."
+        }
+    ],
+    "methods": [
+        {
+            "name": "fromObject",
+            "description": "Build a dynamic form from an object inside a Uxi.",
+            "params": [
+                {
+                    "name": "object",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "uxi",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "selector",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "config",
+                    "type": "object",
+                    "required": false
+                }
+            ],
+            "returns": "object",
+            "example": "OGX.Form.fromObject(obj, this, '.my_selector')"
+        },
+        {
+            "name": "bindForm",
+            "description": "Bind a static form and prevent the default submit. Pass a selector or a config object with el.",
+            "params": [
+                {
+                    "name": "config",
+                    "type": "object|string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Form.bindForm({el:'#myForm', submit_cb:onSubmit})"
+        },
+        {
+            "name": "unbindForm",
+            "description": "Unbind one form. With no selector, unbind every form.",
+            "params": [
+                {
+                    "name": "selector",
+                    "type": "string",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Form.unbindForm('#myForm')"
+        },
+        {
+            "name": "unbindAll",
+            "description": "Unbind listeners. type is all, form, or field.",
+            "params": [
+                {
+                    "name": "type",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Form.unbindAll('form')"
+        },
+        {
+            "name": "getBind",
+            "description": "Look up a bind by selector text. Added in 1.8.4.",
+            "params": [
+                {
+                    "name": "search",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "OGX.Form.getBind(search)"
+        },
+        {
+            "name": "updateBind",
+            "description": "Replace a bind configuration at runtime. Added in 1.8.4.",
+            "params": [
+                {
+                    "name": "search",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "object",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Form.updateBind('zip', {mask:'%%% %%%'})"
+        },
+        {
+            "name": "populate",
+            "description": "Fill named fields from an object. Names may be deep paths such as created.date. The optional map values are transform functions. Added in 1.15.0 for the map.",
+            "params": [
+                {
+                    "name": "selector",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "object",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "map",
+                    "type": "object",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Form.populate('#myForm', obj)"
+        },
+        {
+            "name": "validate",
+            "description": "Validate a form using pattern and required. Returns an object of failing field names.",
+            "params": [
+                {
+                    "name": "selector",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "OGX.Form.validate(selector)"
+        },
+        {
+            "name": "change",
+            "description": "Force a bound form to run its change callback. Added in 1.26.0.",
+            "params": [
+                {
+                    "name": "selector",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Form.change('#my_form')"
+        },
+        {
+            "name": "bindField",
+            "description": "Bind one text field so changes are saved without a submit button.",
+            "params": [
+                {
+                    "name": "config",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Form.bindField(config)"
+        },
+        {
+            "name": "unbindField",
+            "description": "Unbind one field. With no selector, unbind every field.",
+            "params": [
+                {
+                    "name": "selector",
+                    "type": "string",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Form.unbindField(selector)"
+        },
+        {
+            "name": "restrictField",
+            "description": "Restrict what a field accepts.",
+            "params": [
+                {
+                    "name": "config",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Form.restrictField(config)"
+        },
+        {
+            "name": "unrestrictField",
+            "description": "Remove a field restriction.",
+            "params": [
+                {
+                    "name": "selector",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Form.unrestrictField(selector)"
+        },
+        {
+            "name": "enable",
+            "description": "Enable every form listener.",
+            "params": [],
+            "returns": "void",
+            "example": "OGX.Form.enable()"
+        },
+        {
+            "name": "enableForm",
+            "description": "Enable the fields of one form, or of every bound form when the selector is omitted.",
+            "params": [
+                {
+                    "name": "selector",
+                    "type": "string",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Form.enableForm('#myform')"
+        },
+        {
+            "name": "disable",
+            "description": "Disable every form listener.",
+            "params": [],
+            "returns": "void",
+            "example": "OGX.Form.disable()"
+        },
+        {
+            "name": "disableForm",
+            "description": "Disable the fields of one form, or of every bound form when the selector is omitted.",
+            "params": [
+                {
+                    "name": "selector",
+                    "type": "string",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "OGX.Form.disableForm('#myform')"
+        },
+        {
+            "name": "toObj",
+            "description": "Build an object from the name attributes of the fields. Pass true to skip disabled and readonly fields.",
+            "params": [
+                {
+                    "name": "selector",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "skipDisabled",
+                    "type": "bool",
+                    "required": false
+                }
+            ],
+            "returns": "object",
+            "example": "OGX.Form.toObj('#myForm', true)"
+        }
+    ],
+    "events": []
+}

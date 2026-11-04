@@ -1,0 +1,90 @@
+{
+    "name": "Object",
+    "kind": "factory",
+    "description": "Static factory that builds classes extending several classes.",
+    "extends": [],
+    "access": "OGX.Object is static. Declare a class with require(name, ...bases), then call construct(this, name) as the first line of the constructor. Create an instance with OGX.Object.create(class, config), or from a Uxi with this.create(class, config). These calls are runtime JavaScript, not OML keys.",
+    "wiki": "https://github.com/globules-io/OGX.JS/wiki/Object",
+    "properties": [],
+    "methods": [
+        {
+            "name": "require",
+            "description": "Declare the class name and the classes it extends. Used while defining a class, before the constructor.",
+            "params": [
+                {
+                    "name": "class",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "bases",
+                    "type": "string",
+                    "required": true,
+                    "description": "One argument per base class."
+                }
+            ],
+            "returns": "void",
+            "example": "require('MyNameSpace.MyCustomObject', 'Uxi', 'Touch')"
+        },
+        {
+            "name": "construct",
+            "description": "First line inside a class constructor. Passes the instance to OGX.Object.",
+            "params": [
+                {
+                    "name": "instance",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "class",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "construct(this, 'MyNameSpace.MyCustomObject')"
+        },
+        {
+            "name": "create",
+            "description": "Create an instance of any OGX class.",
+            "params": [
+                {
+                    "name": "class",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "config",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "OGX.Object.create('MyNameSpace.MyCustomObject', config)"
+        },
+        {
+            "name": "get",
+            "description": "Retrieve Uxi instances matching a List query.",
+            "params": [
+                {
+                    "name": "query",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "sort",
+                    "type": "any",
+                    "required": false
+                },
+                {
+                    "name": "limit",
+                    "type": "int",
+                    "required": false
+                }
+            ],
+            "returns": "array",
+            "example": "OGX.Object.get(query, sort, limit)"
+        }
+    ],
+    "events": []
+}

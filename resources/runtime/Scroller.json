@@ -1,0 +1,127 @@
+{
+    "name": "Scroller",
+    "kind": "component",
+    "description": "Vertical scroll pane.",
+    "extends": [],
+    "oml": "oml://examples#Scroller",
+    "access": "OGX.JS creates a Scroller when a Uxi has scroll set to true. That instance is uxi.scroller. You can also construct one with new OGX.Scroller(config). The container height must be set in pixels or percent. Call these methods on the Scroller instance, not as OML keys.",
+    "wiki": "https://github.com/globules-io/OGX.JS/wiki/Scroller",
+    "properties": [],
+    "methods": [
+        {
+            "name": "getInner",
+            "description": "HTML element that holds the scrolled content. Append content here.",
+            "params": [],
+            "returns": "element",
+            "example": "scroller.getInner()"
+        },
+        {
+            "name": "getOuter",
+            "description": "HTML element the scroller was instantiated in. This is the visible mask.",
+            "params": [],
+            "returns": "element",
+            "example": "scroller.getOuter()"
+        },
+        {
+            "name": "update",
+            "description": "Force a redraw. Unnecessary when observe is true, because the scroller redraws itself when content is added or removed.",
+            "params": [],
+            "returns": "void",
+            "example": "scroller.update()"
+        },
+        {
+            "name": "mute",
+            "description": "Stop emitting events without changing config.trigger. Requires trigger true.",
+            "params": [],
+            "returns": "void",
+            "example": "scroller.mute()"
+        },
+        {
+            "name": "vocal",
+            "description": "Resume events after mute.",
+            "params": [],
+            "returns": "void",
+            "example": "scroller.vocal()"
+        },
+        {
+            "name": "overflow",
+            "description": "Turn overflow off to disable the scroller and show the full content. Added in 1.25.0.",
+            "params": [
+                {
+                    "name": "enabled",
+                    "type": "bool",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "scroller.overflow(false)"
+        },
+        {
+            "name": "overflows",
+            "description": "Overflowing content height in pixels, or false when the content is shorter than the container. Added in 1.42.0.",
+            "params": [],
+            "returns": "int|false",
+            "example": "scroller.overflows()"
+        },
+        {
+            "name": "percent",
+            "description": "Current scroll position in percent. Added in 1.26.0.",
+            "params": [],
+            "returns": "number",
+            "example": "scroller.percent()"
+        },
+        {
+            "name": "top",
+            "description": "Scroll to the top.",
+            "params": [],
+            "returns": "void",
+            "example": "scroller.top()"
+        },
+        {
+            "name": "bottom",
+            "description": "Scroll to the bottom.",
+            "params": [],
+            "returns": "void",
+            "example": "scroller.bottom()"
+        },
+        {
+            "name": "scroll",
+            "description": "Scroll to a pixel offset.",
+            "params": [
+                {
+                    "name": "offset",
+                    "type": "int",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "scroller.scroll(150)"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.Scroller.READY",
+            "description": "The scroller can receive content."
+        },
+        {
+            "name": "OGX.Scroller.TOP",
+            "description": "Scroller event."
+        },
+        {
+            "name": "OGX.Scroller.BOTTOM",
+            "description": "Scroller event."
+        },
+        {
+            "name": "OGX.Scroller.SCROLL",
+            "description": "Scroller event."
+        },
+        {
+            "name": "OGX.Scroller.START",
+            "description": "Scroller event."
+        },
+        {
+            "name": "OGX.Scroller.END",
+            "description": "Scroller event."
+        }
+    ]
+}

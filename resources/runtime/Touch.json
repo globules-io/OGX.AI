@@ -1,0 +1,93 @@
+{
+    "name": "Touch",
+    "kind": "behavior",
+    "description": "Prefabricated pointer behavior mixed into objects that extend Touch.",
+    "extends": [],
+    "access": "An object that extends Touch receives this.touch. Call the methods on this.touch. Enable and disable touch from the object's own enable and disable methods. This is not an OML node.",
+    "wiki": "https://github.com/globules-io/OGX.JS/wiki/Touch",
+    "properties": [],
+    "methods": [
+        {
+            "name": "touch.enable",
+            "description": "Enable touch behavior on this object.",
+            "params": [],
+            "returns": "void",
+            "example": "this.touch.enable()"
+        },
+        {
+            "name": "touch.disable",
+            "description": "Disable touch behavior on this object.",
+            "params": [],
+            "returns": "void",
+            "example": "this.touch.disable()"
+        },
+        {
+            "name": "touch.add",
+            "description": "Create a touch behavior and keep it on the touch list.",
+            "params": [
+                {
+                    "name": "behavior",
+                    "type": "string",
+                    "required": true,
+                    "description": "Drag, Move, Swipe, or Hold."
+                },
+                {
+                    "name": "config",
+                    "type": "object",
+                    "required": true,
+                    "description": "Behavior configuration. Set id if you want to retrieve it later."
+                }
+            ],
+            "returns": "object",
+            "example": "this.touch.add('Drag', {id: 'myDrag'})"
+        },
+        {
+            "name": "touch.get",
+            "description": "Return a touch behavior by the id passed to touch.add.",
+            "params": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "this.touch.get('myDrag')"
+        },
+        {
+            "name": "touch.remove",
+            "description": "Remove one touch behavior.",
+            "params": [
+                {
+                    "name": "touch",
+                    "type": "object|string",
+                    "required": true,
+                    "description": "The behavior instance or its id."
+                }
+            ],
+            "returns": "void",
+            "example": "this.touch.remove(touchId)"
+        },
+        {
+            "name": "touch.wipe",
+            "description": "Remove every touch behavior.",
+            "params": [],
+            "returns": "void",
+            "example": "this.touch.wipe()"
+        }
+    ],
+    "events": [
+        {
+            "name": "touch.down",
+            "description": "Pointer down. Prefer this over touchstart or mousedown."
+        },
+        {
+            "name": "touch.up",
+            "description": "Pointer up. Prefer this over touchend or mouseup."
+        },
+        {
+            "name": "touch.move",
+            "description": "Pointer move. Prefer this over touchmove or mousemove."
+        }
+    ]
+}

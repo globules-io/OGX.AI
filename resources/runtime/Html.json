@@ -1,0 +1,12 @@
+{
+    "name": "Html",
+    "kind": "component",
+    "description": "Html component",
+    "extends": [],
+    "oml": "oml://examples#Html",
+    "access": "OML creates this object from a selector:Html node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
+    "properties": [],
+    "methods": [],
+    "events": [],
+    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent."
+}

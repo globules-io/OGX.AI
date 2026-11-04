@@ -1,0 +1,64 @@
+{
+    "name": "Color",
+    "kind": "helper",
+    "description": "Static color conversions.",
+    "extends": [],
+    "access": "Call OGX.Color methods directly. There is no instance and there is no OML node for Color.",
+    "wiki": "https://github.com/globules-io/OGX.JS/wiki/Color",
+    "properties": [],
+    "methods": [
+        {
+            "name": "hexToRgb",
+            "description": "Convert a HEX string to RGB.",
+            "params": [
+                {
+                    "name": "hex",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "array",
+            "example": "OGX.Color.hexToRgb('#00CCFF')"
+        },
+        {
+            "name": "rgbToHex",
+            "description": "Convert RGB to HEX. Accepts separate channels, an array, an {r,g,b} object, or a string of three values.",
+            "params": [
+                {
+                    "name": "rgb",
+                    "type": "array|object|string|int",
+                    "required": true
+                }
+            ],
+            "returns": "string",
+            "example": "OGX.Color.rgbToHex(10, 20, 30)"
+        },
+        {
+            "name": "rgbToHsl",
+            "description": "Convert RGB to HSL. Accepts the same shapes as rgbToHex.",
+            "params": [
+                {
+                    "name": "rgb",
+                    "type": "array|object|string|int",
+                    "required": true
+                }
+            ],
+            "returns": "array",
+            "example": "OGX.Color.rgbToHsl([10, 20, 30])"
+        },
+        {
+            "name": "hslToRgb",
+            "description": "Convert HSL to RGB. Accepts separate channels, an array, an {h,s,l} object, or a string of three values.",
+            "params": [
+                {
+                    "name": "hsl",
+                    "type": "array|object|string|number",
+                    "required": true
+                }
+            ],
+            "returns": "array",
+            "example": "OGX.Color.hslToRgb(0.1, 0.2, 0.3)"
+        }
+    ],
+    "events": []
+}

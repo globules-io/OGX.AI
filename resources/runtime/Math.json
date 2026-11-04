@@ -1,0 +1,66 @@
+{
+    "name": "Math",
+    "kind": "helper",
+    "description": "Static geometry helpers.",
+    "extends": [],
+    "access": "Call OGX.Math methods directly. There is no instance and there is no OML node for Math.",
+    "wiki": "https://github.com/globules-io/OGX.JS/wiki/Math",
+    "properties": [],
+    "methods": [
+        {
+            "name": "dist",
+            "description": "Distance between two points.",
+            "params": [
+                {
+                    "name": "ptA",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "ptB",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "number",
+            "example": "OGX.Math.dist(ptA, ptB)"
+        },
+        {
+            "name": "angle",
+            "description": "Angle between two points.",
+            "params": [
+                {
+                    "name": "ptA",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "ptB",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "number",
+            "example": "OGX.Math.angle(ptA, ptB)"
+        },
+        {
+            "name": "rotate",
+            "description": "Rotate a vector.",
+            "params": [
+                {
+                    "name": "vec",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "angle",
+                    "type": "number",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "OGX.Math.rotate(vec, angle)"
+        }
+    ],
+    "events": []
+}
