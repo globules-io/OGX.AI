@@ -3,12 +3,14 @@
      "version": "1.0",
      "description": "Object Markup Language used by OGX.JS to describe user interfaces.",
      "root_elements": [
-          "Page"
+          "App"
      ],
      "resources": [
           "specification",
           "components",
-          "examples"
+          "examples",
+          "helpers",
+          "runtime"
      ],
      "rules": [
           "Only use documented components.",
