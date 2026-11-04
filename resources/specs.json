@@ -5,13 +5,14 @@
           "case_sensitive": true
      },
      "document": {
-          "root": "Page"
+          "root": "App"
      },
      "rules": [
-          "Every document must start with a Page element.",
+          "Every document must start with a Stage element.",
           "Elements may contain child elements.",
           "Attributes are case sensitive.",
           "Unknown elements are invalid.",
-          "Unknown attributes are invalid."
+          "Unknown attributes are invalid.",
+          "Runtime method and property names are not OML attributes."
      ]
 }
