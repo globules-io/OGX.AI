@@ -8,9 +8,329 @@
     ],
     "oml": "oml://examples#Tree",
     "access": "OML creates this object from a selector:Tree node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "properties": [
+        {
+            "name": "el",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Element that contains the tree. Optional."
+        },
+        {
+            "name": "editable",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Drag and drop. Optional."
+        },
+        {
+            "name": "sort",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Defaults to {enabled: true, property: 'label', way: 1}. way -1 is ascending and way 1 is descending. Optional."
+        },
+        {
+            "name": "toggle",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "A selected item can be unselected. Optional."
+        },
+        {
+            "name": "icon_path",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Folder that holds the icons. Optional."
+        },
+        {
+            "name": "icon_size",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Icon width. Defaults to 30. Optional."
+        },
+        {
+            "name": "types",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Map of types. Each value has mode file or folder. Optional."
+        },
+        {
+            "name": "data",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The tree. Each node has type, label, optional state open or close, optional data, and items. Optional."
+        },
+        {
+            "name": "show_root",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Defaults to true. Optional."
+        }
+    ],
+    "methods": [
+        {
+            "name": "addItem",
+            "description": "Adds an item as a child. The id argument is optional and falls back to the selected item.",
+            "params": [
+                {
+                    "name": "item",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "tree.addItem({_id: 'a124', label: 'Hello'}, 'a123')"
+        },
+        {
+            "name": "getItem",
+            "description": "Item by id.",
+            "params": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "tree.getItem('a123')"
+        },
+        {
+            "name": "getItemByPath",
+            "description": "Item by path.",
+            "params": [
+                {
+                    "name": "path",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "tree.getItemByPath(path)"
+        },
+        {
+            "name": "getSelectedItem",
+            "description": "The selected item.",
+            "params": [],
+            "returns": "object",
+            "example": "tree.getSelectedItem()"
+        },
+        {
+            "name": "selectItem",
+            "description": "Selects by id.",
+            "params": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tree.selectItem('a123')"
+        },
+        {
+            "name": "openItem",
+            "description": "Opens by id.",
+            "params": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tree.openItem('a123')"
+        },
+        {
+            "name": "closeItem",
+            "description": "Closes by id.",
+            "params": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tree.closeItem('a123')"
+        },
+        {
+            "name": "selectItemByPropVal",
+            "description": "Selects by a property and a value.",
+            "params": [
+                {
+                    "name": "property",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tree.selectItemByPropVal('label', 'Hello')"
+        },
+        {
+            "name": "selectItemByPath",
+            "description": "Selects by path.",
+            "params": [
+                {
+                    "name": "path",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tree.selectItemByPath(path)"
+        },
+        {
+            "name": "updateItem",
+            "description": "Updates an item. render defaults to true and redraws the children.",
+            "params": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "item",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "render",
+                    "type": "bool",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "tree.updateItem('a123', {label: 'Hello'})"
+        },
+        {
+            "name": "replaceItem",
+            "description": "Replaces the item with the same id.",
+            "params": [
+                {
+                    "name": "item",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tree.replaceItem(item)"
+        },
+        {
+            "name": "deleteItem",
+            "description": "Deletes by id.",
+            "params": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tree.deleteItem('a123')"
+        },
+        {
+            "name": "deleteSelectedItem",
+            "description": "Deletes the selected item.",
+            "params": [],
+            "returns": "void",
+            "example": "tree.deleteSelectedItem()"
+        },
+        {
+            "name": "getTree",
+            "description": "Returns the data tree.",
+            "params": [],
+            "returns": "object",
+            "example": "tree.getTree()"
+        },
+        {
+            "name": "setTypes",
+            "description": "Sets the types config.",
+            "params": [
+                {
+                    "name": "types",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tree.setTypes(types)"
+        },
+        {
+            "name": "setTree",
+            "description": "Sets the data tree.",
+            "params": [
+                {
+                    "name": "tree",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tree.setTree(data)"
+        },
+        {
+            "name": "setData",
+            "description": "Sets types and the tree from one object, {types, tree}.",
+            "params": [
+                {
+                    "name": "data",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tree.setData({types: types, tree: data})"
+        },
+        {
+            "name": "newTree",
+            "description": "Removes the previous tree.",
+            "params": [],
+            "returns": "void",
+            "example": "tree.newTree()"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.Tree.DRAG",
+            "description": "A drag started. The event string is TreeDrag."
+        },
+        {
+            "name": "OGX.Tree.DROP",
+            "description": "A drop. The event string is TreeDrop."
+        },
+        {
+            "name": "OGX.Tree.OPEN",
+            "description": "A node opened. The event string is TreeOpen."
+        },
+        {
+            "name": "OGX.Tree.CLOSE",
+            "description": "A node closed. The event string is TreeClose."
+        },
+        {
+            "name": "OGX.Tree.SELECT",
+            "description": "A node was selected. The event string is TreeSelect."
+        },
+        {
+            "name": "OGX.Tree.UNSELECT",
+            "description": "A node was unselected. Requires toggle. The event string is TreeUnselect."
+        }
+    ],
+    "catalog_status": "Listed fields and methods are from the OGX.JS wiki or the runtime the test app loads. Members that are absent from this file are not to be invented.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/Tree"
 }

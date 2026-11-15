@@ -1,7 +1,7 @@
 {
     "name": "View",
     "kind": "component",
-    "description": "View layer",
+    "description": "Base class for a view. An application subclasses it as OGX.Views.Name and places that class in a route.",
     "extends": [
         "Uxi",
         "Template",
@@ -10,10 +10,81 @@
         "Touch"
     ],
     "oml": "oml://examples#View",
-    "access": "OML creates this object from a selector:View node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
+    "access": "Define require('Views.Name', 'View') and OGX.Views.Name, then construct(this, 'Views.Name'). A route addresses it as selector:Views.Name. Method names are not OML keys.",
+    "properties": [
+        {
+            "name": "id",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Id of the view. When omitted, OGX sets data-ogx-id. An id that starts with # is written as the element id. Optional."
+        },
+        {
+            "name": "el",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Selector for the element. Optional."
+        },
+        {
+            "name": "observe",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Mutation observer. Defaults to false. Optional."
+        },
+        {
+            "name": "scroll",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Creates a Scroller that fills the view. Defaults to false. Optional."
+        },
+        {
+            "name": "overlay",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Shows an overlay at start. Defaults to false. Optional."
+        },
+        {
+            "name": "loading",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Shows a loading indicator at start. Defaults to false. Optional."
+        },
+        {
+            "name": "html",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "HTML rendered in the view. Optional."
+        },
+        {
+            "name": "template",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Name of a template preloaded in OGX.Templater. Optional."
+        },
+        {
+            "name": "css",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "CSS class added to the view element. Avoid a class that changes display when the view sits in a Scroller or a Carousel. Optional."
+        },
+        {
+            "name": "data",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Passed to the view constructor. A template reads it as {{$property}}. Optional."
+        }
+    ],
     "methods": [],
     "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "catalog_status": "Listed fields are OML config from the OGX.JS wiki. Methods are not listed. Use inherited true for documented base classes. Do not invent members that are absent.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/View"
 }

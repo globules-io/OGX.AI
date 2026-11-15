@@ -8,9 +8,59 @@
     ],
     "oml": "oml://examples#GroupedList",
     "access": "OML creates this object from a selector:GroupedList node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
+    "properties": [
+        {
+            "name": "el",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Selector. Required."
+        },
+        {
+            "name": "display",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Display object for the items. Required."
+        },
+        {
+            "name": "list",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The data, an array or an OGX.List. Optional."
+        },
+        {
+            "name": "group_by",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Shared property used to group. Optional."
+        },
+        {
+            "name": "group_mode",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "substr, numrange, or date. Optional."
+        },
+        {
+            "name": "group_param",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "numrange can be 500 or [500, '$', 'pre']. date can be [30, 'YYYY-MM']. pre and post place the symbol. Optional."
+        },
+        {
+            "name": "group_order",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Preferred nest order. See NestList. Optional."
+        }
+    ],
     "methods": [],
     "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "catalog_status": "Listed fields are OML config from the OGX.JS wiki. Methods are not listed. Use inherited true for documented base classes. Do not invent members that are absent.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/GroupedList"
 }

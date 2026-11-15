@@ -8,9 +8,90 @@
     ],
     "oml": "oml://examples#Switch",
     "access": "OML creates this object from a selector:Switch node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "properties": [
+        {
+            "name": "el",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Selector. Required."
+        },
+        {
+            "name": "data",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Two items of {label, value}. Defaults to [{label: 'OFF', value: 0}, {label: 'ON', value: 1}]. Optional."
+        },
+        {
+            "name": "labels",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Show labels. Defaults to true. Optional."
+        },
+        {
+            "name": "enabled",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Defaults to true. Optional."
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Name. Optional."
+        },
+        {
+            "name": "value",
+            "type": "any",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Current value. A data-value attribute on the element is read with OGX.Data.stringToVal and then removed. Optional."
+        },
+        {
+            "name": "speed",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Animation speed in milliseconds. Defaults to 250. Optional."
+        }
+    ],
+    "methods": [
+        {
+            "name": "toggle",
+            "description": "Toggles the switch.",
+            "params": [],
+            "returns": "void",
+            "example": "swt.toggle()"
+        },
+        {
+            "name": "val",
+            "description": "Gets the value, or sets it. The second argument triggers CHANGE when true.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": false
+                },
+                {
+                    "name": "trigger",
+                    "type": "bool",
+                    "required": false
+                }
+            ],
+            "returns": "any",
+            "example": "swt.val()"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.Switch.CHANGE",
+            "description": "The value changed. The event string is SwitchChange. OGX.Switch.BIND is the same constant."
+        }
+    ],
+    "catalog_status": "Listed fields and methods are from the OGX.JS wiki or the runtime the test app loads. Members that are absent from this file are not to be invented.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/Switch"
 }

@@ -1,11 +1,11 @@
 {
      "name": "OML",
      "version": "1.0",
-     "description": "Object Markup Language used by OGX.JS to describe user interfaces.",
-     "root_elements": [
-          "App"
-     ],
+     "description": "Object Markup Language used by OGX.JS to describe the nodes of a route. The application around it is described by the app document.",
      "resources": [
+          "app",
+          "attributes",
+          "ose",
           "specification",
           "components",
           "examples",
@@ -13,9 +13,10 @@
           "runtime"
      ],
      "rules": [
-          "Only use documented components.",
+          "Read the app document, then attributes and ose, before writing an application.",
+          "A route holds selector:Class OML. It does not start with Stage or App.",
+          "Only use documented components and classes the application defines.",
           "Only use documented attributes.",
-          "Return valid OML.",
           "Follow examples when possible."
      ]
 }

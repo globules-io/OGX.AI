@@ -1,18 +1,88 @@
 {
-     "version": "1.0",
-     "syntax": {
-          "format": "json",
-          "case_sensitive": true
-     },
-     "document": {
-          "root": "App"
-     },
-     "rules": [
-          "Every document must start with a Stage element.",
-          "Elements may contain child elements.",
-          "Attributes are case sensitive.",
-          "Unknown elements are invalid.",
-          "Unknown attributes are invalid.",
-          "Runtime method and property names are not OML attributes."
-     ]
+  "version": "1.0",
+  "syntax": {
+    "format": "json",
+    "case_sensitive": true,
+    "node": "selector:Class",
+    "children": "node:OML"
+  },
+  "document": {
+    "description": "An OML value is one JSON object. Each key is selector:Class and each value is that object's config. A route stores this object in oml, or stores the name of a preloaded file from www/oml.",
+    "application": "Stages, templates, preload, and the first route live in app.json. Read oml://app before building an application. OML config keys for the core components are in oml://attributes. Scripts are in oml://ose."
+  },
+  "selectors": [
+    {
+      "form": "default:Class",
+      "meaning": "Attach the object to the default element that class creates."
+    },
+    {
+      "form": "#id:Class",
+      "meaning": "Attach the object to the element with that id."
+    },
+    {
+      "form": ".class:Class",
+      "meaning": "Attach the object to the element with that class."
+    },
+    {
+      "form": "default .class:Class",
+      "meaning": "Start at the default element, then the descendant that matches .class."
+    },
+    {
+      "form": "selector:Views.Name",
+      "meaning": "An application view defined in www/js/views."
+    },
+    {
+      "form": "selector:Stages.Name",
+      "meaning": "A vapp key in app.json. This is not the root of a route."
+    },
+    {
+      "form": "selector:Controllers.Name",
+      "meaning": "An application controller placed beside the view in the route."
+    },
+    {
+      "form": "selector:Templates.Name",
+      "meaning": "A preloaded HTML template."
+    },
+    {
+      "form": "id:Popup",
+      "meaning": "A popup. The selector is its id."
+    },
+    {
+      "form": "id:Window",
+      "meaning": "A window. The selector is its id."
+    }
+  ],
+  "keys": [
+    {
+      "name": "node:OML",
+      "meaning": "Child OML. The value is an object, an array of one-key objects, or the name of a preloaded oml file."
+    },
+    {
+      "name": "template",
+      "meaning": "Template name. The file is www/html/template.Name.html and the value is Name."
+    },
+    {
+      "name": "data",
+      "meaning": "Object passed into the view. An HTML template reads it as {{$property}}."
+    },
+    {
+      "name": "data:OSE",
+      "meaning": "An OSE script. {{%}} is the route capture or query object. {{$}} is the current data object. {{json name}} and {{oml name}} load preloaded files."
+    },
+    {
+      "name": "point",
+      "meaning": "Width ranges, written as 0-479 and 480-5000. Each value is an OML node. A default:Point node uses the same ranges as its own keys."
+    },
+    {
+      "name": "id",
+      "meaning": "Id used later by cfind, children, and lookup."
+    }
+  ],
+  "rules": [
+    "Keys and class names are case sensitive.",
+    "A class is valid when it is listed in oml://components or defined by the application with require().",
+    "Runtime method and property names are not OML keys.",
+    "A route does not start with a Stage element or an App element.",
+    "node:OML is the only nesting key. Do not invent a children array of elements."
+  ]
 }

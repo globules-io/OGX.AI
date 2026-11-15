@@ -34,6 +34,9 @@ That URL returns the overview. Read the rest of the catalog at:
 
 ```
 https://oml.globules.io/overview
+https://oml.globules.io/app
+https://oml.globules.io/attributes
+https://oml.globules.io/ose
 https://oml.globules.io/specification
 https://oml.globules.io/components
 https://oml.globules.io/examples
@@ -71,6 +74,30 @@ General information about OML and OGX.JS.
 
 ```
 oml://overview
+```
+
+### App
+
+File layout, app.json, stages, views, controllers, templates, and routes.
+
+```
+oml://app
+```
+
+### Attributes
+
+OML config keys for the core components. Optional components keep their keys on `read_runtime`.
+
+```
+oml://attributes
+```
+
+### OSE
+
+Ogx Scripting Engine. Used in HTML templates and in keys that end with `:OSE`.
+
+```
+oml://ose
 ```
 
 ### Specification
@@ -125,9 +152,9 @@ oml://runtime
 
 ### read_oml
 
-Reads one reference document. `name` is `overview`, `specification`, `components`, `helpers`, `examples`, `validator-rules`, or `runtime`.
+Reads one reference document. `name` is `overview`, `app`, `attributes`, `ose`, `specification`, `components`, `helpers`, `examples`, `validator-rules`, or `runtime`.
 
-Call `read_oml` before generating OML. The resource URIs above are for hosts that attach MCP resources directly.
+Call `read_oml` for `app`, `attributes`, and `ose` before writing an application, then `specification`, `components`, and `examples` before writing a route. The resource URIs above are for hosts that attach MCP resources directly.
 
 ### read_runtime
 
@@ -177,6 +204,9 @@ OGX.AI/
 |
 ├── resources/
 │   ├── overview.json
+│   ├── app.json
+│   ├── attributes.json
+│   ├── ose.json
 │   ├── specs.json
 │   ├── components.json
 │   ├── examples.json

@@ -8,9 +8,177 @@
     ],
     "oml": "oml://examples#Tabs",
     "access": "OML creates this object from a selector:Tabs node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
+    "properties": [
+        {
+            "name": "el",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Selector. Optional."
+        },
+        {
+            "name": "list",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Tab items. The wiki config block lists this key twice. Optional."
+        },
+        {
+            "name": "enabled",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Defaults to true. Optional."
+        },
+        {
+            "name": "add",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The user can add a tab with the + button. Optional."
+        },
+        {
+            "name": "remove",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The user can remove a tab by dragging up or with the close icon. Optional."
+        },
+        {
+            "name": "icons",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Show icons. Defaults to false. Optional."
+        },
+        {
+            "name": "icon_path",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Folder that holds the icons. Optional."
+        },
+        {
+            "name": "icon_default",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "File name of the default icon. Optional."
+        },
+        {
+            "name": "min_width",
+            "type": "number",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Minimum tab width. Optional."
+        },
+        {
+            "name": "max_width",
+            "type": "number",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Maximum tab width. Optional."
+        },
+        {
+            "name": "add_width",
+            "type": "number",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Width of the add button. Optional."
+        },
+        {
+            "name": "index",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Tab selected at start. Optional."
+        }
+    ],
+    "methods": [
+        {
+            "name": "add",
+            "description": "Adds a tab.",
+            "params": [
+                {
+                    "name": "tab",
+                    "type": "object|string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tabs.add({label: 'New'})"
+        },
+        {
+            "name": "addAt",
+            "description": "Inserts a tab at an index.",
+            "params": [
+                {
+                    "name": "tab",
+                    "type": "object|string",
+                    "required": true
+                },
+                {
+                    "name": "index",
+                    "type": "int",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tabs.addAt({label: 'New'}, 0)"
+        },
+        {
+            "name": "remove",
+            "description": "Removes a tab by property and value.",
+            "params": [
+                {
+                    "name": "property",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tabs.remove('label', 'New')"
+        },
+        {
+            "name": "removeAt",
+            "description": "Removes the tab at an index.",
+            "params": [
+                {
+                    "name": "index",
+                    "type": "int",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tabs.removeAt(0)"
+        },
+        {
+            "name": "removeCurrent",
+            "description": "Removes the current tab.",
+            "params": [],
+            "returns": "void",
+            "example": "tabs.removeCurrent()"
+        },
+        {
+            "name": "enableTab",
+            "description": "Enables the tab at an index.",
+            "params": [
+                {
+                    "name": "index",
+                    "type": "int",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tabs.enableTab(0)"
+        }
+    ],
     "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "catalog_status": "Listed fields and methods are from the OGX.JS wiki or the runtime the test app loads. Members that are absent from this file are not to be invented.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/Tabs"
 }

@@ -1,0 +1,35 @@
+{
+  "name": "OSE",
+  "version": "1.0",
+  "description": "Ogx Scripting Engine. Scripts are written between {{ and }} inside HTML templates and inside OML values whose key ends with :OSE.",
+  "variables": [
+    {"prefix": "$", "meaning": "The optional data object. In a template, {{$title}} prints data.title."},
+    {"prefix": "&", "meaning": "The thread data object. Loop variables are read with this prefix."},
+    {"prefix": "@", "meaning": "The script's own data object."},
+    {"prefix": "%", "meaning": "The route data object. {{%}} is the whole capture or query string. {{%id}} is one capture. crumb id reads the same capture."},
+    {"prefix": "#", "meaning": "A global variable."}
+  ],
+  "variable_names": "A variable name starts with a letter or an underscore.",
+  "keywords": [
+    {"name": "template", "use": "template MyTemplate returns that preloaded HTML template. template MyTemplate SomeObject fills it. {{template $mytemplate}} uses a name from data."},
+    {"name": "json", "use": "json myfile returns a preloaded JSON document. {{json list}} is the file list.json. {{json %id}} uses a captured id as the file name."},
+    {"name": "oml", "use": "oml myfile returns a preloaded OML document. node:OML may be the string myfile or {{oml myfile}}."},
+    {"name": "ose", "use": "ose myfile runs another preloaded script."},
+    {"name": "echo", "use": "Appends to the return text. Quotes around the echoed markup can be omitted. return does the same for the whole result."},
+    {"name": "loop", "use": "loop $images as index image, or loop $object as property value. The new names are read with &."},
+    {"name": "scope", "use": "scope admin manager ? template Manager : template Employee"},
+    {"name": "screen", "use": "screen > 500 ? template Big : template Small compares the app width."},
+    {"name": "uxi", "use": "uxi mySwitch:Switch points at a live object."},
+    {"name": "method", "use": "method toggle() mySwitch:Switch runs that method. Without parentheses it only points at the method."},
+    {"name": "function", "use": "function myGlobalFunction() runs a global function. An inline function can return a value, as in a Display template name."},
+    {"name": "result", "use": "result function_id reads the value of a Promise returned by a function."},
+    {"name": "mongogx", "use": "mongogx.database.collection.find(query) when MongOGX is present."}
+  ],
+  "loop_example": "{{ loop $images as index image { echo <img src=\"&image.url\">; } }}",
+  "assign_example": "{{ @rows = json myfile.mylist; loop @rows as index object { echo <span>&object.name</span>; } }}",
+  "callbacks": "A callback in OML can be written as myCallback($). DynamicList also accepts callbacks.select, callbacks.unselect, and callbacks.render.",
+  "rules": [
+    "Use OSE for derived values. Static config stays plain JSON.",
+    "Preload the template, json, oml, or ose file before the script names it."
+  ]
+}

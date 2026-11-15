@@ -1,0 +1,248 @@
+{
+  "name": "OGX.JS application",
+  "version": "1.0",
+  "description": "How to build an OGX.JS app. OML describes the nodes of one route. The application around that OML is app.json, stage and view classes, HTML templates, and index.html.",
+  "layout": {
+    "root": "www",
+    "files": [
+      "www/index.html loads CSS, OGX.JS, then each controller, view, and stage, then www/js/bin/index.js",
+      "www/app.json is loaded by new OGX.App. The file name is app.json and it lives in www.",
+      "www/js/stages/stage.Name.js defines OGX.Stages.Name",
+      "www/js/views/view.Name.js defines OGX.Views.Name",
+      "www/js/controllers/controller.Name.js defines OGX.Controllers.Name",
+      "www/html/template.Name.html is a preloaded HTML template",
+      "www/css/stages/stage.Name.css and www/css/views/view.Name.css are linked beside the matching script",
+      "www/oml/name.oml and www/json/name.json are preloaded files a route can name"
+    ]
+  },
+  "boot": {
+    "script": "www/js/bin/index.js",
+    "browser": "app = new OGX.App();",
+    "test_app": "The OGX_JS_TEST app waits for deviceready when cordova exists, then document ready, then app = new OGX.App({encrypted: 'wasm'}). A page with no cordova calls the same constructor from document ready.",
+    "body": "index.html has an empty body. The stage template supplies the element that receives views."
+  },
+  "index_html": {
+    "order": [
+      "ogx.min.css",
+      "themes/io-globules-ogx/base/css/theme.min.css",
+      "themes/io-globules-ogx/light/css/theme.min.css with media (prefers-color-scheme: light)",
+      "themes/io-globules-ogx/dark/css/theme.min.css with media (prefers-color-scheme: no-preference), (prefers-color-scheme: dark)",
+      "jquery, then js/lib/globules/ogx.min.js or ogx.dev.min.js",
+      "each controller script",
+      "each view script followed by its css",
+      "each stage script followed by its css",
+      "js/bin/index.js"
+    ]
+  },
+  "app_json": {
+    "routing": {
+      "index": "Stage selector plus path, such as main/home. Used when the URL has no hash.",
+      "options": {
+        "history": true,
+        "bookmark": true,
+        "jail": true,
+        "cache": false,
+        "eval": false,
+        "idle": false,
+        "hide_window": true,
+        "hide_popup": false
+      },
+      "errors": {
+        "403": null,
+        "404": null
+      },
+      "routes": "Each key is a path. The first segment is the vapp selector."
+    },
+    "vapps": "Each key is selector:Stages.Name. The selector becomes the stage id and the first segment of its routes.",
+    "vapp_fields": {
+      "template": "Template name for the stage HTML.",
+      "placeholder": "Selector inside that template where the route OML is attached. The test app uses #view.",
+      "scope": "public",
+      "theater": false,
+      "always_on": false,
+      "anim": "false, or swap, or flip, when changing stage."
+    },
+    "defaults": {
+      "stage": "Merged into every vapp. Built-in keys are always_on, blured, closeable, and anim.",
+      "popup": "Merged into every popup. The test app sets width, height, and anim here.",
+      "window": "Merged into every window. The test app sets head, width, and icons here.",
+      "overlay": "Built-in keys are delay and anim."
+    },
+    "preload": "Keys are folders under www, with a leading slash. Values are file names. /html lists template.Name.html. /oml lists name.oml. /json lists name.json.",
+    "splash": {
+      "enabled": false,
+      "image": null,
+      "color": null,
+      "auto_hide": false,
+      "hide_timeout": 0
+    },
+    "scope": "public",
+    "jwt": "false in the test app. true makes OGX.Scope read the scope from a JWT."
+  },
+  "stage": {
+    "file": "www/js/stages/stage.Main.js",
+    "code": "require('Stages.Main', 'Stage');\nOGX.Stages.Main = function(){\n    construct(this, 'Stages.Main');\n    'use strict';\n};",
+    "template_file": "www/html/template.Main.html",
+    "template": "<div id=\"view\"></div>",
+    "vapp": {
+      "main:Stages.Main": {
+        "template": "Main",
+        "placeholder": "#view",
+        "scope": "public",
+        "theater": false,
+        "always_on": false
+      }
+    }
+  },
+  "view": {
+    "file": "www/js/views/view.Home.js",
+    "code": "require('Views.Home', 'View');\nOGX.Views.Home = function(__config){\n    construct(this, 'Views.Home');\n    'use strict';\n    this.construct = function(__data, __route_data){\n    };\n    this.ux = function(__bool){\n    };\n};",
+    "methods": {
+      "construct": "Called after the view is built. The test app receives __data and __route_data.",
+      "ux": "Called with true when the view focuses and false when it blurs.",
+      "onFocus": "Called when the view focuses.",
+      "onBlur": "Called when the view blurs.",
+      "onResize": "Called when the view size changes.",
+      "enable": "Present on the test views.",
+      "disable": "Present on the test views.",
+      "destroy": "Called when the view is destroyed. OGX nodes do not need to be destroyed here."
+    },
+    "template_file": "www/html/template.Home.html",
+    "template": "<span>{{$title}}</span>\n<div class=\"list\"></div>",
+    "lookup": "A view reaches a child with this.children('Timeband')[0]. A controller reaches a node in the cache with app.cfind('DynamicList', 'list'). find walks down from the node it is called on. cfind reads the global cache."
+  },
+  "controller": {
+    "file": "www/js/controllers/controller.Home.js",
+    "code": "require('Controllers.Home', 'Controller');\nOGX.Controllers.Home = function(){\n    construct(this, 'Controllers.Home');\n    'use strict';\n    this.construct = function(){\n    };\n};",
+    "oml": "Put the controller beside the view in the route, as ctrl:Controllers.Home with an empty config."
+  },
+  "route": {
+    "static": {
+      "main/home": {
+        "oml": {
+          "default:Views.Home": {
+            "id": "#home",
+            "template": "Home",
+            "data": {
+              "title": "Home"
+            },
+            "node:OML": {
+              "default .list:DynamicList": {
+                "id": "list"
+              }
+            }
+          },
+          "ctrl:Controllers.Home": {}
+        }
+      }
+    },
+    "file": "A string names a preloaded oml file. \"oml\": \"flip\" uses www/oml/flip.oml after /oml lists flip.oml.",
+    "capture": "A path such as main/item/(title:[a-zA-Z0-9]+) captures groups. data:OSE {{%}} passes the captured object. A query string is also available as {{%}}.",
+    "rewrite": {
+      "url": "main/home",
+      "qsa": true
+    },
+    "options": "A route may set options.history. Cache for one route is the cache field, in seconds, 0 to keep it, and it requires routing.options.cache."
+  },
+  "oml": {
+    "shape": "One JSON object. Each key is selector:Class. The value is that class config. Child nodes go under node:OML as an object or an array of objects.",
+    "selectors": [
+      "default:Class attaches to the element the class creates",
+      "#id:Class and .class:Class attach to that element",
+      "default .list:DynamicList is the default element, then .list",
+      "main:Stages.Main is a vapp key, not the root of a route",
+      "default:Views.Home is an application view",
+      "ctrl:Controllers.Home is an application controller",
+      "default:Templates.Home is a preloaded HTML template",
+      "popupId:Popup and windowId:Window are floats. The selector is the id"
+    ],
+    "template_name": "The file is template.Home.html. The OML value is Home.",
+    "point": {
+      "as_node": {
+        "default:Point": {
+          "0-479": {
+            "default:Views.Home": {
+              "template": "Home"
+            }
+          },
+          "480-5000": {
+            "default:Views.Home": {
+              "template": "Home"
+            }
+          }
+        }
+      },
+      "as_property": "A view may set point to the same range object. A range value can be an OML node that moves an existing node. target and parent accept lookup and lookdown queries, as in {\"lookup\": {\"id\": \"main\"}, \"lookdown\": {\"name\": \"home\"}}."
+    },
+    "ose": {
+      "{{$title}}": "In an HTML template, a property of the view data object.",
+      "{{%}}": "The route capture or query-string object.",
+      "{{json list}}": "The preloaded file list.json.",
+      "{{oml flip}}": "The preloaded file flip.oml.",
+      "{{$}}": "The current data object. comment.oml passes it with data:OSE."
+    }
+  },
+  "navigation": {
+    "goto": "app.goto('main/home', {history: true})",
+    "same_url": "Pass reload true to open the current URL again.",
+    "link": "<a href=\"/main/home\">Home</a> calls the same navigation. Internal links start with /stage/route.",
+    "current": "app.getURL() returns the URL of the stage in use."
+  },
+  "popup_from_code": "A view may call app.addPopup with id, title, width, height, anim, node:OML, and buttons. defaults.popup is merged into that config. Popup and Window field lists are in oml://attributes.",
+  "also_read": [
+    "oml://attributes lists OML config keys for the core components.",
+    "oml://ose lists the scripting language used in templates and in keys that end with :OSE."
+  ],
+  "cli": {
+    "install": "npm install @globules-io/ogx.cli -g",
+    "update": "ogx update --force",
+    "init": "ogx init creates the www folders.",
+    "create": [
+      "ogx create stage MyStage",
+      "ogx create view MyView",
+      "ogx create template MyTemplate",
+      "ogx create controller MyController"
+    ],
+    "rename": "ogx rename view MyView MyNewName also updates app.json.",
+    "delete": "ogx delete view MyView"
+  },
+  "custom_component": {
+    "code": "require('MyComponent', 'Uxi', 'Touch');\nOGX.MyComponent = function(__config){\n    construct(this, 'MyComponent');\n    'use strict';\n    this.construct = function(){};\n    this.ux = function(__bool){};\n};",
+    "oml": {
+      "default:MyComponent": {
+        "id": "whatever",
+        "template": "MyComponent",
+        "node:OML": {}
+      }
+    },
+    "runtime": "From a view, this.create('MyComponent', {el: '#my_element', id: 'whatever'}). Children created in node:OML are read with this.children.",
+    "name": "Do not reuse a class name the catalog already lists."
+  },
+  "size": {
+    "description": "Window width and other sizes accept a size expression. OGX.Data.getBestSize picks a value that fits the parent.",
+    "examples": [
+      "200|300px|60%+",
+      "400|50%-",
+      "400[200,600]",
+      "100px|400px|60%+[100,400]"
+    ],
+    "plus": "The trailing + picks the largest candidate that still fits.",
+    "minus": "The trailing - picks the smallest candidate.",
+    "limits": "[100,400] keeps the chosen size inside the range. [=100,=400] snaps to those hard limits. [100] is a minimum."
+  },
+  "scope": {
+    "app_json": "scope on the app and on a vapp is public in the test app. jwt true makes OGX.Scope read the token.",
+    "token": "OGX.Scope.token(token, issuer). From 1.57.0 the issuer defaults to the main label of the hostname and can be passed once.",
+    "eval": "OGX.Scope.eval('admin|manager', entity.scope) is true when either scope is present. support+csuite requires both. A /regex/ is also an expression.",
+    "node": "A string scope on a node must match. An array scope is the older loose form."
+  },
+  "rules": [
+    "Read this document, then attributes, ose, specification, components, and examples, before writing an app.",
+    "Do not make Stage or App the root of a route. Declare the stage in vapps and put selector:Views.Name in the route.",
+    "Every Views, Stages, and Controllers class needs a require() line and a construct() call whose string matches the class name.",
+    "List every template, oml, and json file in preload before a route names it.",
+    "The placeholder selector must exist in the stage template.",
+    "Method names from read_runtime are not keys in app.json or in OML.",
+    "The router option that closes a popup on history back is hide_popup."
+  ]
+}

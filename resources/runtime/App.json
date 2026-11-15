@@ -1,11 +1,314 @@
 {
     "name": "App",
     "kind": "component",
-    "description": "Root element",
-    "extends": [],
-    "access": "OML creates this object from a selector:App node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
+    "description": "Application object. new OGX.App loads www/app.json. Read oml://app for the file layout.",
+    "extends": [
+        "Uxi",
+        "Touch"
+    ],
+    "access": "Created in JavaScript with new OGX.App(options). It is not an OML node. The test app keeps the instance in the app variable and calls app.goto, app.cfind, and app.addPopup.",
     "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent."
+    "methods": [
+        {
+            "name": "goto",
+            "description": "Navigates with the router. The options object defaults to history true, reload false, and data null.",
+            "params": [
+                {
+                    "name": "url",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "options",
+                    "type": "object",
+                    "required": false
+                }
+            ],
+            "returns": "mixed",
+            "example": "app.goto('main/home', {history: true})"
+        },
+        {
+            "name": "getURL",
+            "description": "Returns the router URL.",
+            "params": [],
+            "returns": "string",
+            "example": "app.getURL()"
+        },
+        {
+            "name": "getJSON",
+            "description": "Returns a clone of a preloaded JSON document.",
+            "params": [
+                {
+                    "name": "name",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "app.getJSON('list')"
+        },
+        {
+            "name": "getOML",
+            "description": "Returns a clone of a preloaded OML document.",
+            "params": [
+                {
+                    "name": "name",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "object",
+            "example": "app.getOML('flip')"
+        },
+        {
+            "name": "getDefaults",
+            "description": "Returns one top-level key of the loaded app config.",
+            "params": [
+                {
+                    "name": "key",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "any",
+            "example": "app.getDefaults('splash')"
+        },
+        {
+            "name": "refresh",
+            "description": "Runs OGX.Net.refresh on the preloaded files.",
+            "params": [],
+            "returns": "void",
+            "example": "app.refresh()"
+        },
+        {
+            "name": "addStage",
+            "description": "Creates a stage, merges defaults.stage, and adds it. config.id is required. The third argument defaults to true.",
+            "params": [
+                {
+                    "name": "class",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "config",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "show",
+                    "type": "bool",
+                    "required": false
+                }
+            ],
+            "returns": "object|false",
+            "example": "app.addStage('Stages.StageA', {id: 'stagea', template: 'StageA'})"
+        },
+        {
+            "name": "addPopup",
+            "description": "Creates a popup. The second argument is the Uxi to create it from. defaults.popup is merged into the config. Height auto is ignored unless scroll is true.",
+            "params": [
+                {
+                    "name": "config",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "uxi",
+                    "type": "object",
+                    "required": false
+                }
+            ],
+            "returns": "object",
+            "example": "app.addPopup({id: 'MyPopup', width: 400, height: 300, anim: 'fade', html: '<p>Hello</p>'})"
+        },
+        {
+            "name": "addWindow",
+            "description": "Creates a window. The second argument defaults to the current stage. defaults.window is merged into the config.",
+            "params": [
+                {
+                    "name": "config",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "uxi",
+                    "type": "object",
+                    "required": false
+                }
+            ],
+            "returns": "object|false",
+            "example": "app.addWindow({id: 'myWindow', width: '50%', head: 'none'})"
+        },
+        {
+            "name": "addOverlay",
+            "description": "Adds an overlay on a node. The anim falls back to defaults.overlay.anim. The node falls back to the current stage. Returns true when a node received it.",
+            "params": [
+                {
+                    "name": "anim",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "name": "node",
+                    "type": "object",
+                    "required": false
+                }
+            ],
+            "returns": "bool",
+            "example": "app.addOverlay('fade')"
+        },
+        {
+            "name": "removeOverlay",
+            "description": "Calls removeOverlay on the node. The node defaults to the current stage. Returns the app.",
+            "params": [
+                {
+                    "name": "anim",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "name": "node",
+                    "type": "object",
+                    "required": false
+                }
+            ],
+            "returns": "object",
+            "example": "app.removeOverlay()"
+        },
+        {
+            "name": "getPopups",
+            "description": "Gathers Popup nodes. A string argument filters id with that regular expression.",
+            "params": [
+                {
+                    "name": "idRegex",
+                    "type": "string",
+                    "required": false
+                }
+            ],
+            "returns": "list",
+            "example": "app.getPopups()"
+        },
+        {
+            "name": "popupExists",
+            "description": "True when cfind finds a Popup with that id.",
+            "params": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "bool",
+            "example": "app.popupExists('MyPopup')"
+        },
+        {
+            "name": "findPopup",
+            "description": "Accepts an element, or an object with el. Walks up to .ogx_popup and returns that Popup. Returns false when none is found.",
+            "params": [
+                {
+                    "name": "element",
+                    "type": "element|object",
+                    "required": true
+                }
+            ],
+            "returns": "object|false",
+            "example": "app.findPopup(element)"
+        },
+        {
+            "name": "getVisiblePopups",
+            "description": "Returns visible popups. The stage defaults to the current stage. Pass true to use children instead of gather.",
+            "params": [
+                {
+                    "name": "stage",
+                    "type": "object",
+                    "required": false
+                },
+                {
+                    "name": "directChildren",
+                    "type": "bool",
+                    "required": false
+                }
+            ],
+            "returns": "array",
+            "example": "app.getVisiblePopups()"
+        },
+        {
+            "name": "moveNode",
+            "description": "Detaches the node and attaches it to the parent. The third argument is passed to attach.",
+            "params": [
+                {
+                    "name": "node",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "parent",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "attachArg",
+                    "type": "any",
+                    "required": false
+                }
+            ],
+            "returns": "object",
+            "example": "app.moveNode(node, parent)"
+        },
+        {
+            "name": "dropNode",
+            "description": "Removes a Stage or a View from OGX.Stages or OGX.Views. Pass the node, or pass the name and the class name.",
+            "params": [
+                {
+                    "name": "nodeOrName",
+                    "type": "object|string",
+                    "required": true
+                },
+                {
+                    "name": "className",
+                    "type": "string",
+                    "required": false
+                }
+            ],
+            "returns": "object|false",
+            "example": "app.dropNode(node)"
+        },
+        {
+            "name": "isDarkMode",
+            "description": "Returns whether dark mode is on.",
+            "params": [],
+            "returns": "bool",
+            "example": "app.isDarkMode()"
+        },
+        {
+            "name": "toggleTheme",
+            "description": "Swaps the media queries of the light and dark stylesheets.",
+            "params": [],
+            "returns": "void",
+            "example": "app.toggleTheme()"
+        },
+        {
+            "name": "splash",
+            "description": "Returns the splash object when splash is set in the config. That object has show() and hide(callback). app.splash.hide() hides it and then destroys it. OGX.Splash.DONE is the string SplashDone.",
+            "params": [],
+            "returns": "object",
+            "example": "app.splash().hide()"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.App.LOADING",
+            "description": "Runtime constant. The event string is AppLoading."
+        },
+        {
+            "name": "OGX.App.READY",
+            "description": "Runtime constant. The event string is AppReady."
+        },
+        {
+            "name": "OGX.App.DUPLICATE",
+            "description": "Runtime constant. The event string is AppDuplicate."
+        }
+    ],
+    "catalog_status": "Methods in this file are present on the object returned by new OGX.App in the runtime the test app loads. Further methods are not listed. Do not invent members that are absent.",
+    "wiki": "https://github.com/globules-io/OGX.JS/wiki"
 }

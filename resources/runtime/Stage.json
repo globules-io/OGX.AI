@@ -1,7 +1,7 @@
 {
     "name": "Stage",
     "kind": "component",
-    "description": "Base layer",
+    "description": "Base class for a stage. An application subclasses it as OGX.Stages.Name and lists that class in app.json vapps.",
     "extends": [
         "Uxi",
         "Overlay",
@@ -9,10 +9,32 @@
         "Placeholder"
     ],
     "oml": "oml://examples#Stage",
-    "access": "OML creates this object from a selector:Stage node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
+    "access": "Define require('Stages.Name', 'Stage') and OGX.Stages.Name, then construct(this, 'Stages.Name'). app.json addresses the instance as selector:Stages.Name under vapps. A route does not use a Stage node as its root. Method names are not OML keys.",
+    "properties": [
+        {
+            "name": "template",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Template name. The wiki example uses Stage. Optional."
+        },
+        {
+            "name": "use",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Present on the wiki stage example as true. That page does not describe the key. Optional."
+        },
+        {
+            "name": "anim",
+            "type": "bool|string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Transition when switching stages. false, swap, or flip. If both stages set anim, each plays its own. Optional."
+        }
+    ],
     "methods": [],
     "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "catalog_status": "Listed fields are OML config from the OGX.JS wiki. Methods are not listed. Use inherited true for documented base classes. Do not invent members that are absent.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/Stage"
 }

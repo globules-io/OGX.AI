@@ -9,9 +9,109 @@
     ],
     "oml": "oml://examples#Carousel",
     "access": "OML creates this object from a selector:Carousel node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
+    "properties": [
+        {
+            "name": "el",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "HTML element. Required."
+        },
+        {
+            "name": "views",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Panels. The wiki types this as required. OML can use node:OML or list plus display instead. Optional."
+        },
+        {
+            "name": "drag",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The user can swipe between panels. Defaults to true. Optional."
+        },
+        {
+            "name": "drag_left",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The user can swipe left. Defaults to true. Optional."
+        },
+        {
+            "name": "drag_right",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The user can swipe right. Defaults to true. Optional."
+        },
+        {
+            "name": "blur",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Blur views that are not displayed. Defaults to true. Optional."
+        },
+        {
+            "name": "index",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Panel shown at start. Optional."
+        },
+        {
+            "name": "list",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Items converted to OML nodes. Added in 1.23.0. Optional."
+        },
+        {
+            "name": "display",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Display used to convert list into nodes. Optional."
+        },
+        {
+            "name": "displays",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Dynamic displays used to convert list into nodes. Optional."
+        }
+    ],
+    "methods": [
+        {
+            "name": "index",
+            "description": "Shows the panel at that position. The wiki names the extra arguments anim, trigger, and force.",
+            "params": [
+                {
+                    "name": "index",
+                    "type": "int",
+                    "required": true
+                },
+                {
+                    "name": "anim",
+                    "type": "any",
+                    "required": false
+                },
+                {
+                    "name": "trigger",
+                    "type": "any",
+                    "required": false
+                },
+                {
+                    "name": "force",
+                    "type": "any",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "carousel.index(1)"
+        }
+    ],
     "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "catalog_status": "Listed fields and methods are from the OGX.JS wiki or the runtime the test app loads. Members that are absent from this file are not to be invented.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/Carousel"
 }

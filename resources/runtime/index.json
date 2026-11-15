@@ -57,14 +57,17 @@
         {
             "name": "App",
             "kind": "component",
-            "description": "Root element",
-            "extends": [],
+            "description": "Application object created with new OGX.App. It is not an OML node. The instance is Core, which requires Uxi and Touch.",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
             "runtime": "oml://runtime/App"
         },
         {
             "name": "Stage",
             "kind": "component",
-            "description": "Base layer",
+            "description": "Stage base class. Instances are declared in app.json vapps.",
             "extends": [
                 "Uxi",
                 "Overlay",
@@ -76,7 +79,7 @@
         {
             "name": "View",
             "kind": "component",
-            "description": "View layer",
+            "description": "View base class. Instances are declared in a route as selector:Views.Name.",
             "extends": [
                 "Uxi",
                 "Template",
@@ -85,6 +88,16 @@
                 "Touch"
             ],
             "runtime": "oml://runtime/View"
+        },
+        {
+            "name": "Point",
+            "kind": "component",
+            "description": "Width fork. Range keys choose which OML node to show.",
+            "extends": [
+                "Uxi",
+                "Placeholder"
+            ],
+            "runtime": "oml://runtime/Point"
         },
         {
             "name": "Window",
@@ -284,93 +297,282 @@
         {
             "name": "Chat",
             "kind": "component",
-            "description": "Chat extra component",
-            "extends": [],
+            "description": "Mechanism for sending messages: press send -> dispatch -> show message but text as 'sending...' -> setSent -> dislay full text",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
             "runtime": "oml://runtime/Chat"
         },
         {
             "name": "ContextMenu",
             "kind": "component",
-            "description": "ContextMenu extra component",
-            "extends": [],
+            "description": "pass list and display, use callback, auto closes",
+            "extends": [
+                "Uxi",
+                "Touch",
+                "Overlay"
+            ],
             "runtime": "oml://runtime/ContextMenu"
         },
         {
             "name": "Docker",
             "kind": "component",
-            "description": "Docker extra component",
-            "extends": [],
+            "description": "When popup minimizes, add to dock",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
             "runtime": "oml://runtime/Docker"
         },
         {
             "name": "Flip",
             "kind": "component",
-            "description": "Flip extra component",
-            "extends": [],
+            "description": "Flip optional component",
+            "extends": [
+                "Uxi",
+                "Placeholder",
+                "Touch"
+            ],
             "runtime": "oml://runtime/Flip"
         },
         {
             "name": "FlipBook",
             "kind": "component",
-            "description": "FlipBook extra component",
-            "extends": [],
+            "description": "FlipBook optional component",
+            "extends": [
+                "Uxi",
+                "Placeholder",
+                "Touch"
+            ],
             "runtime": "oml://runtime/FlipBook"
         },
         {
             "name": "FlexCells",
             "kind": "component",
-            "description": "FlexCells extra component",
-            "extends": [],
+            "description": "FlexCells optional component",
+            "extends": [
+                "Uxi",
+                "Template",
+                "Touch",
+                "Placeholder"
+            ],
             "runtime": "oml://runtime/FlexCells"
         },
         {
             "name": "ListPopup",
             "kind": "component",
-            "description": "ListPopup extra component",
+            "description": "For mobile",
             "extends": [],
             "runtime": "oml://runtime/ListPopup"
         },
         {
             "name": "MenuMore",
             "kind": "component",
-            "description": "MenuMore extra component",
-            "extends": [],
+            "description": "MenuMore optional component",
+            "extends": [
+                "Uxi",
+                "Placeholder",
+                "Touch"
+            ],
             "runtime": "oml://runtime/MenuMore"
         },
         {
             "name": "Notifier",
             "kind": "component",
-            "description": "Notifier extra component",
+            "description": "Simple object to show notifications",
             "extends": [],
             "runtime": "oml://runtime/Notifier"
         },
         {
             "name": "Swapper",
             "kind": "component",
-            "description": "Swapper extra component",
-            "extends": [],
+            "description": "Horizontal infinite scroller (3 x 1)",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
             "runtime": "oml://runtime/Swapper"
         },
         {
             "name": "Table",
             "kind": "component",
-            "description": "Table extra component",
-            "extends": [],
+            "description": "Table of list rows. Default config sets editable to false and mode to row.",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
             "runtime": "oml://runtime/Table"
         },
         {
-            "name": "TimeBand",
+            "name": "Timeband",
             "kind": "component",
-            "description": "TimeBand extra component",
-            "extends": [],
-            "runtime": "oml://runtime/TimeBand"
+            "description": "Time band around a date. Config keys are date, cb_moved, and cb_moving.",
+            "extends": [
+                "Uxi",
+                "Touch",
+                "Placeholder"
+            ],
+            "runtime": "oml://runtime/Timeband"
         },
         {
             "name": "TimePicker",
             "kind": "component",
-            "description": "TimePicker extra component",
-            "extends": [],
+            "description": "24h time picker in a circle",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
             "runtime": "oml://runtime/TimePicker"
+        },
+        {
+            "name": "Barcode",
+            "kind": "component",
+            "description": "Scans barcodes from the camera and generates a barcode image.",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Barcode"
+        },
+        {
+            "name": "ButtonMenu",
+            "kind": "component",
+            "description": "Button bar. Config keys are buttons and tool.",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/ButtonMenu"
+        },
+        {
+            "name": "Camera",
+            "kind": "component",
+            "description": "Web video recording",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Camera"
+        },
+        {
+            "name": "ColorPicker",
+            "kind": "component",
+            "description": "ColorPicker optional component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/ColorPicker"
+        },
+        {
+            "name": "DropDown",
+            "kind": "component",
+            "description": "Field that shows a value with an icon. A click opens a scrollable list to pick a value.",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/DropDown"
+        },
+        {
+            "name": "HeartRate",
+            "kind": "component",
+            "description": "HeartRate optional component",
+            "extends": [],
+            "runtime": "oml://runtime/HeartRate"
+        },
+        {
+            "name": "JumpField",
+            "kind": "component",
+            "description": "Pass a value like AZ3-Z21-ABF",
+            "extends": [
+                "Uxi",
+                "Touch",
+                "Overlay"
+            ],
+            "runtime": "oml://runtime/JumpField"
+        },
+        {
+            "name": "Range",
+            "kind": "component",
+            "description": "Styled range input.",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Range"
+        },
+        {
+            "name": "Ranger",
+            "kind": "component",
+            "description": "This is a 2 buttons range",
+            "extends": [],
+            "runtime": "oml://runtime/Ranger"
+        },
+        {
+            "name": "Resizer",
+            "kind": "component",
+            "description": "Resize and scale a div",
+            "extends": [
+                "Uxi",
+                "Touch",
+                "Resize"
+            ],
+            "runtime": "oml://runtime/Resizer"
+        },
+        {
+            "name": "Screenshot",
+            "kind": "component",
+            "description": "Captures a screen image, a drawn area, or a video.",
+            "extends": [
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Screenshot"
+        },
+        {
+            "name": "Serpentine",
+            "kind": "component",
+            "description": "Lays out list items that do not fit onto the next row.",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Serpentine"
+        },
+        {
+            "name": "SignPad",
+            "kind": "component",
+            "description": "SignPad optional component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/SignPad"
+        },
+        {
+            "name": "Skeleton",
+            "kind": "component",
+            "description": "Skeleton optional component",
+            "extends": [
+                "Uxi",
+                "Touch"
+            ],
+            "runtime": "oml://runtime/Skeleton"
+        },
+        {
+            "name": "SocketClient",
+            "kind": "component",
+            "description": "Simple socket client to receive events in the background",
+            "extends": [],
+            "runtime": "oml://runtime/SocketClient"
+        },
+        {
+            "name": "WeightScale",
+            "kind": "component",
+            "description": "WeightScale optional component",
+            "extends": [],
+            "runtime": "oml://runtime/WeightScale"
         }
     ]
 }

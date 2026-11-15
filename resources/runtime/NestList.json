@@ -7,9 +7,45 @@
     ],
     "oml": "oml://examples#NestList",
     "access": "OML creates this object from a selector:NestList node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
+    "properties": [
+        {
+            "name": "el",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Element that holds the component. Required."
+        },
+        {
+            "name": "scope",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Defaults to public. Optional."
+        },
+        {
+            "name": "list",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Items. Each item has title, an optional scope array, and open. Optional."
+        },
+        {
+            "name": "map",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Property map for title and scope. Optional."
+        },
+        {
+            "name": "order",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Titles that must stay in this order. Optional."
+        }
+    ],
     "methods": [],
     "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "catalog_status": "Listed fields are OML config from the OGX.JS wiki. Methods are not listed. Use inherited true for documented base classes. Do not invent members that are absent.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/NestList"
 }

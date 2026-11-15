@@ -8,9 +8,84 @@
     ],
     "oml": "oml://examples#Container",
     "access": "OML creates this object from a selector:Container node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
+    "properties": [
+        {
+            "name": "id",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Id. Optional."
+        },
+        {
+            "name": "tabs",
+            "type": "bool|object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "false, or a Tabs config such as {list: ['tabA', 'tabB']}. Optional."
+        },
+        {
+            "name": "carousel",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Carousel config. Optional."
+        },
+        {
+            "name": "index",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Index to select. Optional."
+        },
+        {
+            "name": "node:OML",
+            "type": "array|string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Child OML, one node per pane. Optional."
+        },
+        {
+            "name": "flatten",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Width at which the container flattens. Optional."
+        }
+    ],
+    "methods": [
+        {
+            "name": "index",
+            "description": "Shows the tab and the object at that index.",
+            "params": [
+                {
+                    "name": "index",
+                    "type": "int",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "container.index(0)"
+        },
+        {
+            "name": "show",
+            "description": "Shows the tab and the object by type and id.",
+            "params": [
+                {
+                    "name": "type",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "container.show('Html', 'contentA')"
+        }
+    ],
     "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "catalog_status": "Listed fields and methods are from the OGX.JS wiki or the runtime the test app loads. Members that are absent from this file are not to be invented.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/Container"
 }

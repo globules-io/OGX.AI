@@ -8,9 +8,238 @@
     ],
     "oml": "oml://examples#Tags",
     "access": "OML creates this object from a selector:Tags node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "properties": [
+        {
+            "name": "el",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Selector. Optional."
+        },
+        {
+            "name": "add",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The user can type to search or add tags. Optional."
+        },
+        {
+            "name": "remove",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The user can remove tags. Optional."
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Name of a hidden field that holds the value. Optional."
+        },
+        {
+            "name": "required",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Required flag of that hidden field, when name is set. Optional."
+        },
+        {
+            "name": "lowercase",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Saves the typed tag in lowercase. Optional."
+        },
+        {
+            "name": "max",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Maximum tags the user can add. Optional."
+        },
+        {
+            "name": "display_max",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Maximum suggestions to display. The wiki also describes this as adding a +N other tag. Optional."
+        },
+        {
+            "name": "display_more",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Shows a +N other tag at the end of the list. Optional."
+        },
+        {
+            "name": "click_more",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "With display_more, a click shows every tag. Optional."
+        },
+        {
+            "name": "hide_input_on_disable",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Hides the input when the component is disabled. Optional."
+        },
+        {
+            "name": "tags",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Available tags. Optional."
+        },
+        {
+            "name": "current_tags",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Selected tags. Defaults to []. Optional."
+        },
+        {
+            "name": "tags_ascii",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Map of tags to ascii values. Optional."
+        },
+        {
+            "name": "image",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "URL of the remove icon. Optional."
+        },
+        {
+            "name": "mode",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "string, object, or ascii. Optional."
+        },
+        {
+            "name": "placeholder",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Placeholder of the input. Optional."
+        },
+        {
+            "name": "restrict",
+            "type": "bool|object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "true uses the default Form restriction. An object is a Form.restrictField config. Optional."
+        },
+        {
+            "name": "strict",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The user can only pick a proposed tag. Defaults to false. Optional."
+        }
+    ],
+    "methods": [
+        {
+            "name": "val",
+            "description": "Gets or sets the user tags. val(array) sets them. val(property, value) sets them by lookup. val() returns them.",
+            "params": [
+                {
+                    "name": "tagsOrProperty",
+                    "type": "array|string",
+                    "required": false
+                },
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": false
+                }
+            ],
+            "returns": "array",
+            "example": "tags.val()"
+        },
+        {
+            "name": "tags",
+            "description": "Gets or sets the autocomplete tags.",
+            "params": [
+                {
+                    "name": "tags",
+                    "type": "array",
+                    "required": false
+                }
+            ],
+            "returns": "array",
+            "example": "tags.tags(['Tornado'])"
+        },
+        {
+            "name": "clear",
+            "description": "Removes every user tag.",
+            "params": [],
+            "returns": "void",
+            "example": "tags.clear()"
+        },
+        {
+            "name": "add",
+            "description": "Adds a user tag.",
+            "params": [
+                {
+                    "name": "tag",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tags.add('Tornado')"
+        },
+        {
+            "name": "remove",
+            "description": "Removes a user tag. The wiki comment on that line says Add.",
+            "params": [
+                {
+                    "name": "tag",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "tags.remove('Tornado')"
+        },
+        {
+            "name": "display",
+            "description": "Gets or sets the display of the internal lists.",
+            "params": [
+                {
+                    "name": "display",
+                    "type": "object",
+                    "required": false
+                }
+            ],
+            "returns": "object",
+            "example": "tags.display(display)"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.Tags.ADDED",
+            "description": "A user tag was added. The event string is TagsAdded. The wiki page writes TAG_ADDED, which is not the runtime constant."
+        },
+        {
+            "name": "OGX.Tags.REMOVED",
+            "description": "A user tag was removed. The event string is TagsRemoved. The wiki page writes TAG_REMOVED, which is not the runtime constant."
+        },
+        {
+            "name": "OGX.Tags.CHANGE",
+            "description": "A tag was added or removed. The event string is TagsChange. OGX.Tags.BIND is the same constant."
+        },
+        {
+            "name": "OGX.Tags.SELECT",
+            "description": "The user touched a current tag. The event string is TagsSelect."
+        }
+    ],
+    "catalog_status": "Listed fields and methods are from the OGX.JS wiki or the runtime the test app loads. Members that are absent from this file are not to be invented.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/Tags"
 }

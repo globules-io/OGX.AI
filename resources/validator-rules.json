@@ -4,5 +4,10 @@
           "unknown_components": "error",
           "unknown_attributes": "error",
           "missing_required_attributes": "error"
-     }
+     },
+     "classes": [
+          "A selector class is valid when oml://components lists it, or when the application defines it with require(). Application classes look like Views.Name, Stages.Name, Controllers.Name, and Templates.Name.",
+          "A route does not have to start with Stage or App.",
+          "Names from oml://runtime are not attributes."
+     ]
 }

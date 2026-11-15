@@ -23,7 +23,7 @@ const SUPPORTED_PROTOCOL_VERSIONS = [
     '2025-06-18',
     '2025-11-25',
 ];
-const SERVER_INSTRUCTIONS = 'You generate OML for OGX.JS. Before writing any OML, call read_oml for overview, then specification, then components, then examples. Use only constructs those documents define. OML is the declarative node. Methods and runtime fields are not OML keys. When you need a method, call read_runtime with the class name. inherited defaults to true and includes documented base classes. If catalog_status says own methods are not listed yet, do not invent members. Helpers Color, Data, Math, and Form are static JavaScript, not OML nodes. Call read_oml with name validator-rules for the checks generated OML must satisfy. This server does not generate OML.';
+const SERVER_INSTRUCTIONS = 'You build OGX.JS apps. Before writing files, call read_oml for overview, then app, then attributes, then ose, then specification, then components, then examples. An app is www/app.json, index.html, stage and view classes, and HTML templates. OML is a JSON object whose keys are selector:Class. Put that object on a route under oml. Declare stages in vapps. A route does not start with Stage or App. Use only constructs those documents define. Methods and runtime fields are not OML keys. When you need a method, call read_runtime with the class name. inherited defaults to true and includes documented base classes. Read catalog_status. If it says methods are not listed, do not invent members. Helpers Color, Data, Math, and Form are static JavaScript, not OML nodes. Call read_oml with name validator-rules for the checks generated OML must satisfy. This server does not generate the app.';
 
 ini_set('display_errors', '0');
 
@@ -108,6 +108,24 @@ function resource_catalog(): array
             'description' => 'General information about OML and OGX.JS.',
             'mimeType' => 'application/json',
             'file' => $dir . DIRECTORY_SEPARATOR . 'overview.json',
+        ],
+        'oml://app' => [
+            'name' => 'app',
+            'description' => 'How to build an OGX.JS app: app.json, stages, views, templates, and routes.',
+            'mimeType' => 'application/json',
+            'file' => $dir . DIRECTORY_SEPARATOR . 'app.json',
+        ],
+        'oml://attributes' => [
+            'name' => 'attributes',
+            'description' => 'OML config keys for the core components, from the OGX.JS wiki.',
+            'mimeType' => 'application/json',
+            'file' => $dir . DIRECTORY_SEPARATOR . 'attributes.json',
+        ],
+        'oml://ose' => [
+            'name' => 'ose',
+            'description' => 'Ogx Scripting Engine. Scripts in templates and in keys that end with :OSE.',
+            'mimeType' => 'application/json',
+            'file' => $dir . DIRECTORY_SEPARATOR . 'ose.json',
         ],
         'oml://specification' => [
             'name' => 'specification',
@@ -362,7 +380,7 @@ function read_oml_tool(): array
 
     return [
         'name' => 'read_oml',
-        'description' => 'Read one OML reference document before generating OML. Call it for overview, specification, components, helpers, examples, and runtime.',
+        'description' => 'Read one OML reference document before generating OML. Call it for overview, app, attributes, ose, specification, components, helpers, examples, and runtime.',
         'inputSchema' => [
             'type' => 'object',
             'properties' => [

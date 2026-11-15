@@ -9,9 +9,285 @@
     ],
     "oml": "oml://examples#Popup",
     "access": "OML creates this object from a selector:Popup node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
+    "properties": [
+        {
+            "name": "id",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Unique id. Required."
+        },
+        {
+            "name": "width",
+            "type": "number|string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Pixels as a number, or a percent or size expression. Required."
+        },
+        {
+            "name": "height",
+            "type": "number|string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Pixels as a number, or a percent or size expression. Required."
+        },
+        {
+            "name": "min_width",
+            "type": "number",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Minimum width in pixels when resizable. Optional."
+        },
+        {
+            "name": "min_height",
+            "type": "number",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Minimum height in pixels when resizable. Optional."
+        },
+        {
+            "name": "max_width",
+            "type": "number",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Maximum width in pixels when resizable. Optional."
+        },
+        {
+            "name": "max_height",
+            "type": "number",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Maximum height in pixels when resizable. Optional."
+        },
+        {
+            "name": "x",
+            "type": "number",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Start x position. Optional."
+        },
+        {
+            "name": "y",
+            "type": "number",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Start position. The wiki text for this key says x position at start. Optional."
+        },
+        {
+            "name": "title",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Title. Optional."
+        },
+        {
+            "name": "buttons",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Strings or objects. Optional."
+        },
+        {
+            "name": "tabs",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Tab items, in the shape OGX.Tabs expects. Optional."
+        },
+        {
+            "name": "icon",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Path of the top-left icon. Optional."
+        },
+        {
+            "name": "icons",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Icons in the top-right corner. Optional."
+        },
+        {
+            "name": "scroll",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The body scrolls. Optional."
+        },
+        {
+            "name": "drag",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The popup can be dragged. Optional."
+        },
+        {
+            "name": "resize",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The popup can be resized. Optional."
+        },
+        {
+            "name": "keep_ratio",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Keep the aspect ratio while resizing. Optional."
+        },
+        {
+            "name": "center",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Keep the popup centered. Optional."
+        },
+        {
+            "name": "maximize",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The popup can be maximized. Optional."
+        },
+        {
+            "name": "maximize_dbc",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Double-click on the head maximizes the popup. Optional."
+        },
+        {
+            "name": "group",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Group name for merging popups. Optional."
+        },
+        {
+            "name": "group_icon",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Default icon for the group. Optional."
+        },
+        {
+            "name": "html",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "HTML placed in the body. Optional."
+        },
+        {
+            "name": "template",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Template name for the body. Optional."
+        },
+        {
+            "name": "anim",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Defaults to OGX.Popup.FADE. The string fade is the example. The test app uses scale. Optional."
+        },
+        {
+            "name": "anim_param",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Defaults to {scale: 0.7}. Optional."
+        },
+        {
+            "name": "zindex",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Z-index. Optional."
+        },
+        {
+            "name": "css",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Class added to the body. Optional."
+        },
+        {
+            "name": "view",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "View configuration object. Optional."
+        },
+        {
+            "name": "delay_oml",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Renders the OML content on the next thread. Optional."
+        },
+        {
+            "name": "data",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Read as {{$}} when the OML content renders. Optional."
+        },
+        {
+            "name": "swipe",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Set in the simple OML example. The main config block does not describe it. Optional."
+        },
+        {
+            "name": "show",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Set in the simple OML example. The main config block does not describe it. Optional."
+        }
+    ],
+    "methods": [
+        {
+            "name": "width",
+            "description": "Sets the width, as in width(500). A call that reads the size returns the configured value, which may be the size expression. el.width() is the computed size.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "number|string",
+                    "required": false
+                }
+            ],
+            "returns": "mixed",
+            "example": "popup.width(500)"
+        },
+        {
+            "name": "height",
+            "description": "Sets the height. The wiki example passes an anim flag and a callback. A read returns the configured value. el.height() is the computed size.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "number|string",
+                    "required": false
+                },
+                {
+                    "name": "anim",
+                    "type": "bool",
+                    "required": false
+                },
+                {
+                    "name": "callback",
+                    "type": "function",
+                    "required": false
+                }
+            ],
+            "returns": "mixed",
+            "example": "popup.height(600, true, function(){})"
+        }
+    ],
     "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "catalog_status": "Listed fields and methods are from the OGX.JS wiki or the runtime the test app loads. Members that are absent from this file are not to be invented.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/Popups"
 }

@@ -1,0 +1,23 @@
+{
+    "name": "Point",
+    "kind": "component",
+    "description": "Width fork. Its own keys are ranges such as 0-479 and 480-5000, and each value is the OML node for that width. The same range object can be the point property of another node.",
+    "extends": [
+        "Uxi",
+        "Placeholder"
+    ],
+    "access": "OML addresses it as selector:Point. The point property of a view uses the same range object. Call methods on the instance. Method names are not OML keys. Read oml://app for the range shape.",
+    "properties": [
+        {
+            "name": "target",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Optional element to measure. When this is omitted, Point uses the parent width."
+        }
+    ],
+    "methods": [],
+    "events": [],
+    "catalog_status": "Own methods and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "wiki": "https://github.com/globules-io/OGX.JS/wiki/Point"
+}

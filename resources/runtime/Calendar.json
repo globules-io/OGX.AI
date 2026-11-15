@@ -8,9 +8,196 @@
     ],
     "oml": "oml://examples#Calendar",
     "access": "OML creates this object from a selector:Calendar node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "properties": [
+        {
+            "name": "id",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Unique id. Optional."
+        },
+        {
+            "name": "el",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Selector of the target element. Required."
+        },
+        {
+            "name": "date",
+            "type": "string|date",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Selected date. A parseable string or a Date. Optional."
+        },
+        {
+            "name": "display_date",
+            "type": "string|date",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Date to display. A parseable string or a Date. Optional."
+        },
+        {
+            "name": "selectable",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Defaults to true. Optional."
+        },
+        {
+            "name": "no_selection",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Dates that cannot be selected. The values match the layout format. Optional."
+        },
+        {
+            "name": "select_past",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Defaults to true. Optional."
+        },
+        {
+            "name": "select_future",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Defaults to true. The runtime key is select_future. Optional."
+        },
+        {
+            "name": "off_dates",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Dates displayed as off. Optional."
+        },
+        {
+            "name": "swipe",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Defaults to true. Optional."
+        },
+        {
+            "name": "browse",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Shows the navigation buttons. Defaults to true. Optional."
+        },
+        {
+            "name": "mode",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "select or toggle. Defaults to select. Optional."
+        },
+        {
+            "name": "layouts",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Custom layouts. simple must be false. Optional."
+        },
+        {
+            "name": "layout",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Default layout index. Defaults to 0. Optional."
+        },
+        {
+            "name": "simple",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "true keeps the month-days layout only. Optional."
+        },
+        {
+            "name": "callbacks",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "select, unselect, and render. At runtime the same hooks are onSelect, onUnselect, and onRender. Optional."
+        }
+    ],
+    "methods": [
+        {
+            "name": "val",
+            "description": "Gets or sets the selected date. val('2023-04-05', false) sets it without re-rendering.",
+            "params": [
+                {
+                    "name": "date",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "name": "render",
+                    "type": "bool",
+                    "required": false
+                }
+            ],
+            "returns": "string",
+            "example": "calendar.val('2023-04-05')"
+        },
+        {
+            "name": "resetSelection",
+            "description": "Clears the selected date.",
+            "params": [],
+            "returns": "void",
+            "example": "calendar.resetSelection()"
+        },
+        {
+            "name": "display",
+            "description": "Gets or sets the displayed date.",
+            "params": [
+                {
+                    "name": "date",
+                    "type": "string",
+                    "required": false
+                }
+            ],
+            "returns": "string",
+            "example": "calendar.display('2023-04-05')"
+        },
+        {
+            "name": "axis",
+            "description": "Locks an axis when several layouts are active.",
+            "params": [
+                {
+                    "name": "x",
+                    "type": "bool",
+                    "required": true
+                },
+                {
+                    "name": "y",
+                    "type": "bool",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "calendar.axis(true, false)"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.Calendar.SELECT",
+            "description": "The event string is CalendarSelect."
+        },
+        {
+            "name": "OGX.Calendar.UNSELECT",
+            "description": "The event string is CalendarUnselect."
+        },
+        {
+            "name": "OGX.Calendar.BROWSE",
+            "description": "The event string is CalendarBrowse."
+        },
+        {
+            "name": "OGX.Calendar.LAYOUT_CHANGE",
+            "description": "Runtime constant. The event string is CalendarLayoutChange."
+        }
+    ],
+    "catalog_status": "Listed fields and methods are from the OGX.JS wiki or the runtime the test app loads. Members that are absent from this file are not to be invented.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/Calendar"
 }

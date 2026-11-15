@@ -8,9 +8,597 @@
     ],
     "oml": "oml://examples#DynamicList",
     "access": "OML creates this object from a selector:DynamicList node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
-    "methods": [],
-    "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "properties": [
+        {
+            "name": "el",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Selector. In OML the selector on the node is this element. Required."
+        },
+        {
+            "name": "display",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Display object. See the Display entry. template, html, and css, or {bind: property} plus displays. Required."
+        },
+        {
+            "name": "displays",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Map of display objects keyed by the bound property value. A display may contain nested OML. Optional."
+        },
+        {
+            "name": "display_max",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Maximum items to display. Optional."
+        },
+        {
+            "name": "chunks",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Chunk size. Requires scroll. The wiki example uses 200. Optional."
+        },
+        {
+            "name": "mode",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "single, multi, toggle, hit, static, or set. Defaults to single. Runtime constants SELECT_MODE_SINGLE, SELECT_MODE_MULTI, SELECT_MODE_TOGGLE, SELECT_MODE_HIT, SELECT_MODE_SET, and STATIC hold those strings. hit fires and returns data without selecting. set keeps a selected item selected. Optional."
+        },
+        {
+            "name": "reselect",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "In mode single, select fires again when the item is already selected. Optional."
+        },
+        {
+            "name": "reorder",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Tap-hold-drag to reorder. Defaults to false. Optional."
+        },
+        {
+            "name": "swipe",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Items can be swiped. Defaults to false. Optional."
+        },
+        {
+            "name": "trigger",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Triggers on rendering. Defaults to false. Optional."
+        },
+        {
+            "name": "key",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Property shared by every item, such as id. Recommended. Optional."
+        },
+        {
+            "name": "as",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Keyword for scope targeting. Defaults to item. Optional."
+        },
+        {
+            "name": "scope",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "The list follows scope. Defaults to true. Optional."
+        },
+        {
+            "name": "list",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Items. Optional."
+        },
+        {
+            "name": "selection",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Key values to select. Requires key. Optional."
+        },
+        {
+            "name": "no_selection",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Describes items that cannot be selected. Optional."
+        },
+        {
+            "name": "max_selection",
+            "type": "int",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Maximum selected items. mode must be multi. Optional."
+        },
+        {
+            "name": "shift_selection",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Shift selects a range. mode must be multi. Optional."
+        },
+        {
+            "name": "filter_remove_selection",
+            "type": "bool",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Drops filtered-out items from the selection. Defaults to true. Optional."
+        },
+        {
+            "name": "callbacks",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "select, unselect, and render. At runtime the same hooks are onSelect, onUnselect, and onRender. Optional."
+        }
+    ],
+    "methods": [
+        {
+            "name": "val",
+            "description": "Gets or sets the item array.",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "array",
+                    "required": false
+                }
+            ],
+            "returns": "array",
+            "example": "list.val()"
+        },
+        {
+            "name": "order",
+            "description": "Sorts by a shared property. The wiki example uses 1 for ascending and -1 for descending.",
+            "params": [
+                {
+                    "name": "property",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "way",
+                    "type": "int",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "list.order('age', -1)"
+        },
+        {
+            "name": "key",
+            "description": "Sets the key. Call it before passing a list.",
+            "params": [
+                {
+                    "name": "name",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "list.key('id')"
+        },
+        {
+            "name": "insert",
+            "description": "Inserts an object or an array. An omitted index appends.",
+            "params": [
+                {
+                    "name": "items",
+                    "type": "object|array",
+                    "required": true
+                },
+                {
+                    "name": "index",
+                    "type": "int",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "list.insert({id: 5})"
+        },
+        {
+            "name": "delete",
+            "description": "Deletes the display index. The item must be displayed.",
+            "params": [
+                {
+                    "name": "index",
+                    "type": "int",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "list.delete(0)"
+        },
+        {
+            "name": "deleteSelection",
+            "description": "Deletes the selected items.",
+            "params": [],
+            "returns": "void",
+            "example": "list.deleteSelection()"
+        },
+        {
+            "name": "findDelete",
+            "description": "Finds and deletes items and returns them. With key set, the property can be omitted: findDelete(10, 1). Without key: findDelete('id', 10, 1).",
+            "params": [
+                {
+                    "name": "property",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "limit",
+                    "type": "int",
+                    "required": false
+                }
+            ],
+            "returns": "array",
+            "example": "list.findDelete('id', 10, 1)"
+        },
+        {
+            "name": "findReplace",
+            "description": "Replaces the first match. Returns true or false.",
+            "params": [
+                {
+                    "name": "property",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "object",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "bool",
+            "example": "list.findReplace('id', 10, {id: 10, name: 'Ada'})"
+        },
+        {
+            "name": "findUpdate",
+            "description": "Updates matches with a partial or complete object. Returns the number of updated items.",
+            "params": [
+                {
+                    "name": "property",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "object",
+                    "type": "object",
+                    "required": true
+                },
+                {
+                    "name": "strict",
+                    "type": "bool",
+                    "required": false
+                },
+                {
+                    "name": "limit",
+                    "type": "int",
+                    "required": false
+                }
+            ],
+            "returns": "int",
+            "example": "list.findUpdate('id', 10, {name: 'Ada'})"
+        },
+        {
+            "name": "findIndex",
+            "description": "Index of the first object with that property and value.",
+            "params": [
+                {
+                    "name": "property",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "int",
+            "example": "list.findIndex('id', 10)"
+        },
+        {
+            "name": "replaceAt",
+            "description": "Replaces the object at an index.",
+            "params": [
+                {
+                    "name": "index",
+                    "type": "int",
+                    "required": true
+                },
+                {
+                    "name": "object",
+                    "type": "object",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "list.replaceAt(0, {id: 1})"
+        },
+        {
+            "name": "refreshAt",
+            "description": "Renders the item at an index.",
+            "params": [
+                {
+                    "name": "index",
+                    "type": "int",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "list.refreshAt(0)"
+        },
+        {
+            "name": "getElement",
+            "description": "HTML element of the first property and value match.",
+            "params": [
+                {
+                    "name": "property",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "element",
+            "example": "list.getElement('id', 10)"
+        },
+        {
+            "name": "select",
+            "description": "Adds matches to the selection and returns it. Single mode returns the object.",
+            "params": [
+                {
+                    "name": "property",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                },
+                {
+                    "name": "trigger",
+                    "type": "bool",
+                    "required": false
+                }
+            ],
+            "returns": "array|object",
+            "example": "list.select('id', 100)"
+        },
+        {
+            "name": "unselect",
+            "description": "Removes a match from the selection.",
+            "params": [
+                {
+                    "name": "property",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "list.unselect('id', 100)"
+        },
+        {
+            "name": "selectIndex",
+            "description": "Selects a display index.",
+            "params": [
+                {
+                    "name": "index",
+                    "type": "int",
+                    "required": true
+                },
+                {
+                    "name": "trigger",
+                    "type": "bool",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "list.selectIndex(0)"
+        },
+        {
+            "name": "unselectIndex",
+            "description": "Unselects a display index.",
+            "params": [
+                {
+                    "name": "index",
+                    "type": "int",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "list.unselectIndex(0)"
+        },
+        {
+            "name": "getSelection",
+            "description": "Selected objects. Pass true to get the selected elements. Defaults to false. The wiki says the object form is an OGX.List.",
+            "params": [
+                {
+                    "name": "elements",
+                    "type": "bool",
+                    "required": false
+                }
+            ],
+            "returns": "list",
+            "example": "list.getSelection()"
+        },
+        {
+            "name": "resetSelection",
+            "description": "Clears the selection.",
+            "params": [],
+            "returns": "void",
+            "example": "list.resetSelection()"
+        },
+        {
+            "name": "index",
+            "description": "With no argument, returns selectedIndex. With an index, selects that index.",
+            "params": [
+                {
+                    "name": "index",
+                    "type": "int",
+                    "required": false
+                }
+            ],
+            "returns": "mixed",
+            "example": "list.index()"
+        },
+        {
+            "name": "noSelection",
+            "description": "Sets, enables, or disables the no-selection option.",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": false
+                }
+            ],
+            "returns": "void",
+            "example": "list.noSelection()"
+        },
+        {
+            "name": "restore",
+            "description": "Restores a sided item by property and value.",
+            "params": [
+                {
+                    "name": "property",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "list.restore('id', 10)"
+        },
+        {
+            "name": "scroll",
+            "description": "Scrolls to an item. Requires scroll. Added in 1.32.0.",
+            "params": [
+                {
+                    "name": "property",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "value",
+                    "type": "any",
+                    "required": true
+                }
+            ],
+            "returns": "void",
+            "example": "list.scroll('id', 'a123')"
+        },
+        {
+            "name": "reset",
+            "description": "Resets the list.",
+            "params": [],
+            "returns": "void",
+            "example": "list.reset()"
+        }
+    ],
+    "events": [
+        {
+            "name": "OGX.DynamicList.SELECT",
+            "description": "An item was selected. The event string is DynamicListSelect."
+        },
+        {
+            "name": "OGX.DynamicList.UNSELECT",
+            "description": "An item was unselected. The event string is DynamicListUnselect."
+        },
+        {
+            "name": "OGX.DynamicList.DELETE",
+            "description": "The event string is DynamicListDelete."
+        },
+        {
+            "name": "OGX.DynamicList.SWIPE_LEFT",
+            "description": "The event string is DynamicListSwipeLeft."
+        },
+        {
+            "name": "OGX.DynamicList.SWIPE_RIGHT",
+            "description": "The event string is DynamicListSwipeRight."
+        },
+        {
+            "name": "OGX.DynamicList.BACK_HIT",
+            "description": "A sided item's background was tapped. The event string is DynamicListBackHit."
+        },
+        {
+            "name": "OGX.DynamicList.SIDED",
+            "description": "An item was set aside in SWIPE_MODE_SIDE. The event string is DynamicListSided. The payload has the side and the item."
+        },
+        {
+            "name": "OGX.DynamicList.HOLD",
+            "description": "A drag started after a tap-hold of about 2 seconds. The event string is DynamicListHold."
+        },
+        {
+            "name": "OGX.DynamicList.RELEASE",
+            "description": "Runtime constant beside HOLD. The event string is DynamicListRelease. The wiki events section does not describe it."
+        },
+        {
+            "name": "OGX.DynamicList.DROP",
+            "description": "A reorder drag ended. The event string is DynamicListDrop."
+        },
+        {
+            "name": "OGX.DynamicList.RENDER",
+            "description": "The list rendered. Also used to track filtering. The event string is DynamicListRender."
+        },
+        {
+            "name": "OGX.DynamicList.READY",
+            "description": "Fired once when the component is ready. The event string is DynamicListReady."
+        },
+        {
+            "name": "OGX.DynamicList.SELECT_FILTERED",
+            "description": "The selection changed because of filtering. The event string is DynamicListSelectFiltered."
+        },
+        {
+            "name": "OGX.DynamicList.SELECT_UNFILTERED",
+            "description": "The selection was reset because of filtering. The event string is DynamicListSelecUnfiltered."
+        }
+    ],
+    "catalog_status": "Listed fields and methods are from the OGX.JS wiki or the runtime the test app loads. Members that are absent from this file are not to be invented.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/DynamicList"
 }

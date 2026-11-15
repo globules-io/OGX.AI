@@ -7,9 +7,31 @@
     ],
     "oml": "oml://examples#RouletteTree",
     "access": "OML creates this object from a selector:RouletteTree node. Reach the instance with find or cfind, then call methods on that instance. Method names are not OML keys.",
-    "properties": [],
+    "properties": [
+        {
+            "name": "el",
+            "type": "string",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Where to create the component. Optional."
+        },
+        {
+            "name": "data",
+            "type": "object",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Nested object tree when used outside TreedList. Optional."
+        },
+        {
+            "name": "groups",
+            "type": "array",
+            "access": "readwrite",
+            "in_oml": true,
+            "description": "Level names, one per Roulette. Optional."
+        }
+    ],
     "methods": [],
     "events": [],
-    "catalog_status": "Own methods, properties, and events for this class are not listed yet. read_runtime with inherited true still includes documented bases. Do not invent members that are absent.",
+    "catalog_status": "Listed fields are OML config from the OGX.JS wiki. Methods are not listed. Use inherited true for documented base classes. Do not invent members that are absent.",
     "wiki": "https://github.com/globules-io/OGX.JS/wiki/RouletteTree"
 }

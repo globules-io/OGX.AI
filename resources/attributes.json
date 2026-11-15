@@ -1,0 +1,554 @@
+{
+  "name": "OML attributes",
+  "version": "1.0",
+  "description": "OML config keys for the core components, taken from the OGX.JS wiki and checked against the runtime the test app loads. Optional components keep their keys on read_runtime, on properties with in_oml true. A key here is config. It is not a method. Listed methods are the ones that page or that runtime shows. Do not invent members that are absent.",
+  "classes": {
+    "App": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki",
+      "note": "new OGX.App(options) returns the Core instance. Core is require('Core', 'Uxi', 'Touch'). The methods below are on that instance. App is not an OML node.",
+      "extends": ["Uxi", "Touch"],
+      "fields": [],
+      "events": [
+        {"name": "OGX.App.LOADING", "description": "Runtime constant. The event string is AppLoading."},
+        {"name": "OGX.App.READY", "description": "Runtime constant. The event string is AppReady."},
+        {"name": "OGX.App.DUPLICATE", "description": "Runtime constant. The event string is AppDuplicate."}
+      ],
+      "methods": [
+        {"name": "goto", "description": "Navigates with the router. The options object defaults to history true, reload false, and data null.", "params": [{"name": "url", "type": "string", "required": true}, {"name": "options", "type": "object", "required": false}], "returns": "mixed", "example": "app.goto('main/home', {history: true})"},
+        {"name": "getURL", "description": "Returns the router URL.", "params": [], "returns": "string", "example": "app.getURL()"},
+        {"name": "getJSON", "description": "Returns a clone of a preloaded JSON document.", "params": [{"name": "name", "type": "string", "required": true}], "returns": "any", "example": "app.getJSON('list')"},
+        {"name": "getOML", "description": "Returns a clone of a preloaded OML document.", "params": [{"name": "name", "type": "string", "required": true}], "returns": "object", "example": "app.getOML('flip')"},
+        {"name": "getDefaults", "description": "Returns one top-level key of the loaded app config.", "params": [{"name": "key", "type": "string", "required": true}], "returns": "any", "example": "app.getDefaults('splash')"},
+        {"name": "refresh", "description": "Runs OGX.Net.refresh on the preloaded files.", "params": [], "returns": "void", "example": "app.refresh()"},
+        {"name": "addStage", "description": "Creates a stage, merges defaults.stage, and adds it. config.id is required. The third argument defaults to true.", "params": [{"name": "class", "type": "string", "required": true}, {"name": "config", "type": "object", "required": true}, {"name": "show", "type": "bool", "required": false}], "returns": "object|false", "example": "app.addStage('Stages.StageA', {id: 'stagea', template: 'StageA'})"},
+        {"name": "addPopup", "description": "Creates a popup. The second argument is the Uxi to create it from. defaults.popup is merged into the config. Height auto is ignored unless scroll is true.", "params": [{"name": "config", "type": "object", "required": true}, {"name": "uxi", "type": "object", "required": false}], "returns": "object", "example": "app.addPopup({id: 'MyPopup', width: 400, height: 300, anim: 'fade', html: '<p>Hello</p>'})"},
+        {"name": "addWindow", "description": "Creates a window. The second argument defaults to the current stage. defaults.window is merged into the config.", "params": [{"name": "config", "type": "object", "required": true}, {"name": "uxi", "type": "object", "required": false}], "returns": "object|false", "example": "app.addWindow({id: 'myWindow', width: '50%', head: 'none'})"},
+        {"name": "addOverlay", "description": "Adds an overlay on a node. The anim falls back to defaults.overlay.anim. The node falls back to the current stage. Returns true when a node received it.", "params": [{"name": "anim", "type": "string", "required": false}, {"name": "node", "type": "object", "required": false}], "returns": "bool", "example": "app.addOverlay('fade')"},
+        {"name": "removeOverlay", "description": "Calls removeOverlay on the node. The node defaults to the current stage. Returns the app.", "params": [{"name": "anim", "type": "string", "required": false}, {"name": "node", "type": "object", "required": false}], "returns": "object", "example": "app.removeOverlay()"},
+        {"name": "getPopups", "description": "Gathers Popup nodes. A string argument filters id with that regular expression.", "params": [{"name": "idRegex", "type": "string", "required": false}], "returns": "list", "example": "app.getPopups()"},
+        {"name": "popupExists", "description": "True when cfind finds a Popup with that id.", "params": [{"name": "id", "type": "string", "required": true}], "returns": "bool", "example": "app.popupExists('MyPopup')"},
+        {"name": "findPopup", "description": "Accepts an element, or an object with el. Walks up to .ogx_popup and returns that Popup. Returns false when none is found.", "params": [{"name": "element", "type": "element|object", "required": true}], "returns": "object|false", "example": "app.findPopup(element)"},
+        {"name": "getVisiblePopups", "description": "Returns visible popups. The stage defaults to the current stage. Pass true to use children instead of gather.", "params": [{"name": "stage", "type": "object", "required": false}, {"name": "directChildren", "type": "bool", "required": false}], "returns": "array", "example": "app.getVisiblePopups()"},
+        {"name": "moveNode", "description": "Detaches the node and attaches it to the parent. The third argument is passed to attach.", "params": [{"name": "node", "type": "object", "required": true}, {"name": "parent", "type": "object", "required": true}, {"name": "attachArg", "type": "any", "required": false}], "returns": "object", "example": "app.moveNode(node, parent)"},
+        {"name": "dropNode", "description": "Removes a Stage or a View from OGX.Stages or OGX.Views. Pass the node, or pass the name and the class name.", "params": [{"name": "nodeOrName", "type": "object|string", "required": true}, {"name": "className", "type": "string", "required": false}], "returns": "object|false", "example": "app.dropNode(node)"},
+        {"name": "isDarkMode", "description": "Returns whether dark mode is on.", "params": [], "returns": "bool", "example": "app.isDarkMode()"},
+        {"name": "toggleTheme", "description": "Swaps the media queries of the light and dark stylesheets.", "params": [], "returns": "void", "example": "app.toggleTheme()"},
+        {"name": "splash", "description": "Returns the splash object when splash is set in the config. That object has show() and hide(callback). app.splash.hide() hides it and then destroys it. OGX.Splash.DONE is the string SplashDone.", "params": [], "returns": "object", "example": "app.splash().hide()"}
+      ],
+      "catalog_status": "Methods in this file are present on the object returned by new OGX.App in the runtime the test app loads. Further methods are not listed. Do not invent members that are absent."
+    },
+    "Stage": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Stage",
+      "note": "Declare each stage in app.json vapps. always_on, placeholder, scope, and theater are vapp fields in oml://app. A route does not start with Stage.",
+      "fields": [
+        {"name": "template", "type": "string", "required": false, "description": "Template name. The wiki example uses Stage."},
+        {"name": "use", "type": "bool", "required": false, "description": "Present on the wiki stage example as true. That page does not describe the key."},
+        {"name": "anim", "type": "bool|string", "required": false, "description": "Transition when switching stages. false, swap, or flip. If both stages set anim, each plays its own."}
+      ]
+    },
+    "View": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/View",
+      "note": "A route node is selector:Views.Name. The class file is require('Views.Name', 'View').",
+      "fields": [
+        {"name": "id", "type": "string", "required": false, "description": "Id of the view. When omitted, OGX sets data-ogx-id. An id that starts with # is written as the element id."},
+        {"name": "el", "type": "string", "required": false, "description": "Selector for the element."},
+        {"name": "observe", "type": "bool", "required": false, "description": "Mutation observer. Defaults to false."},
+        {"name": "scroll", "type": "bool", "required": false, "description": "Creates a Scroller that fills the view. Defaults to false."},
+        {"name": "overlay", "type": "bool", "required": false, "description": "Shows an overlay at start. Defaults to false."},
+        {"name": "loading", "type": "bool", "required": false, "description": "Shows a loading indicator at start. Defaults to false."},
+        {"name": "html", "type": "string", "required": false, "description": "HTML rendered in the view."},
+        {"name": "template", "type": "string", "required": false, "description": "Name of a template preloaded in OGX.Templater."},
+        {"name": "css", "type": "string", "required": false, "description": "CSS class added to the view element. Avoid a class that changes display when the view sits in a Scroller or a Carousel."},
+        {"name": "data", "type": "any", "required": false, "description": "Passed to the view constructor. A template reads it as {{$property}}."}
+      ]
+    },
+    "Html": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki",
+      "note": "The wiki has no Html page. The html string is the field used by the test app and by the wiki examples.",
+      "fields": [
+        {"name": "html", "type": "string", "required": false, "description": "HTML string rendered by this node."}
+      ]
+    },
+    "Point": {
+      "skip": true,
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Point",
+      "note": "Range keys such as 0-479 are the node's own keys. Each value is the OML for that width. target is already listed on oml://runtime/Point.",
+      "fields": []
+    },
+    "Display": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Display",
+      "note": "Display is a config object used by DynamicList, Roulette, Carousel, and GroupedList. It is not a selector:Display node. template supersedes html.",
+      "fields": [
+        {"name": "template", "type": "string|object|false", "required": false, "description": "Template name, or {bind: property}. From 1.56.0, template.value may be a string or a global function. bind may be an OSE script. Defaults to false."},
+        {"name": "html", "type": "string|false", "required": false, "description": "Markup for every item, such as <span>{{$name}}</span>. Defaults to false."},
+        {"name": "oml", "type": "object|false", "required": false, "description": "OML for a placeholder. Defaults to false."},
+        {"name": "css", "type": "string|object|false", "required": false, "description": "Class string, or the same bind form as template. Defaults to false."},
+        {"name": "style", "type": "function|false", "required": false, "description": "Style function. Defaults to false."}
+      ]
+    },
+    "Window": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Windows",
+      "note": "A sliding panel. A floating window is a Popup. Create it with app.addWindow. One placeholder is the body. node:OML renders into it. Width accepts a size expression.",
+      "fields": [
+        {"name": "id", "type": "string", "required": true, "description": "Unique name."},
+        {"name": "width", "type": "number|string", "required": true, "description": "Number, px, percent, or a size expression."},
+        {"name": "min_width", "type": "int", "required": false, "description": "Minimum width."},
+        {"name": "max_width", "type": "int", "required": false, "description": "Maximum width."},
+        {"name": "min_height", "type": "int", "required": false, "description": "Minimum height."},
+        {"name": "max_height", "type": "int", "required": false, "description": "Maximum height."},
+        {"name": "title", "type": "string", "required": false, "description": "Title."},
+        {"name": "scroll", "type": "bool", "required": false, "description": "Scrollable body. Defaults to false."},
+        {"name": "blur", "type": "bool", "required": false, "description": "The window handles view blur and focus. Defaults to true."},
+        {"name": "html", "type": "string", "required": false, "description": "HTML appended to the window view."},
+        {"name": "template", "type": "string", "required": false, "description": "Template appended to the window view."},
+        {"name": "view", "type": "object", "required": false, "description": "View config instantiated in the default container."},
+        {"name": "css", "type": "string", "required": false, "description": "Custom CSS class."},
+        {"name": "head", "type": "string", "required": false, "description": "HEAD_NONE, HEAD_CLOSE, HEAD_BACK, or the strings none, close, back. The wiki comment names the default OGX.Window.STYLE_NONE."},
+        {"name": "position", "type": "string", "required": false, "description": "POSITION_LEFT, POSITION_RIGHT, POSITION_TOP, POSITION_BOTTOM, or left, right, top, bottom. The wiki config line does not finish the default."},
+        {"name": "anim", "type": "string", "required": false, "description": "ANIM_LEFT, ANIM_RIGHT, ANIM_TOP, ANIM_BOTTOM, or left, right, top, bottom."},
+        {"name": "zindex", "type": "int", "required": false, "description": "Z-index."},
+        {"name": "icon", "type": "string", "required": false, "description": "Main icon."},
+        {"name": "icons", "type": "array", "required": false, "description": "Toolbar icons."},
+        {"name": "data", "type": "object", "required": false, "description": "Read as {{$}} when the OML content renders."}
+      ]
+    },
+    "Popup": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Popups",
+      "note": "A floating box. app.addPopup is on the app. this.create('Popup', config) creates one from a Uxi. One placeholder is the body. Width and height accept a size expression.",
+      "fields": [
+        {"name": "id", "type": "string", "required": true, "description": "Unique id."},
+        {"name": "width", "type": "number|string", "required": true, "description": "Pixels as a number, or a percent or size expression."},
+        {"name": "height", "type": "number|string", "required": true, "description": "Pixels as a number, or a percent or size expression."},
+        {"name": "min_width", "type": "number", "required": false, "description": "Minimum width in pixels when resizable."},
+        {"name": "min_height", "type": "number", "required": false, "description": "Minimum height in pixels when resizable."},
+        {"name": "max_width", "type": "number", "required": false, "description": "Maximum width in pixels when resizable."},
+        {"name": "max_height", "type": "number", "required": false, "description": "Maximum height in pixels when resizable."},
+        {"name": "x", "type": "number", "required": false, "description": "Start x position."},
+        {"name": "y", "type": "number", "required": false, "description": "Start position. The wiki text for this key says x position at start."},
+        {"name": "title", "type": "string", "required": false, "description": "Title."},
+        {"name": "buttons", "type": "array", "required": false, "description": "Strings or objects."},
+        {"name": "tabs", "type": "array", "required": false, "description": "Tab items, in the shape OGX.Tabs expects."},
+        {"name": "icon", "type": "string", "required": false, "description": "Path of the top-left icon."},
+        {"name": "icons", "type": "array", "required": false, "description": "Icons in the top-right corner."},
+        {"name": "scroll", "type": "bool", "required": false, "description": "The body scrolls."},
+        {"name": "drag", "type": "bool", "required": false, "description": "The popup can be dragged."},
+        {"name": "resize", "type": "bool", "required": false, "description": "The popup can be resized."},
+        {"name": "keep_ratio", "type": "bool", "required": false, "description": "Keep the aspect ratio while resizing."},
+        {"name": "center", "type": "bool", "required": false, "description": "Keep the popup centered."},
+        {"name": "maximize", "type": "bool", "required": false, "description": "The popup can be maximized."},
+        {"name": "maximize_dbc", "type": "bool", "required": false, "description": "Double-click on the head maximizes the popup."},
+        {"name": "group", "type": "string", "required": false, "description": "Group name for merging popups."},
+        {"name": "group_icon", "type": "string", "required": false, "description": "Default icon for the group."},
+        {"name": "html", "type": "string", "required": false, "description": "HTML placed in the body."},
+        {"name": "template", "type": "string", "required": false, "description": "Template name for the body."},
+        {"name": "anim", "type": "string", "required": false, "description": "Defaults to OGX.Popup.FADE. The string fade is the example. The test app uses scale."},
+        {"name": "anim_param", "type": "object", "required": false, "description": "Defaults to {scale: 0.7}."},
+        {"name": "zindex", "type": "int", "required": false, "description": "Z-index."},
+        {"name": "css", "type": "string", "required": false, "description": "Class added to the body."},
+        {"name": "view", "type": "object", "required": false, "description": "View configuration object."},
+        {"name": "delay_oml", "type": "bool", "required": false, "description": "Renders the OML content on the next thread."},
+        {"name": "data", "type": "object", "required": false, "description": "Read as {{$}} when the OML content renders."},
+        {"name": "swipe", "type": "bool", "required": false, "description": "Set in the simple OML example. The main config block does not describe it."},
+        {"name": "show", "type": "bool", "required": false, "description": "Set in the simple OML example. The main config block does not describe it."}
+      ],
+      "methods": [
+        {"name": "width", "description": "Sets the width, as in width(500). A call that reads the size returns the configured value, which may be the size expression. el.width() is the computed size.", "params": [{"name": "value", "type": "number|string", "required": false}], "returns": "mixed", "example": "popup.width(500)"},
+        {"name": "height", "description": "Sets the height. The wiki example passes an anim flag and a callback. A read returns the configured value. el.height() is the computed size.", "params": [{"name": "value", "type": "number|string", "required": false}, {"name": "anim", "type": "bool", "required": false}, {"name": "callback", "type": "function", "required": false}], "returns": "mixed", "example": "popup.height(600, true, function(){})"}
+      ]
+    },
+    "DynamicList": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/DynamicList",
+      "note": "Extends List. In OML the selector is the element. display is a Display object. A non-uniform list sets display to {bind: property} and adds a displays map. key lets find, findDelete, update, replace, and restore skip the property argument.",
+      "fields": [
+        {"name": "el", "type": "string", "required": true, "description": "Selector. In OML the selector on the node is this element."},
+        {"name": "display", "type": "object", "required": true, "description": "Display object. See the Display entry. template, html, and css, or {bind: property} plus displays."},
+        {"name": "displays", "type": "object", "required": false, "description": "Map of display objects keyed by the bound property value. A display may contain nested OML."},
+        {"name": "display_max", "type": "int", "required": false, "description": "Maximum items to display."},
+        {"name": "chunks", "type": "int", "required": false, "description": "Chunk size. Requires scroll. The wiki example uses 200."},
+        {"name": "mode", "type": "string", "required": false, "description": "single, multi, toggle, hit, static, or set. Defaults to single. Runtime constants SELECT_MODE_SINGLE, SELECT_MODE_MULTI, SELECT_MODE_TOGGLE, SELECT_MODE_HIT, SELECT_MODE_SET, and STATIC hold those strings. hit fires and returns data without selecting. set keeps a selected item selected."},
+        {"name": "reselect", "type": "bool", "required": false, "description": "In mode single, select fires again when the item is already selected."},
+        {"name": "reorder", "type": "bool", "required": false, "description": "Tap-hold-drag to reorder. Defaults to false."},
+        {"name": "swipe", "type": "bool", "required": false, "description": "Items can be swiped. Defaults to false."},
+        {"name": "trigger", "type": "bool", "required": false, "description": "Triggers on rendering. Defaults to false."},
+        {"name": "key", "type": "string", "required": false, "description": "Property shared by every item, such as id. Recommended."},
+        {"name": "as", "type": "string", "required": false, "description": "Keyword for scope targeting. Defaults to item."},
+        {"name": "scope", "type": "bool", "required": false, "description": "The list follows scope. Defaults to true."},
+        {"name": "list", "type": "array", "required": false, "description": "Items."},
+        {"name": "selection", "type": "array", "required": false, "description": "Key values to select. Requires key."},
+        {"name": "no_selection", "type": "object", "required": false, "description": "Describes items that cannot be selected."},
+        {"name": "max_selection", "type": "int", "required": false, "description": "Maximum selected items. mode must be multi."},
+        {"name": "shift_selection", "type": "bool", "required": false, "description": "Shift selects a range. mode must be multi."},
+        {"name": "filter_remove_selection", "type": "bool", "required": false, "description": "Drops filtered-out items from the selection. Defaults to true."},
+        {"name": "callbacks", "type": "object", "required": false, "description": "select, unselect, and render. At runtime the same hooks are onSelect, onUnselect, and onRender."}
+      ],
+      "methods": [
+        {"name": "val", "description": "Gets or sets the item array.", "params": [{"name": "list", "type": "array", "required": false}], "returns": "array", "example": "list.val()"},
+        {"name": "order", "description": "Sorts by a shared property. The wiki example uses 1 for ascending and -1 for descending.", "params": [{"name": "property", "type": "string", "required": true}, {"name": "way", "type": "int", "required": true}], "returns": "void", "example": "list.order('age', -1)"},
+        {"name": "key", "description": "Sets the key. Call it before passing a list.", "params": [{"name": "name", "type": "string", "required": true}], "returns": "void", "example": "list.key('id')"},
+        {"name": "insert", "description": "Inserts an object or an array. An omitted index appends.", "params": [{"name": "items", "type": "object|array", "required": true}, {"name": "index", "type": "int", "required": false}], "returns": "void", "example": "list.insert({id: 5})"},
+        {"name": "delete", "description": "Deletes the display index. The item must be displayed.", "params": [{"name": "index", "type": "int", "required": true}], "returns": "void", "example": "list.delete(0)"},
+        {"name": "deleteSelection", "description": "Deletes the selected items.", "params": [], "returns": "void", "example": "list.deleteSelection()"},
+        {"name": "findDelete", "description": "Finds and deletes items and returns them. With key set, the property can be omitted: findDelete(10, 1). Without key: findDelete('id', 10, 1).", "params": [{"name": "property", "type": "string", "required": false}, {"name": "value", "type": "any", "required": true}, {"name": "limit", "type": "int", "required": false}], "returns": "array", "example": "list.findDelete('id', 10, 1)"},
+        {"name": "findReplace", "description": "Replaces the first match. Returns true or false.", "params": [{"name": "property", "type": "string", "required": true}, {"name": "value", "type": "any", "required": true}, {"name": "object", "type": "object", "required": true}], "returns": "bool", "example": "list.findReplace('id', 10, {id: 10, name: 'Ada'})"},
+        {"name": "findUpdate", "description": "Updates matches with a partial or complete object. Returns the number of updated items.", "params": [{"name": "property", "type": "string", "required": true}, {"name": "value", "type": "any", "required": true}, {"name": "object", "type": "object", "required": true}, {"name": "strict", "type": "bool", "required": false}, {"name": "limit", "type": "int", "required": false}], "returns": "int", "example": "list.findUpdate('id', 10, {name: 'Ada'})"},
+        {"name": "findIndex", "description": "Index of the first object with that property and value.", "params": [{"name": "property", "type": "string", "required": true}, {"name": "value", "type": "any", "required": true}], "returns": "int", "example": "list.findIndex('id', 10)"},
+        {"name": "replaceAt", "description": "Replaces the object at an index.", "params": [{"name": "index", "type": "int", "required": true}, {"name": "object", "type": "object", "required": true}], "returns": "void", "example": "list.replaceAt(0, {id: 1})"},
+        {"name": "refreshAt", "description": "Renders the item at an index.", "params": [{"name": "index", "type": "int", "required": true}], "returns": "void", "example": "list.refreshAt(0)"},
+        {"name": "getElement", "description": "HTML element of the first property and value match.", "params": [{"name": "property", "type": "string", "required": true}, {"name": "value", "type": "any", "required": true}], "returns": "element", "example": "list.getElement('id', 10)"},
+        {"name": "select", "description": "Adds matches to the selection and returns it. Single mode returns the object.", "params": [{"name": "property", "type": "string", "required": true}, {"name": "value", "type": "any", "required": true}, {"name": "trigger", "type": "bool", "required": false}], "returns": "array|object", "example": "list.select('id', 100)"},
+        {"name": "unselect", "description": "Removes a match from the selection.", "params": [{"name": "property", "type": "string", "required": true}, {"name": "value", "type": "any", "required": true}], "returns": "void", "example": "list.unselect('id', 100)"},
+        {"name": "selectIndex", "description": "Selects a display index.", "params": [{"name": "index", "type": "int", "required": true}, {"name": "trigger", "type": "bool", "required": false}], "returns": "void", "example": "list.selectIndex(0)"},
+        {"name": "unselectIndex", "description": "Unselects a display index.", "params": [{"name": "index", "type": "int", "required": true}], "returns": "void", "example": "list.unselectIndex(0)"},
+        {"name": "getSelection", "description": "Selected objects. Pass true to get the selected elements. Defaults to false. The wiki says the object form is an OGX.List.", "params": [{"name": "elements", "type": "bool", "required": false}], "returns": "list", "example": "list.getSelection()"},
+        {"name": "resetSelection", "description": "Clears the selection.", "params": [], "returns": "void", "example": "list.resetSelection()"},
+        {"name": "index", "description": "With no argument, returns selectedIndex. With an index, selects that index.", "params": [{"name": "index", "type": "int", "required": false}], "returns": "mixed", "example": "list.index()"},
+        {"name": "noSelection", "description": "Sets, enables, or disables the no-selection option.", "params": [{"name": "value", "type": "any", "required": false}], "returns": "void", "example": "list.noSelection()"},
+        {"name": "restore", "description": "Restores a sided item by property and value.", "params": [{"name": "property", "type": "string", "required": true}, {"name": "value", "type": "any", "required": true}], "returns": "void", "example": "list.restore('id', 10)"},
+        {"name": "scroll", "description": "Scrolls to an item. Requires scroll. Added in 1.32.0.", "params": [{"name": "property", "type": "string", "required": true}, {"name": "value", "type": "any", "required": true}], "returns": "void", "example": "list.scroll('id', 'a123')"},
+        {"name": "reset", "description": "Resets the list.", "params": [], "returns": "void", "example": "list.reset()"}
+      ],
+      "events": [
+        {"name": "OGX.DynamicList.SELECT", "description": "An item was selected. The event string is DynamicListSelect."},
+        {"name": "OGX.DynamicList.UNSELECT", "description": "An item was unselected. The event string is DynamicListUnselect."},
+        {"name": "OGX.DynamicList.DELETE", "description": "The event string is DynamicListDelete."},
+        {"name": "OGX.DynamicList.SWIPE_LEFT", "description": "The event string is DynamicListSwipeLeft."},
+        {"name": "OGX.DynamicList.SWIPE_RIGHT", "description": "The event string is DynamicListSwipeRight."},
+        {"name": "OGX.DynamicList.BACK_HIT", "description": "A sided item's background was tapped. The event string is DynamicListBackHit."},
+        {"name": "OGX.DynamicList.SIDED", "description": "An item was set aside in SWIPE_MODE_SIDE. The event string is DynamicListSided. The payload has the side and the item."},
+        {"name": "OGX.DynamicList.HOLD", "description": "A drag started after a tap-hold of about 2 seconds. The event string is DynamicListHold."},
+        {"name": "OGX.DynamicList.RELEASE", "description": "Runtime constant beside HOLD. The event string is DynamicListRelease. The wiki events section does not describe it."},
+        {"name": "OGX.DynamicList.DROP", "description": "A reorder drag ended. The event string is DynamicListDrop."},
+        {"name": "OGX.DynamicList.RENDER", "description": "The list rendered. Also used to track filtering. The event string is DynamicListRender."},
+        {"name": "OGX.DynamicList.READY", "description": "Fired once when the component is ready. The event string is DynamicListReady."},
+        {"name": "OGX.DynamicList.SELECT_FILTERED", "description": "The selection changed because of filtering. The event string is DynamicListSelectFiltered."},
+        {"name": "OGX.DynamicList.SELECT_UNFILTERED", "description": "The selection was reset because of filtering. The event string is DynamicListSelecUnfiltered."}
+      ]
+    },
+    "Tree": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Tree",
+      "note": "A node is {type, label, state, data, items}. state is open or close. type must exist in types. A type is {mode: file|folder}. Folder mode may set an empty icon. Selected content gets ogx_tree_selected_item. data-compound values look like root-open.",
+      "fields": [
+        {"name": "el", "type": "string", "required": false, "description": "Element that contains the tree."},
+        {"name": "editable", "type": "bool", "required": false, "description": "Drag and drop."},
+        {"name": "sort", "type": "object", "required": false, "description": "Defaults to {enabled: true, property: 'label', way: 1}. way -1 is ascending and way 1 is descending."},
+        {"name": "toggle", "type": "bool", "required": false, "description": "A selected item can be unselected."},
+        {"name": "icon_path", "type": "string", "required": false, "description": "Folder that holds the icons."},
+        {"name": "icon_size", "type": "int", "required": false, "description": "Icon width. Defaults to 30."},
+        {"name": "types", "type": "object", "required": false, "description": "Map of types. Each value has mode file or folder."},
+        {"name": "data", "type": "object", "required": false, "description": "The tree. Each node has type, label, optional state open or close, optional data, and items."},
+        {"name": "show_root", "type": "bool", "required": false, "description": "Defaults to true."}
+      ],
+      "methods": [
+        {"name": "addItem", "description": "Adds an item as a child. The id argument is optional and falls back to the selected item.", "params": [{"name": "item", "type": "object", "required": true}, {"name": "id", "type": "string", "required": false}], "returns": "void", "example": "tree.addItem({_id: 'a124', label: 'Hello'}, 'a123')"},
+        {"name": "getItem", "description": "Item by id.", "params": [{"name": "id", "type": "string", "required": true}], "returns": "object", "example": "tree.getItem('a123')"},
+        {"name": "getItemByPath", "description": "Item by path.", "params": [{"name": "path", "type": "string", "required": true}], "returns": "object", "example": "tree.getItemByPath(path)"},
+        {"name": "getSelectedItem", "description": "The selected item.", "params": [], "returns": "object", "example": "tree.getSelectedItem()"},
+        {"name": "selectItem", "description": "Selects by id.", "params": [{"name": "id", "type": "string", "required": true}], "returns": "void", "example": "tree.selectItem('a123')"},
+        {"name": "openItem", "description": "Opens by id.", "params": [{"name": "id", "type": "string", "required": true}], "returns": "void", "example": "tree.openItem('a123')"},
+        {"name": "closeItem", "description": "Closes by id.", "params": [{"name": "id", "type": "string", "required": true}], "returns": "void", "example": "tree.closeItem('a123')"},
+        {"name": "selectItemByPropVal", "description": "Selects by a property and a value.", "params": [{"name": "property", "type": "string", "required": true}, {"name": "value", "type": "any", "required": true}], "returns": "void", "example": "tree.selectItemByPropVal('label', 'Hello')"},
+        {"name": "selectItemByPath", "description": "Selects by path.", "params": [{"name": "path", "type": "string", "required": true}], "returns": "void", "example": "tree.selectItemByPath(path)"},
+        {"name": "updateItem", "description": "Updates an item. render defaults to true and redraws the children.", "params": [{"name": "id", "type": "string", "required": true}, {"name": "item", "type": "object", "required": true}, {"name": "render", "type": "bool", "required": false}], "returns": "void", "example": "tree.updateItem('a123', {label: 'Hello'})"},
+        {"name": "replaceItem", "description": "Replaces the item with the same id.", "params": [{"name": "item", "type": "object", "required": true}], "returns": "void", "example": "tree.replaceItem(item)"},
+        {"name": "deleteItem", "description": "Deletes by id.", "params": [{"name": "id", "type": "string", "required": true}], "returns": "void", "example": "tree.deleteItem('a123')"},
+        {"name": "deleteSelectedItem", "description": "Deletes the selected item.", "params": [], "returns": "void", "example": "tree.deleteSelectedItem()"},
+        {"name": "getTree", "description": "Returns the data tree.", "params": [], "returns": "object", "example": "tree.getTree()"},
+        {"name": "setTypes", "description": "Sets the types config.", "params": [{"name": "types", "type": "object", "required": true}], "returns": "void", "example": "tree.setTypes(types)"},
+        {"name": "setTree", "description": "Sets the data tree.", "params": [{"name": "tree", "type": "object", "required": true}], "returns": "void", "example": "tree.setTree(data)"},
+        {"name": "setData", "description": "Sets types and the tree from one object, {types, tree}.", "params": [{"name": "data", "type": "object", "required": true}], "returns": "void", "example": "tree.setData({types: types, tree: data})"},
+        {"name": "newTree", "description": "Removes the previous tree.", "params": [], "returns": "void", "example": "tree.newTree()"}
+      ],
+      "events": [
+        {"name": "OGX.Tree.DRAG", "description": "A drag started. The event string is TreeDrag."},
+        {"name": "OGX.Tree.DROP", "description": "A drop. The event string is TreeDrop."},
+        {"name": "OGX.Tree.OPEN", "description": "A node opened. The event string is TreeOpen."},
+        {"name": "OGX.Tree.CLOSE", "description": "A node closed. The event string is TreeClose."},
+        {"name": "OGX.Tree.SELECT", "description": "A node was selected. The event string is TreeSelect."},
+        {"name": "OGX.Tree.UNSELECT", "description": "A node was unselected. Requires toggle. The event string is TreeUnselect."}
+      ]
+    },
+    "Switch": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Switch",
+      "fields": [
+        {"name": "el", "type": "string", "required": true, "description": "Selector."},
+        {"name": "data", "type": "array", "required": false, "description": "Two items of {label, value}. Defaults to [{label: 'OFF', value: 0}, {label: 'ON', value: 1}]."},
+        {"name": "labels", "type": "bool", "required": false, "description": "Show labels. Defaults to true."},
+        {"name": "enabled", "type": "bool", "required": false, "description": "Defaults to true."},
+        {"name": "name", "type": "string", "required": false, "description": "Name."},
+        {"name": "value", "type": "any", "required": false, "description": "Current value. A data-value attribute on the element is read with OGX.Data.stringToVal and then removed."},
+        {"name": "speed", "type": "int", "required": false, "description": "Animation speed in milliseconds. Defaults to 250."}
+      ],
+      "methods": [
+        {"name": "toggle", "description": "Toggles the switch.", "params": [], "returns": "void", "example": "swt.toggle()"},
+        {"name": "val", "description": "Gets the value, or sets it. The second argument triggers CHANGE when true.", "params": [{"name": "value", "type": "any", "required": false}, {"name": "trigger", "type": "bool", "required": false}], "returns": "any", "example": "swt.val()"}
+      ],
+      "events": [
+        {"name": "OGX.Switch.CHANGE", "description": "The value changed. The event string is SwitchChange. OGX.Switch.BIND is the same constant."}
+      ]
+    },
+    "Tabs": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Tabs",
+      "note": "An item is {label, icon, enabled} or a string label. icon is required when icons is true.",
+      "fields": [
+        {"name": "el", "type": "string", "required": false, "description": "Selector."},
+        {"name": "list", "type": "array", "required": false, "description": "Tab items. The wiki config block lists this key twice."},
+        {"name": "enabled", "type": "bool", "required": false, "description": "Defaults to true."},
+        {"name": "add", "type": "bool", "required": false, "description": "The user can add a tab with the + button."},
+        {"name": "remove", "type": "bool", "required": false, "description": "The user can remove a tab by dragging up or with the close icon."},
+        {"name": "icons", "type": "bool", "required": false, "description": "Show icons. Defaults to false."},
+        {"name": "icon_path", "type": "string", "required": false, "description": "Folder that holds the icons."},
+        {"name": "icon_default", "type": "string", "required": false, "description": "File name of the default icon."},
+        {"name": "min_width", "type": "number", "required": false, "description": "Minimum tab width."},
+        {"name": "max_width", "type": "number", "required": false, "description": "Maximum tab width."},
+        {"name": "add_width", "type": "number", "required": false, "description": "Width of the add button."},
+        {"name": "index", "type": "int", "required": false, "description": "Tab selected at start."}
+      ],
+      "methods": [
+        {"name": "add", "description": "Adds a tab.", "params": [{"name": "tab", "type": "object|string", "required": true}], "returns": "void", "example": "tabs.add({label: 'New'})"},
+        {"name": "addAt", "description": "Inserts a tab at an index.", "params": [{"name": "tab", "type": "object|string", "required": true}, {"name": "index", "type": "int", "required": true}], "returns": "void", "example": "tabs.addAt({label: 'New'}, 0)"},
+        {"name": "remove", "description": "Removes a tab by property and value.", "params": [{"name": "property", "type": "string", "required": true}, {"name": "value", "type": "any", "required": true}], "returns": "void", "example": "tabs.remove('label', 'New')"},
+        {"name": "removeAt", "description": "Removes the tab at an index.", "params": [{"name": "index", "type": "int", "required": true}], "returns": "void", "example": "tabs.removeAt(0)"},
+        {"name": "removeCurrent", "description": "Removes the current tab.", "params": [], "returns": "void", "example": "tabs.removeCurrent()"},
+        {"name": "enableTab", "description": "Enables the tab at an index.", "params": [{"name": "index", "type": "int", "required": true}], "returns": "void", "example": "tabs.enableTab(0)"}
+      ]
+    },
+    "Tags": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Tags",
+      "note": "string mode uses arrays of strings. object mode uses {label} and stores a typed tag as {label: text}. strict true allows only a proposed tag. restrict true uses the Form default, or pass a Form.restrictField object.",
+      "fields": [
+        {"name": "el", "type": "string", "required": false, "description": "Selector."},
+        {"name": "add", "type": "bool", "required": false, "description": "The user can type to search or add tags."},
+        {"name": "remove", "type": "bool", "required": false, "description": "The user can remove tags."},
+        {"name": "name", "type": "string", "required": false, "description": "Name of a hidden field that holds the value."},
+        {"name": "required", "type": "bool", "required": false, "description": "Required flag of that hidden field, when name is set."},
+        {"name": "lowercase", "type": "bool", "required": false, "description": "Saves the typed tag in lowercase."},
+        {"name": "max", "type": "int", "required": false, "description": "Maximum tags the user can add."},
+        {"name": "display_max", "type": "int", "required": false, "description": "Maximum suggestions to display. The wiki also describes this as adding a +N other tag."},
+        {"name": "display_more", "type": "bool", "required": false, "description": "Shows a +N other tag at the end of the list."},
+        {"name": "click_more", "type": "bool", "required": false, "description": "With display_more, a click shows every tag."},
+        {"name": "hide_input_on_disable", "type": "bool", "required": false, "description": "Hides the input when the component is disabled."},
+        {"name": "tags", "type": "array", "required": false, "description": "Available tags."},
+        {"name": "current_tags", "type": "array", "required": false, "description": "Selected tags. Defaults to []."},
+        {"name": "tags_ascii", "type": "object", "required": false, "description": "Map of tags to ascii values."},
+        {"name": "image", "type": "string", "required": false, "description": "URL of the remove icon."},
+        {"name": "mode", "type": "string", "required": false, "description": "string, object, or ascii."},
+        {"name": "placeholder", "type": "string", "required": false, "description": "Placeholder of the input."},
+        {"name": "restrict", "type": "bool|object", "required": false, "description": "true uses the default Form restriction. An object is a Form.restrictField config."},
+        {"name": "strict", "type": "bool", "required": false, "description": "The user can only pick a proposed tag. Defaults to false."}
+      ],
+      "methods": [
+        {"name": "val", "description": "Gets or sets the user tags. val(array) sets them. val(property, value) sets them by lookup. val() returns them.", "params": [{"name": "tagsOrProperty", "type": "array|string", "required": false}, {"name": "value", "type": "any", "required": false}], "returns": "array", "example": "tags.val()"},
+        {"name": "tags", "description": "Gets or sets the autocomplete tags.", "params": [{"name": "tags", "type": "array", "required": false}], "returns": "array", "example": "tags.tags(['Tornado'])"},
+        {"name": "clear", "description": "Removes every user tag.", "params": [], "returns": "void", "example": "tags.clear()"},
+        {"name": "add", "description": "Adds a user tag.", "params": [{"name": "tag", "type": "string", "required": true}], "returns": "void", "example": "tags.add('Tornado')"},
+        {"name": "remove", "description": "Removes a user tag. The wiki comment on that line says Add.", "params": [{"name": "tag", "type": "string", "required": true}], "returns": "void", "example": "tags.remove('Tornado')"},
+        {"name": "display", "description": "Gets or sets the display of the internal lists.", "params": [{"name": "display", "type": "object", "required": false}], "returns": "object", "example": "tags.display(display)"}
+      ],
+      "events": [
+        {"name": "OGX.Tags.ADDED", "description": "A user tag was added. The event string is TagsAdded. The wiki page writes TAG_ADDED, which is not the runtime constant."},
+        {"name": "OGX.Tags.REMOVED", "description": "A user tag was removed. The event string is TagsRemoved. The wiki page writes TAG_REMOVED, which is not the runtime constant."},
+        {"name": "OGX.Tags.CHANGE", "description": "A tag was added or removed. The event string is TagsChange. OGX.Tags.BIND is the same constant."},
+        {"name": "OGX.Tags.SELECT", "description": "The user touched a current tag. The event string is TagsSelect."}
+      ]
+    },
+    "Container": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Container",
+      "note": "Generates placeholders. tabs and carousel are optional child configs. The example pairs a tabs.list with an array of Html children in node:OML.",
+      "fields": [
+        {"name": "id", "type": "string", "required": false, "description": "Id."},
+        {"name": "tabs", "type": "bool|object", "required": false, "description": "false, or a Tabs config such as {list: ['tabA', 'tabB']}."},
+        {"name": "carousel", "type": "object", "required": false, "description": "Carousel config."},
+        {"name": "index", "type": "int", "required": false, "description": "Index to select."},
+        {"name": "node:OML", "type": "array|string", "required": false, "description": "Child OML, one node per pane."},
+        {"name": "flatten", "type": "int", "required": false, "description": "Width at which the container flattens."}
+      ],
+      "properties": [
+        {"name": "tabs", "type": "object", "in_oml": false, "access": "readonly", "description": "The Tabs instance, when tabs is enabled."},
+        {"name": "carousel", "type": "object", "in_oml": false, "access": "readonly", "description": "The Carousel instance."}
+      ],
+      "methods": [
+        {"name": "index", "description": "Shows the tab and the object at that index.", "params": [{"name": "index", "type": "int", "required": true}], "returns": "void", "example": "container.index(0)"},
+        {"name": "show", "description": "Shows the tab and the object by type and id.", "params": [{"name": "type", "type": "string", "required": true}, {"name": "id", "type": "string", "required": true}], "returns": "void", "example": "container.show('Html', 'contentA')"}
+      ]
+    },
+    "Carousel": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Carousel",
+      "note": "Horizontal panels. OML examples use node:OML, or list plus display. The JS config marks views as required.",
+      "fields": [
+        {"name": "el", "type": "string", "required": true, "description": "HTML element."},
+        {"name": "views", "type": "array", "required": false, "description": "Panels. The wiki types this as required. OML can use node:OML or list plus display instead."},
+        {"name": "drag", "type": "bool", "required": false, "description": "The user can swipe between panels. Defaults to true."},
+        {"name": "drag_left", "type": "bool", "required": false, "description": "The user can swipe left. Defaults to true."},
+        {"name": "drag_right", "type": "bool", "required": false, "description": "The user can swipe right. Defaults to true."},
+        {"name": "blur", "type": "bool", "required": false, "description": "Blur views that are not displayed. Defaults to true."},
+        {"name": "index", "type": "int", "required": false, "description": "Panel shown at start."},
+        {"name": "list", "type": "array", "required": false, "description": "Items converted to OML nodes. Added in 1.23.0."},
+        {"name": "display", "type": "object", "required": false, "description": "Display used to convert list into nodes."},
+        {"name": "displays", "type": "object", "required": false, "description": "Dynamic displays used to convert list into nodes."}
+      ],
+      "methods": [
+        {"name": "index", "description": "Shows the panel at that position. The wiki names the extra arguments anim, trigger, and force.", "params": [{"name": "index", "type": "int", "required": true}, {"name": "anim", "type": "any", "required": false}, {"name": "trigger", "type": "any", "required": false}, {"name": "force", "type": "any", "required": false}], "returns": "void", "example": "carousel.index(1)"}
+      ]
+    },
+    "GroupedList": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/GroupedList",
+      "note": "One level of grouping. The stack is GroupedList, List, NestList, DynamicList. group_order follows NestList ordering.",
+      "fields": [
+        {"name": "el", "type": "string", "required": true, "description": "Selector."},
+        {"name": "display", "type": "object", "required": true, "description": "Display object for the items."},
+        {"name": "list", "type": "array", "required": false, "description": "The data, an array or an OGX.List."},
+        {"name": "group_by", "type": "string", "required": false, "description": "Shared property used to group."},
+        {"name": "group_mode", "type": "string", "required": false, "description": "substr, numrange, or date."},
+        {"name": "group_param", "type": "any", "required": false, "description": "numrange can be 500 or [500, '$', 'pre']. date can be [30, 'YYYY-MM']. pre and post place the symbol."},
+        {"name": "group_order", "type": "array", "required": false, "description": "Preferred nest order. See NestList."}
+      ]
+    },
+    "Scroller": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Scroller",
+      "note": "Prefer the scroll flag on a view, window, or popup. The container height must be px or percent. The wiki names inner() and outer(). This catalog lists getInner and getOuter.",
+      "fields": [
+        {"name": "el", "type": "string", "required": false, "description": "Selector of the container."},
+        {"name": "auto_scroll", "type": "bool", "required": false, "description": "Scrolls down when content is added. Defaults to true."},
+        {"name": "zindex", "type": "int", "required": false, "description": "Defaults to 9999."},
+        {"name": "observe", "type": "bool", "required": false, "description": "Redraws when content is added or removed. Defaults to true."},
+        {"name": "trigger", "type": "bool", "required": false, "description": "Defaults to true."},
+        {"name": "user_scroll", "type": "bool", "required": false, "description": "Defaults to true."}
+      ],
+      "events": [
+        {"name": "OGX.Scroller.READY", "description": "The scroller can receive content. The event string is ScrollerReady. The wiki listens on the container and then turns the listener off."},
+        {"name": "OGX.Scroller.TOP", "description": "Runtime constant. The event string is ScrollerTop."},
+        {"name": "OGX.Scroller.BOTTOM", "description": "Runtime constant. The event string is ScrollerBottom."},
+        {"name": "OGX.Scroller.SCROLL", "description": "Runtime constant. The event string is ScrollerScroll."},
+        {"name": "OGX.Scroller.START", "description": "Runtime constant. The event string is ScrollerStart."},
+        {"name": "OGX.Scroller.END", "description": "Runtime constant. The event string is ScrollerEnd."}
+      ],
+      "catalog_status": "OML config fields are from the OGX.JS wiki. Methods already in this file stay. The wiki names inner() and outer(); this file lists getInner and getOuter. Do not invent members that are absent."
+    },
+    "Calendar": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Calendar",
+      "note": "Needs GridSwiper. The default layouts are decade years, years months, and month days. simple true keeps the single month-days layout and is the behavior from before 1.27.0. Set simple false when you pass your own layouts.",
+      "fields": [
+        {"name": "id", "type": "string", "required": false, "description": "Unique id."},
+        {"name": "el", "type": "string", "required": true, "description": "Selector of the target element."},
+        {"name": "date", "type": "string|date", "required": false, "description": "Selected date. A parseable string or a Date."},
+        {"name": "display_date", "type": "string|date", "required": false, "description": "Date to display. A parseable string or a Date."},
+        {"name": "selectable", "type": "bool", "required": false, "description": "Defaults to true."},
+        {"name": "no_selection", "type": "array", "required": false, "description": "Dates that cannot be selected. The values match the layout format."},
+        {"name": "select_past", "type": "bool", "required": false, "description": "Defaults to true."},
+        {"name": "select_future", "type": "bool", "required": false, "description": "Defaults to true. The runtime key is select_future."},
+        {"name": "off_dates", "type": "array", "required": false, "description": "Dates displayed as off."},
+        {"name": "swipe", "type": "bool", "required": false, "description": "Defaults to true."},
+        {"name": "browse", "type": "bool", "required": false, "description": "Shows the navigation buttons. Defaults to true."},
+        {"name": "mode", "type": "string", "required": false, "description": "select or toggle. Defaults to select."},
+        {"name": "layouts", "type": "array", "required": false, "description": "Custom layouts. simple must be false."},
+        {"name": "layout", "type": "int", "required": false, "description": "Default layout index. Defaults to 0."},
+        {"name": "simple", "type": "bool", "required": false, "description": "true keeps the month-days layout only."},
+        {"name": "callbacks", "type": "object", "required": false, "description": "select, unselect, and render. At runtime the same hooks are onSelect, onUnselect, and onRender."}
+      ],
+      "methods": [
+        {"name": "val", "description": "Gets or sets the selected date. val('2023-04-05', false) sets it without re-rendering.", "params": [{"name": "date", "type": "string", "required": false}, {"name": "render", "type": "bool", "required": false}], "returns": "string", "example": "calendar.val('2023-04-05')"},
+        {"name": "resetSelection", "description": "Clears the selected date.", "params": [], "returns": "void", "example": "calendar.resetSelection()"},
+        {"name": "display", "description": "Gets or sets the displayed date.", "params": [{"name": "date", "type": "string", "required": false}], "returns": "string", "example": "calendar.display('2023-04-05')"},
+        {"name": "axis", "description": "Locks an axis when several layouts are active.", "params": [{"name": "x", "type": "bool", "required": true}, {"name": "y", "type": "bool", "required": true}], "returns": "void", "example": "calendar.axis(true, false)"}
+      ],
+      "events": [
+        {"name": "OGX.Calendar.SELECT", "description": "The event string is CalendarSelect."},
+        {"name": "OGX.Calendar.UNSELECT", "description": "The event string is CalendarUnselect."},
+        {"name": "OGX.Calendar.BROWSE", "description": "The event string is CalendarBrowse."},
+        {"name": "OGX.Calendar.LAYOUT_CHANGE", "description": "Runtime constant. The event string is CalendarLayoutChange."}
+      ]
+    },
+    "GridSwiper": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/GridSwiper",
+      "note": "A 5-cell cross. The map is a 2D array. The depth follows the series around the start cell. A horizontal pair of panels is a Carousel.",
+      "fields": [
+        {"name": "el", "type": "string", "required": true, "description": "HTML element."},
+        {"name": "map", "type": "array", "required": false, "description": "2D array of cell content."},
+        {"name": "start", "type": "object", "required": false, "description": "Point of the cell shown at start. Defaults to the center of the map."},
+        {"name": "loop", "type": "bool", "required": false, "description": "Infinite loop."},
+        {"name": "axis", "type": "object", "required": false, "description": "Defaults to {x: true, y: true}."}
+      ],
+      "events": [
+        {"name": "OGX.GridSwiper.SWIPE_LEFT", "description": "The event string is GridSwiperSwipeLeft."},
+        {"name": "OGX.GridSwiper.SWIPE_RIGHT", "description": "The event string is GridSwiperSwipeRight."},
+        {"name": "OGX.GridSwiper.SWIPE_UP", "description": "The event string is GridSwiperSwipeUp."},
+        {"name": "OGX.GridSwiper.SWIPE_DOWN", "description": "The event string is GridSwiperSwipeDown."},
+        {"name": "OGX.GridSwiper.SWIPE_START", "description": "The event string is GridSwiperSwipeStart."},
+        {"name": "OGX.GridSwiper.SWIPE_END", "description": "The event string is GridSwiperSwipeEnd."}
+      ]
+    },
+    "Iceberg": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Iceberg",
+      "note": "Up to five placeholders. main matches the container. A side can be a size string such as 50% or 100px, or an object with width and html. main is not required for a simple panel.",
+      "fields": [
+        {"name": "el", "type": "string", "required": false, "description": "Selector."},
+        {"name": "left", "type": "string|object", "required": false, "description": "Width string, or an object with width and html."},
+        {"name": "top", "type": "string|object", "required": false, "description": "Height string, or an object."},
+        {"name": "main", "type": "object", "required": false, "description": "Main pane. Optional for a simple panel."},
+        {"name": "right", "type": "string|object", "required": false, "description": "Width string, or an object with width and html."},
+        {"name": "bottom", "type": "string|object", "required": false, "description": "Height string, or an object."}
+      ]
+    },
+    "NestList": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/NestList",
+      "note": "One nest per item. An item is {title, scope, open}. scope on an item is an array. order keeps named nests in place when items are added or removed.",
+      "fields": [
+        {"name": "el", "type": "string", "required": true, "description": "Element that holds the component."},
+        {"name": "scope", "type": "string", "required": false, "description": "Defaults to public."},
+        {"name": "list", "type": "array", "required": false, "description": "Items. Each item has title, an optional scope array, and open."},
+        {"name": "map", "type": "object", "required": false, "description": "Property map for title and scope."},
+        {"name": "order", "type": "array", "required": false, "description": "Titles that must stay in this order."}
+      ]
+    },
+    "TreedList": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/TreedList",
+      "note": "Groups a list into a tree and renders it. renderer is Tree, StackedTree, or RouletteTree. Tree is the default and needs types.",
+      "fields": [
+        {"name": "el", "type": "string", "required": true, "description": "Selector."},
+        {"name": "types", "type": "object", "required": false, "description": "Required when renderer is Tree. The same types object Tree expects."},
+        {"name": "renderer", "type": "string", "required": false, "description": "Tree, StackedTree, or RouletteTree. Defaults to Tree."},
+        {"name": "list", "type": "array", "required": false, "description": "Items. An OGX.List is preferred."},
+        {"name": "group_by", "type": "array", "required": false, "description": "Properties to group by."},
+        {"name": "group_mode", "type": "string", "required": false, "description": "Grouping mode."},
+        {"name": "group_param", "type": "any", "required": false, "description": "Grouping options. An array or a string."}
+      ]
+    },
+    "StackedTree": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/StackedTree",
+      "note": "Shows one level and a path back. A node is {label, icon, scope, items}. label is required. Needs DynamicList.",
+      "fields": [
+        {"name": "el", "type": "string", "required": true, "description": "Selector."},
+        {"name": "scope", "type": "string", "required": false, "description": "Scope."},
+        {"name": "enabled", "type": "bool", "required": false, "description": "Defaults to true."},
+        {"name": "speed", "type": "int", "required": false, "description": "Transition speed. Defaults to 200."},
+        {"name": "list", "type": "array", "required": false, "description": "Nodes. Each has label, optional icon, optional scope, and optional items."}
+      ]
+    },
+    "Roulette": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/Roulette",
+      "note": "A slot-machine cylinder. data-value on the element is read with OGX.Data.stringToVal and then removed. mode is a constant. This file does not name the mode values.",
+      "fields": [
+        {"name": "el", "type": "string", "required": false, "description": "Selector."},
+        {"name": "enabled", "type": "bool", "required": false, "description": "Defaults to true."},
+        {"name": "list", "type": "array", "required": true, "description": "Strings or objects."},
+        {"name": "value", "type": "any", "required": true, "description": "Value shown at start."},
+        {"name": "keys", "type": "object", "required": false, "description": "See the keys section of the wiki."},
+        {"name": "search", "type": "bool", "required": false, "description": "See the search section of the wiki."},
+        {"name": "drag", "type": "bool", "required": false, "description": "Drag to change the value. Defaults to true."},
+        {"name": "display", "type": "object", "required": false, "description": "Display object."},
+        {"name": "mode", "type": "string", "required": false, "description": "A Roulette mode constant. The config line does not name the values."},
+        {"name": "name", "type": "string", "required": false, "description": "Name."},
+        {"name": "required", "type": "bool", "required": false, "description": "Defaults to false."}
+      ]
+    },
+    "RouletteTree": {
+      "wiki": "https://github.com/globules-io/OGX.JS/wiki/RouletteTree",
+      "note": "One Roulette per group. Outside TreedList the data is a nested object, such as canada.ontario.toronto, and groups is ['country', 'state', 'city']. Other Roulette config keys apply.",
+      "fields": [
+        {"name": "el", "type": "string", "required": false, "description": "Where to create the component."},
+        {"name": "data", "type": "object", "required": false, "description": "Nested object tree when used outside TreedList."},
+        {"name": "groups", "type": "array", "required": false, "description": "Level names, one per Roulette."}
+      ]
+    }
+  }
+}

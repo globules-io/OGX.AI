@@ -5,6 +5,9 @@ AddType application/json .json
 RewriteRule ^mcp/?$ mcp.php [L,QSA]
 
 RewriteRule ^overview/?$ resources/overview.json [L]
+RewriteRule ^app/?$ resources/app.json [L]
+RewriteRule ^attributes/?$ resources/attributes.json [L]
+RewriteRule ^ose/?$ resources/ose.json [L]
 RewriteRule ^specification/?$ resources/specs.json [L]
 RewriteRule ^components/?$ resources/components.json [L]
 RewriteRule ^helpers/?$ resources/helpers.json [L]
