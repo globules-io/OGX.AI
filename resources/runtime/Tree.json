@@ -28,7 +28,7 @@
             "type": "object",
             "access": "readwrite",
             "in_oml": true,
-            "description": "Defaults to {enabled: true, property: 'label', way: 1}. way -1 is ascending and way 1 is descending. Optional."
+            "description": "Defaults to {enabled: true, property: 'label', way: 1}. way 1 is ascending and way -1 is descending. List.order uses the same signs. Optional."
         },
         {
             "name": "toggle",

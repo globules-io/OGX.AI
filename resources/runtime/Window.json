@@ -105,21 +105,21 @@
             "type": "string",
             "access": "readwrite",
             "in_oml": true,
-            "description": "HEAD_NONE, HEAD_CLOSE, HEAD_BACK, or the strings none, close, back. The wiki comment names the default OGX.Window.STYLE_NONE. Optional."
+            "description": "HEAD_NONE, HEAD_CLOSE, HEAD_BACK, or the strings none, close, back. Defaults to HEAD_BACK. Optional."
         },
         {
             "name": "position",
             "type": "string",
             "access": "readwrite",
             "in_oml": true,
-            "description": "POSITION_LEFT, POSITION_RIGHT, POSITION_TOP, POSITION_BOTTOM, or left, right, top, bottom. The wiki config line does not finish the default. Optional."
+            "description": "POSITION_LEFT, POSITION_RIGHT, POSITION_TOP, POSITION_BOTTOM, or left, right, top, bottom. Defaults to left. Optional."
         },
         {
             "name": "anim",
             "type": "string",
             "access": "readwrite",
             "in_oml": true,
-            "description": "ANIM_LEFT, ANIM_RIGHT, ANIM_TOP, ANIM_BOTTOM, or left, right, top, bottom. Optional."
+            "description": "Defaults to false. A string is a class added while the window moves. Direction is position. There is no ANIM_LEFT constant. Optional."
         },
         {
             "name": "zindex",

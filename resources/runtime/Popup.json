@@ -71,7 +71,7 @@
             "type": "number",
             "access": "readwrite",
             "in_oml": true,
-            "description": "Start position. The wiki text for this key says x position at start. Optional."
+            "description": "Start y position. Optional."
         },
         {
             "name": "title",
@@ -190,7 +190,7 @@
             "type": "string",
             "access": "readwrite",
             "in_oml": true,
-            "description": "Defaults to OGX.Popup.FADE. The string fade is the example. The test app uses scale. Optional."
+            "description": "OGX.Popup.FADE, SCALE, or SLIDE. The strings are fade, scale, and slide. The test app uses scale. Optional."
         },
         {
             "name": "anim_param",
