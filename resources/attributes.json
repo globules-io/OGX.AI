@@ -103,9 +103,9 @@
         {"name": "template", "type": "string", "required": false, "description": "Template appended to the window view."},
         {"name": "view", "type": "object", "required": false, "description": "View config instantiated in the default container."},
         {"name": "css", "type": "string", "required": false, "description": "Custom CSS class."},
-        {"name": "head", "type": "string", "required": false, "description": "HEAD_NONE, HEAD_CLOSE, HEAD_BACK, or the strings none, close, back. The wiki comment names the default OGX.Window.STYLE_NONE."},
-        {"name": "position", "type": "string", "required": false, "description": "POSITION_LEFT, POSITION_RIGHT, POSITION_TOP, POSITION_BOTTOM, or left, right, top, bottom. The wiki config line does not finish the default."},
-        {"name": "anim", "type": "string", "required": false, "description": "ANIM_LEFT, ANIM_RIGHT, ANIM_TOP, ANIM_BOTTOM, or left, right, top, bottom."},
+        {"name": "head", "type": "string", "required": false, "description": "HEAD_NONE, HEAD_CLOSE, HEAD_BACK, or the strings none, close, back. Defaults to HEAD_BACK."},
+        {"name": "position", "type": "string", "required": false, "description": "POSITION_LEFT, POSITION_RIGHT, POSITION_TOP, POSITION_BOTTOM, or left, right, top, bottom. Defaults to left."},
+        {"name": "anim", "type": "bool|string", "required": false, "description": "Defaults to false. A string is a class added while the window moves. Direction is position. There is no ANIM_LEFT constant."},
         {"name": "zindex", "type": "int", "required": false, "description": "Z-index."},
         {"name": "icon", "type": "string", "required": false, "description": "Main icon."},
         {"name": "icons", "type": "array", "required": false, "description": "Toolbar icons."},
@@ -124,7 +124,7 @@
         {"name": "max_width", "type": "number", "required": false, "description": "Maximum width in pixels when resizable."},
         {"name": "max_height", "type": "number", "required": false, "description": "Maximum height in pixels when resizable."},
         {"name": "x", "type": "number", "required": false, "description": "Start x position."},
-        {"name": "y", "type": "number", "required": false, "description": "Start position. The wiki text for this key says x position at start."},
+        {"name": "y", "type": "number", "required": false, "description": "Start y position."},
         {"name": "title", "type": "string", "required": false, "description": "Title."},
         {"name": "buttons", "type": "array", "required": false, "description": "Strings or objects."},
         {"name": "tabs", "type": "array", "required": false, "description": "Tab items, in the shape OGX.Tabs expects."},
@@ -141,7 +141,7 @@
         {"name": "group_icon", "type": "string", "required": false, "description": "Default icon for the group."},
         {"name": "html", "type": "string", "required": false, "description": "HTML placed in the body."},
         {"name": "template", "type": "string", "required": false, "description": "Template name for the body."},
-        {"name": "anim", "type": "string", "required": false, "description": "Defaults to OGX.Popup.FADE. The string fade is the example. The test app uses scale."},
+        {"name": "anim", "type": "string", "required": false, "description": "OGX.Popup.FADE, SCALE, or SLIDE. The strings are fade, scale, and slide. The test app uses scale."},
         {"name": "anim_param", "type": "object", "required": false, "description": "Defaults to {scale: 0.7}."},
         {"name": "zindex", "type": "int", "required": false, "description": "Z-index."},
         {"name": "css", "type": "string", "required": false, "description": "Class added to the body."},
@@ -230,7 +230,7 @@
       "fields": [
         {"name": "el", "type": "string", "required": false, "description": "Element that contains the tree."},
         {"name": "editable", "type": "bool", "required": false, "description": "Drag and drop."},
-        {"name": "sort", "type": "object", "required": false, "description": "Defaults to {enabled: true, property: 'label', way: 1}. way -1 is ascending and way 1 is descending."},
+        {"name": "sort", "type": "object", "required": false, "description": "Defaults to {enabled: true, property: 'label', way: 1}. way 1 is ascending and way -1 is descending. List.order uses the same signs."},
         {"name": "toggle", "type": "bool", "required": false, "description": "A selected item can be unselected."},
         {"name": "icon_path", "type": "string", "required": false, "description": "Folder that holds the icons."},
         {"name": "icon_size", "type": "int", "required": false, "description": "Icon width. Defaults to 30."},
@@ -405,7 +405,7 @@
     },
     "Scroller": {
       "wiki": "https://github.com/globules-io/OGX.JS/wiki/Scroller",
-      "note": "Prefer the scroll flag on a view, window, or popup. The container height must be px or percent. The wiki names inner() and outer(). This catalog lists getInner and getOuter.",
+      "note": "Prefer the scroll flag on a view, window, or popup. The container height must be px or percent. The content element is inner() and the mask is outer().",
       "fields": [
         {"name": "el", "type": "string", "required": false, "description": "Selector of the container."},
         {"name": "auto_scroll", "type": "bool", "required": false, "description": "Scrolls down when content is added. Defaults to true."},
@@ -422,7 +422,7 @@
         {"name": "OGX.Scroller.START", "description": "Runtime constant. The event string is ScrollerStart."},
         {"name": "OGX.Scroller.END", "description": "Runtime constant. The event string is ScrollerEnd."}
       ],
-      "catalog_status": "OML config fields are from the OGX.JS wiki. Methods already in this file stay. The wiki names inner() and outer(); this file lists getInner and getOuter. Do not invent members that are absent."
+      "catalog_status": "OML config fields are from the OGX.JS wiki. Methods in this file match the runtime: inner and outer. Do not invent members that are absent."
     },
     "Calendar": {
       "wiki": "https://github.com/globules-io/OGX.JS/wiki/Calendar",
